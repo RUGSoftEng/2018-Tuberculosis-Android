@@ -10,6 +10,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.rugged.tuberculosisapp.information.TabInformation;
+import com.rugged.tuberculosisapp.calendar.TabCalendar;
+import com.rugged.tuberculosisapp.medication.TabMedication;
+import com.rugged.tuberculosisapp.notes.TabNotes;
+
 public class MainActivity extends AppCompatActivity {
 
     /**

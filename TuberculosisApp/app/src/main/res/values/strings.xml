@@ -8,4 +8,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet et delectus accomodare his comsul copiosae</string>
+    <string name="ask_physician">Question for Physician</string>
+    <string name="frequently_asked_questions">FAQ</string>
+    <string name="ask_physician_hint">Ask a question for your upcoming appointment</string>
+    <string name="action_submit">Submit</string>
 </resources>

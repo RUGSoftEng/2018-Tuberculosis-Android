@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TuberculosisApp</string>
+    <string name="title_information">Information</string>
+    <string name="action_settings">Settings</string>
+    <string name="pref_title_general">General</string>
+    <string name="pref_title_language">Language</string>
+    <string name="pref_key_language">pref_key_language</string>
+    <string name="summary_choose_ringtone">Choose notification sound</string>
+    <string name="pref_ringtone_silent">Silent</string>
+</resources>

@@ -1,5 +1,8 @@
 package com.rugged.tuberculosisapp;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +17,7 @@ import com.rugged.tuberculosisapp.information.TabInformation;
 import com.rugged.tuberculosisapp.calendar.TabCalendar;
 import com.rugged.tuberculosisapp.medication.TabMedication;
 import com.rugged.tuberculosisapp.notes.TabNotes;
+import com.rugged.tuberculosisapp.settings.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -81,11 +85,13 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 }

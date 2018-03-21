@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.rugged.tuberculosisapp.R;
@@ -56,6 +57,15 @@ public class MedicationAdapter extends BaseAdapter {
 
         TextView medicationName = v.findViewById(R.id.medicationName);
         TextView timeAndAmount = v.findViewById(R.id.whatTime);
+
+        Button setTime = v.findViewById(R.id.buttonswdwad);
+
+        setTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         String name = names.get(i);
         String time = times.get(i);

@@ -64,9 +64,19 @@ public class TabInformation extends Fragment {
 
         // Add data headers to children in list view
         // TODO: API call to get categories
-        ArrayList<String> videoUrls = new ArrayList<>();
-        videoUrls.add("yR51KVF4OX0");
-        listCategories.add(new Category("Category 1", videoUrls));
-        listCategories.add(new Category("Category 2", videoUrls));
+        ArrayList<String> videoUrls1 = new ArrayList<>(), videoUrls2 = new ArrayList<>();
+        videoUrls1.add("yR51KVF4OX0");
+        videoUrls1.add("yR51KVF4OX0");
+        videoUrls1.add("yR51KVF4OX0");
+        videoUrls1.add("yR51KVF4OX0");
+        videoUrls1.add("yR51KVF4OX0");
+        videoUrls1.add("yR51KVF4OX0");
+        videoUrls1.add("yR51KVF4OX0");
+
+        videoUrls2.add("anotherVideoUrl");
+        videoUrls2.add("anotherVideoUrl");
+        videoUrls2.add("anotherVideoUrl");
+        listCategories.add(new Category("Category 1", videoUrls1));
+        listCategories.add(new Category("Category 2", videoUrls2));
     }
 }

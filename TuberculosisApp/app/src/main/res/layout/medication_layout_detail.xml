@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/medicationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="56dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="22dp"
+        android:text="TextView"
+        tools:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/whatTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/medicationName"
+        android:layout_alignStart="@+id/medicationName"
+        android:layout_below="@+id/medicationName"
+        android:text="TextView" />
+
+    <Button
+        android:id="@+id/buttonswdwad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/whatTime"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="Set time" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/whatTime"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/buttonswdwad"
+        android:layout_toLeftOf="@+id/whatTime"
+        android:layout_toStartOf="@+id/whatTime"
+        app:srcCompat="@drawable/ic_medication" />
+
+</RelativeLayout>

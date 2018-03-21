@@ -6,7 +6,7 @@
     tools:context="com.rugged.tuberculosisapp.information.TabInformation">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/titleInformation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -30,7 +30,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/titleInformation"
         app:layout_constraintVertical_bias="0.0" />
 
     <ListView

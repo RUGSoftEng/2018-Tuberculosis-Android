@@ -16,4 +16,5 @@
     <string name="quiz">Quiz</string>
     <string name="show_answers">Toon Antwoorden</string>
     <string name="lorem_ipsum_question">Lorem ipsum dolor sit amet et?</string>
+    <string name="title_medication">Medicatie</string>
 </resources>

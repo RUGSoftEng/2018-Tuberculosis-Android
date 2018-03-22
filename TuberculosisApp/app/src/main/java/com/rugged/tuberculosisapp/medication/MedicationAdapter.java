@@ -12,13 +12,6 @@ import com.rugged.tuberculosisapp.R;
 
 import java.util.List;
 
-/**
- * Created by drgdg on 21-3-2018.
- */
-
-
-
-
 public class MedicationAdapter extends BaseAdapter {
 
     private LayoutInflater mInflator;
@@ -27,7 +20,7 @@ public class MedicationAdapter extends BaseAdapter {
     private final List<String> amounts;
 
 
-    public MedicationAdapter(Context c, List<String> names, List<String> times, List<String> amounts) {
+    MedicationAdapter(Context c, List<String> names, List<String> times, List<String> amounts) {
         this.names = names;
         this.times = times;
         this.amounts = amounts;
@@ -53,10 +46,21 @@ public class MedicationAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
-        View v = mInflator.inflate(R.layout.medication_layout_detail, null);
+        if (view == null) {
+            view = mInflator.inflate(R.layout.medication_layout_detail, viewGroup, false);
+        }
 
-        TextView medicationName = v.findViewById(R.id.medicationName);
-        TextView timeAndAmount = v.findViewById(R.id.whatTime);
+        TextView medicationName = view.findViewById(R.id.medicationName);
+        TextView timeAndAmount = view.findViewById(R.id.whatTime);
+
+        Button setTime = view.findViewById(R.id.buttonswdwad);
+
+        setTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         Button setTime = v.findViewById(R.id.buttonswdwad);
 
@@ -72,8 +76,8 @@ public class MedicationAdapter extends BaseAdapter {
         String amount = amounts.get(i);
 
         medicationName.setText(name);
-        timeAndAmount.setText(time + ", " + amount);
+        timeAndAmount.setText(view.getResources().getString(R.string.time_amount, time, amount));
 
-        return v;
+        return view;
     }
 }

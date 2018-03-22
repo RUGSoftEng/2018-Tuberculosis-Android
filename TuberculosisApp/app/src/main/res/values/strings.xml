@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">TuberculosisApp</string>
     <string name="title_information">Information</string>
+    <string name="title_medication">Medication</string>
     <string name="action_settings">Settings</string>
 
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet et delectus accomodare his comsul copiosae</string>
@@ -8,6 +9,11 @@
     <string name="frequently_asked_questions">FAQ</string>
     <string name="ask_physician_hint">Ask a question for your upcoming appointment</string>
     <string name="action_submit">Submit</string>
+
+    <string name="quiz">Quiz</string>
+    <string name="show_answers">Show Answers</string>
+    <string name="lorem_ipsum_question">Lorem ipsum dolor sit amet et?</string>
+    <string name="time_amount">%1$s, %2$s</string>
 
     <!-- Strings related to Settings -->
 

@@ -28,7 +28,6 @@ public class TabMedication extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tab_medication, container, false);
 
-
         prepareListData();
 
         ListView medicationList = view.findViewById(R.id.medicationList);

@@ -19,20 +19,25 @@
         </activity>
 
         <activity
-            android:name=".SignInActivity"
-            android:parentActivityName=".MainActivity"
+            android:name=".signin.SignInActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
         </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTop">
+        </activity>
+
         <activity
             android:name=".information.VideoGridActivity"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/action_settings"
@@ -43,22 +48,11 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
-            android:label="@string/action_settings"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"
-                />
-        </activity>
-        <!--TODO back now goes to MainActivity instead of VideoGridActivity, cause otherwise it crashes atm...-->
-        <activity
             android:name=".information.QuizActivity"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".information.VideoGridActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".information.VideoGridActivity" />
         </activity>
 
     </application>

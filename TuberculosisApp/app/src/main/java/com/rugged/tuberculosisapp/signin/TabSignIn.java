@@ -24,8 +24,7 @@ import android.widget.TextView;
 
 import com.rugged.tuberculosisapp.MainActivity;
 import com.rugged.tuberculosisapp.R;
-
-
+import com.rugged.tuberculosisapp.SignInActivity;
 
 
 public class TabSignIn extends Fragment {

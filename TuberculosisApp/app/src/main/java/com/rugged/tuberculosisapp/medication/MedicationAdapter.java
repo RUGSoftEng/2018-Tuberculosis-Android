@@ -62,6 +62,15 @@ public class MedicationAdapter extends BaseAdapter {
             }
         });
 
+        Button setTime = v.findViewById(R.id.buttonswdwad);
+
+        setTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         String name = names.get(i);
         String time = times.get(i);
         String amount = amounts.get(i);

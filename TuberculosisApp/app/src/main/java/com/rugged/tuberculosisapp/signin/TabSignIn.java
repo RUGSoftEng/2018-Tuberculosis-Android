@@ -36,17 +36,17 @@ public class TabSignIn extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tab_calendar, container, false);
+        View view = inflater.inflate(R.layout.fragment_tab_sign_in, container, false);
 
 
-        /*Button signInButton = view.findViewById(R.id.signInButton);
+        Button signInButton = view.findViewById(R.id.signInButton);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent signInIntent = new Intent(TabSignIn.this.getActivity(), MainActivity.class);
-                startActivity(signInIntent);
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
             }
-        });*/
+        });
 
 
         return view;

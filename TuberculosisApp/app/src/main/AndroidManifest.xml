@@ -19,10 +19,12 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
+            android:name=".SignInActivity"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".information.VideoGridActivity"
@@ -40,6 +42,16 @@
                 android:value=".MainActivity" />
         </activity>
 
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/action_settings"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"
+                />
+        </activity>
         <!--TODO back now goes to MainActivity instead of VideoGridActivity, cause otherwise it crashes atm...-->
         <activity
             android:name=".information.QuizActivity"

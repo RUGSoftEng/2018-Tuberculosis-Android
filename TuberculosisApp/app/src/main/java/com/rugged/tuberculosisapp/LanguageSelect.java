@@ -13,7 +13,7 @@ public class LanguageSelect extends AppCompatActivity {
         setContentView(R.layout.activity_language_select);
     }
     public void sendMessage(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, SignInActivity.class);
         startActivity(intent);
     }
 }

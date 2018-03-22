@@ -25,7 +25,6 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/action_settings"
             android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTop">
         </activity>

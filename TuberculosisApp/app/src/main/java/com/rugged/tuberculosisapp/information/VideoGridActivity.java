@@ -46,5 +46,13 @@ public class VideoGridActivity extends AppCompatActivity {
 
         // Get video grid view
         gridView.setAdapter(adapter);
+
+        // Temporarily added this, links every item from gridview to QuizActivity:
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                startActivity(new Intent(VideoGridActivity.this, QuizActivity.class));
+            }
+        });
     }
 }

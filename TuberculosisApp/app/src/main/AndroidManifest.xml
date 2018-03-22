@@ -42,6 +42,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+
+        <!--TODO back now goes to MainActivity instead of VideoGridActivity, cause otherwise it crashes atm...-->
+        <activity
+            android:name=".information.QuizActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
     </application>
 
 </manifest>

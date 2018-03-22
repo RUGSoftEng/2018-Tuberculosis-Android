@@ -30,6 +30,9 @@
 
     <string name="pref_ringtone_silent">Silent</string>
     <string name="summary_choose_ringtone">Choose notification sound</string>
+    <string name="quiz">Quiz</string>
+    <string name="show_answers">Show Answers</string>
+    <string name="lorem_ipsum_question">Lorem ipsum dolor sit amet et?</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

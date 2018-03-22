@@ -8,17 +8,23 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name=".SignInActivity"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme"
+        android:screenOrientation="portrait">
+
+        <activity android:name=".LanguageSelect">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".SignInActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".information.VideoGridActivity"
@@ -31,10 +37,9 @@
             android:name=".settings.SettingsActivity"
             android:label="@string/action_settings"
             android:parentActivityName=".MainActivity">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MainActivity"
-            />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
 
         <activity
@@ -46,6 +51,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity"
                 />
+        </activity>
+        <!--TODO back now goes to MainActivity instead of VideoGridActivity, cause otherwise it crashes atm...-->
+        <activity
+            android:name=".information.QuizActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
 
     </application>

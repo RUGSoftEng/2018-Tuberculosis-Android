@@ -43,4 +43,5 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/videoCategoryTitle" />
+
 </android.support.constraint.ConstraintLayout>

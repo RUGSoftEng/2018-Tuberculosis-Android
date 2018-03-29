@@ -18,14 +18,14 @@ public class CategoryListAdapter extends ArrayAdapter<Category> {
 
     private final Context mContext;
     private final int mResourceId;
-    private final List<Category> categories;
+    private final List<Category> mCategories;
     private final HashMap<Category, Integer> mIdMap = new HashMap<>();
 
     CategoryListAdapter(Context context, int resourceId, List<Category> categories) {
         super(context, resourceId, categories);
         this.mContext = context;
         this.mResourceId = resourceId;
-        this.categories = categories;
+        this.mCategories = categories;
 
         // Assign resourceId to titles
         int i = 0;

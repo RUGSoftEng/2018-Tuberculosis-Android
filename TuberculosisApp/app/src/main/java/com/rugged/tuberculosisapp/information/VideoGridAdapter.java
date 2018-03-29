@@ -70,7 +70,8 @@ public class VideoGridAdapter extends BaseAdapter implements YouTubeThumbnailVie
                 youTubeThumbnailView.setTag(videoUrl);
             } else {
                 // The loader is already initialized
-                // TODO: add loading image
+                // TODO: find better loading image/change to gif
+                youTubeThumbnailView.setImageResource(R.drawable.gif_loading);
                 loader.setVideo(videoUrl);
             }
         }
@@ -81,6 +82,7 @@ public class VideoGridAdapter extends BaseAdapter implements YouTubeThumbnailVie
     @Override
     public void onInitializationSuccess(YouTubeThumbnailView youTubeThumbnailView, final YouTubeThumbnailLoader youTubeThumbnailLoader) {
         loaders.put(youTubeThumbnailView, youTubeThumbnailLoader);
+        youTubeThumbnailView.setImageResource(R.drawable.gif_loading);
         youTubeThumbnailLoader.setVideo((String) youTubeThumbnailView.getTag());
     }
 

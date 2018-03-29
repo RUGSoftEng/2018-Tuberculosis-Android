@@ -55,8 +55,8 @@ public class VideoGridActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
+        super.onDestroy();
         // Release YoutubeThumbnailLoaders when they are no longer needed
         adapter.releaseLoaders();
     }

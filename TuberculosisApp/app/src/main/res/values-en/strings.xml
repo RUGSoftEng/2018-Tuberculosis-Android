@@ -17,6 +17,9 @@
     <string name="show_answers">Show Answers</string>
     <string name="lorem_ipsum_question">Lorem ipsum dolor sit amet et?</string>
     <string name="title_medication">Medication</string>
-    <string name="time_amount">%1$s, %2$s</string>
+    <plurals name="medication_dose">
+        <item quantity="one">%1$d pill</item>
+        <item quantity="other">%1$d pills</item>
+    </plurals>
     <string name="action_sign_in">Sign in</string>
 </resources>

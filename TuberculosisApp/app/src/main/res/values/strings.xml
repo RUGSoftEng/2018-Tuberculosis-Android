@@ -22,7 +22,7 @@
     <string name="summary_choose_ringtone">Choose notification sound</string>
 
 
-    <!-- Genera; strings -->
+    <!-- General strings -->
     <string name="app_name">TuBuddy</string>
     <string name="title_information">Information</string>
     <string name="title_medication">Medication</string>
@@ -37,7 +37,13 @@
     <string name="quiz">Quiz</string>
     <string name="show_answers">Show Answers</string>
     <string name="lorem_ipsum_question">Lorem ipsum dolor sit amet et?</string>
-    <string name="time_amount">%1$s, %2$s</string>
+    <plurals name="medication_dose">
+        <item quantity="one">%1$d pill</item>
+        <item quantity="other">%1$d pills</item>
+    </plurals>
     <string name="action_sign_in">Sign in</string>
+    <string name="medication_name_placeholder">Medication name</string>
+    <string name="medication_time_placeholder">18:00</string>
+    <string name="medication_dose_placeholder">3 pills</string>
 
 </resources>

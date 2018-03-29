@@ -17,4 +17,6 @@
     <string name="show_answers">Toon Antwoorden</string>
     <string name="lorem_ipsum_question">Lorem ipsum dolor sit amet et?</string>
     <string name="title_medication">Medicatie</string>
+    <string name="time_amount">%1$s, %2$s</string>
+    <string name="action_sign_in">Log in</string>
 </resources>

@@ -10,7 +10,7 @@
     <string name="pref_ringtone_silent">Silent</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet et delectus accomodare his comsul copiosae</string>
     <string name="ask_physician">Question for Physician</string>
-    <string name="frequently_asked_questions">FAQ</string>
+    <string name="frequently_asked_questions">Frequently Asked Questions</string>
     <string name="ask_physician_hint">Ask a question for your upcoming appointment</string>
     <string name="action_submit">Submit</string>
     <string name="quiz">Quiz</string>

@@ -1,14 +1,10 @@
 package com.rugged.tuberculosisapp.information;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -16,11 +12,12 @@ import android.widget.TextView;
 import com.rugged.tuberculosisapp.R;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 public class VideoGridActivity extends AppCompatActivity {
 
     private GridView gridView;
+    private VideoGridAdapter adapter;
+    public static final String VIDEO_URL_MESSAGE = "com.rugged.tuberculosisapp.VIDEO_URL";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,21 +35,29 @@ public class VideoGridActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.videoCategoryTitle);
         textView.setText(title);
 
-        // TODO: implement a grid adapter that populates grid with clickable video thumbnails (YouTube API)
-        // To get video URL list: intent.getStringArrayListExtra(TabInformation.VIDEO_URLS_MESSAGE)..
-
         ArrayList<String> videoUrls = intent.getStringArrayListExtra(TabInformation.VIDEO_URLS_MESSAGE);
-        VideoGridAdapter adapter = new VideoGridAdapter(this, R.layout.thumbnail_holder, videoUrls);
+        adapter = new VideoGridAdapter(this, videoUrls);
 
         // Get video grid view
         gridView.setAdapter(adapter);
 
-        // Temporarily added this, links every item from gridview to QuizActivity:
+        // OnClickListener that starts the quiz activity with the corresponding video url
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                startActivity(new Intent(VideoGridActivity.this, QuizActivity.class));
+                String videoUrl = (String) parent.getItemAtPosition(position);
+
+                Intent intent = new Intent(VideoGridActivity.this, QuizActivity.class);
+                intent.putExtra(VIDEO_URL_MESSAGE, videoUrl);
+                startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Release YoutubeThumbnailLoaders when they are no longer needed
+        adapter.releaseLoaders();
     }
 }

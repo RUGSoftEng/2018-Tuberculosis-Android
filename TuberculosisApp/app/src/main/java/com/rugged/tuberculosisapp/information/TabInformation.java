@@ -20,6 +20,10 @@ public class TabInformation extends Fragment {
     public static final String TITLE = "TabInformation";
     public static final String TITLE_MESSAGE = "com.rugged.tuberculosisapp.TITLE";
     public static final String VIDEO_URLS_MESSAGE = "com.rugged.tuberculosisapp.URLS";
+
+    // YouTube Data API Developer key
+    public static final String DEVELOPER_KEY = "AIzaSyB4QU6ZSKlGnXDN8Bnf2xq-l8MUSLCbvn4";
+
     private ListView listView;
     private List<Category> listCategories;
 
@@ -73,9 +77,8 @@ public class TabInformation extends Fragment {
         videoUrls1.add("yR51KVF4OX0");
         videoUrls1.add("yR51KVF4OX0");
 
-        videoUrls2.add("anotherVideoUrl");
-        videoUrls2.add("anotherVideoUrl");
-        videoUrls2.add("anotherVideoUrl");
+        videoUrls2.add("IGZLkRN76Dc");
+        videoUrls2.add("yR51KVF4OX0");
         listCategories.add(new Category("Category 1", videoUrls1));
         listCategories.add(new Category("Category 2", videoUrls2));
     }

@@ -75,6 +75,16 @@ public class VideoGridAdapter extends BaseAdapter implements YouTubeThumbnailVie
             }
         }
 
+        // Set width to fit 2 items next to each other
+        int width = mContext.getResources().getDisplayMetrics().widthPixels;
+        int spacing = width / 9;
+        spacing += spacing/10;
+        width = (width - spacing) / 2;
+        // Thumbnail has a 16:9 aspect ratio
+        convertView.getLayoutParams().width = width;
+        convertView.getLayoutParams().height = (width / 16) * 9;
+        convertView.requestLayout();
+
         return convertView;
     }
 

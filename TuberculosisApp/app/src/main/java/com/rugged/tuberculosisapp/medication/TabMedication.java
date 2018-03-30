@@ -11,17 +11,16 @@ import android.widget.ListView;
 import com.rugged.tuberculosisapp.R;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class TabMedication extends Fragment {
 
     public static final String TITLE = "TabMedication";
 
-    private ListView medicationList;
+    private ListView medicationListView;
 
-    private List<String> names;
-    private List<String> times;
-    private List<String> amounts;
+    private List<Medication> medicationList;
 
     @Nullable
     @Override
@@ -30,35 +29,23 @@ public class TabMedication extends Fragment {
 
         prepareListData();
 
-        ListView medicationList = view.findViewById(R.id.medicationList);
+        medicationListView = view.findViewById(R.id.medicationList);
 
-        MedicationAdapter adapter = new MedicationAdapter(this.getContext(), names, times, amounts);
+        MedicationListAdapter adapter = new MedicationListAdapter(this.getContext(), R.layout.medication_row, medicationList);
 
-        medicationList.setAdapter(adapter);
+        medicationListView.setAdapter(adapter);
 
         return view;
     }
 
     private void prepareListData() {
-        names = new ArrayList<String>();
-        times = new ArrayList<String>();
-        amounts = new ArrayList<String>();
-
-
-        names.add("Rifampicin");
-        names.add("Isoniazid");
-        names.add("Pyrazinamide");
-        names.add("Ethambutol");
-
-        times.add("Between 5 and 10 am");
-        times.add("Between 5 and 10 am");
-        times.add("Between 5 and 10 am");
-        times.add("Between 5 and 10 am");
-
-        amounts.add("1 pill");
-        amounts.add("2 pills");
-        amounts.add("1 pill");
-        amounts.add("2 pills");
+        medicationList = new ArrayList<>();
+        Time time1 = new Time(8, 0);
+        Time time2 = new Time(16, 30);
+        medicationList.add(new Medication("Rifampicin", time1, 1));
+        medicationList.add(new Medication("Isoniazid", time1, 2));
+        medicationList.add(new Medication("Pyrazinamide", time1, 1));
+        medicationList.add(new Medication("Ethambutol", time2, 2));
 
     }
 

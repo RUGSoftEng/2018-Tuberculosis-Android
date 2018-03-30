@@ -6,10 +6,12 @@
     <string-array name="pref_language_entries">
         <item>English</item>
         <item>Nederlands</item>
+        <item>Deutsch</item>
     </string-array>
     <string-array name="pref_language_values">
         <item>en</item>
         <item>nl</item>
+        <item>de</item>
     </string-array>
     <string name="pref_title_general">General</string>
     <string name="pref_title_language">Language</string>

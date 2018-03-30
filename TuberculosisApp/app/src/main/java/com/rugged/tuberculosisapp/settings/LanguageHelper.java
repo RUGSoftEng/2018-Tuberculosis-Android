@@ -8,6 +8,8 @@ import java.util.Locale;
 
 public abstract class LanguageHelper {
 
+    public static String currentLocale;
+
     public static void changeLocale(Resources res, String locale) {
         Configuration config;
         config = res.getConfiguration();
@@ -15,6 +17,11 @@ public abstract class LanguageHelper {
         DisplayMetrics dm = res.getDisplayMetrics();
         config.locale = myLocale;
         res.updateConfiguration(config, dm);
+
+        currentLocale = locale;
     }
 
+    public static String getCurrentLocale() {
+        return currentLocale;
+    }
 }

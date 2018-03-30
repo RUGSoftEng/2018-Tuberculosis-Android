@@ -10,9 +10,12 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.rugged.tuberculosisapp.MainActivity;
 import com.rugged.tuberculosisapp.R;
+
+import java.util.Locale;
 
 public class MainPreferenceFragment extends PreferenceFragment {
 
@@ -51,7 +54,14 @@ public class MainPreferenceFragment extends PreferenceFragment {
                 // For list preferences, look up the correct display value in
                 // the preference's 'entries' list.
                 ListPreference listPreference = (ListPreference) preference;
-                int index = listPreference.findIndexOfValue(stringValue);
+
+                int index;
+                if (flag) {
+                    index = listPreference.findIndexOfValue(stringValue);
+                } else {
+                    index = listPreference.findIndexOfValue(LanguageHelper.getCurrentLocale());
+                    listPreference.setValueIndex(index);
+                }
 
                 // Set the summary to reflect the new value.
                 preference.setSummary(

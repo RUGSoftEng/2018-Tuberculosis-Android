@@ -46,7 +46,6 @@ public class TabMedication extends Fragment {
         medicationList.add(new Medication("Isoniazid", time1, 2));
         medicationList.add(new Medication("Pyrazinamide", time1, 1));
         medicationList.add(new Medication("Ethambutol", time2, 2));
-
     }
 
 }

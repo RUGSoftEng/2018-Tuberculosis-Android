@@ -6,10 +6,12 @@
     <string-array name="pref_language_entries">
         <item>English</item>
         <item>Nederlands</item>
+        <item>Deutsch</item>
     </string-array>
     <string-array name="pref_language_values">
         <item>en</item>
         <item>nl</item>
+        <item>de</item>
     </string-array>
     <string name="pref_title_general">General</string>
     <string name="pref_title_language">Language</string>
@@ -41,9 +43,16 @@
         <item quantity="one">%1$d pill</item>
         <item quantity="other">%1$d pills</item>
     </plurals>
-    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in">Log in</string>
     <string name="medication_name_placeholder">Medication name</string>
     <string name="medication_time_placeholder">18:00</string>
     <string name="medication_dose_placeholder">3 pills</string>
+    <string name="title_language_select">Language select</string>
+    <string name="description_dutch_flag">Dutch flag</string>
+    <string name="description_english_flag">English flag</string>
+    <string name="description_german_flag">German flag</string>
+    <string name="description_romanian_flag">Romanian flag</string>
+    <string name="text_hint_username">Username</string>
+    <string name="text_hint_password">Password</string>
 
 </resources>

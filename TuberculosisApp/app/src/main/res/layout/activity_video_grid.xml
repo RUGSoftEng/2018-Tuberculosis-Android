@@ -31,7 +31,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:columnWidth="157dp"
         android:numColumns="auto_fit"
         android:gravity="center"
         android:horizontalSpacing="16dp"

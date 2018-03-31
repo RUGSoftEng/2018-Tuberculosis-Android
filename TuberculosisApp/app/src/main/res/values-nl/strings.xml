@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TuberculosisApp</string>
+    <string name="app_name">TuBuddy</string>
     <string name="title_information">Informatie</string>
     <string name="action_settings">Instellingen</string>
     <string name="pref_title_general">Algemeen</string>
@@ -18,8 +18,18 @@
     <string name="lorem_ipsum_question">Lorem ipsum dolor sit amet et?</string>
     <string name="title_medication">Medicatie</string>
     <plurals name="medication_dose">
-        <item quantity="one">%1$d pill</item>
-        <item quantity="other">%1$d pills</item>
+        <item quantity="one">%1$d pil</item>
+        <item quantity="other">%1$d pillen</item>
     </plurals>
-    <string name="action_sign_in">Log in</string>
+    <string name="action_sign_in">Aanmelden</string>
+    <string name="medication_name_placeholder">Medicatie naam</string>
+    <string name="medication_dose_placeholder">3 pillen</string>
+    <string name="medication_time_placeholder">18:00</string>
+    <string name="title_language_select">Taal kiezen</string>
+    <string name="description_dutch_flag">Nederlandse vlag</string>
+    <string name="description_english_flag">Engelse vlag</string>
+    <string name="description_german_flag">Duitse vlag</string>
+    <string name="description_romanian_flag">Romeense vlag</string>
+    <string name="text_hint_username">Gebruikersnaam</string>
+    <string name="text_hint_password">Wachtwoord</string>
 </resources>

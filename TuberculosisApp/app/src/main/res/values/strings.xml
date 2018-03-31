@@ -2,7 +2,6 @@
     <!-- Strings related to Settings -->
 
     <!-- General settings -->
-
     <string-array name="pref_language_entries">
         <item>English</item>
         <item>Nederlands</item>
@@ -18,17 +17,19 @@
     <string name="pref_key_language">pref_key_language</string>
 
     <!-- Notification settings -->
-    <!-- TODO: implement -->
-
-    <string name="pref_ringtone_silent">Silent</string>
-    <string name="summary_choose_ringtone">Choose notification sound</string>
-
+    <string name="pref_notification_silent">Play sound during notification</string>
+    <string name="pref_alarm_silent">Play sound during alarm</string>
+    <string name="pref_notification_sound">Notification sound</string>
+    <string name="pref_alarm_sound">Alarm sound</string>
 
     <!-- General strings -->
     <string name="app_name">TuBuddy</string>
     <string name="title_information">Information</string>
     <string name="title_medication">Medication</string>
     <string name="action_settings">Settings</string>
+    <string name="action_test_alarm">Alarm test</string>
+    <string name="action_test_notification">Notification test</string>
+    <string name="action_sign_out">Sign out</string>
 
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet et delectus accomodare his comsul copiosae</string>
     <string name="ask_physician">Question for Physician</string>

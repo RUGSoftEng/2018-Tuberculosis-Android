@@ -4,8 +4,8 @@
     <string name="pref_title_general">Allgemein</string>
     <string name="pref_title_language">Sprache</string>
     <string name="pref_key_language">pref_key_language</string>
-    <string name="pref_ringtone_silent">Lautlos</string>
-    <string name="summary_choose_ringtone">Benachrichtigungston</string>
+    <string name="pref_notification_silent">Lautlos</string>
+    <string name="pref_notification_sound">Benachrichtigungston</string>
     <string name="title_information">Informationen</string>
     <string name="title_medication">Medikamente</string>
     <string name="action_settings">Einstellungen</string>

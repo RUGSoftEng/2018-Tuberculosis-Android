@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import com.rugged.tuberculosisapp.R;
 
-public class AlarmTestActivity extends AppCompatActivity {
+public class ReminderTestActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alarm_test);
+        setContentView(R.layout.activity_reminder_test);
     }
 }

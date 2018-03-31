@@ -35,16 +35,8 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".reminders.AlarmTestActivity"
-            android:label="@string/action_test_alarm"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-        <activity
-            android:name=".reminders.NotificationTestActivity"
-            android:label="@string/action_test_notification"
+            android:name=".reminders.ReminderTestActivity"
+            android:label="@string/action_test_reminder"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

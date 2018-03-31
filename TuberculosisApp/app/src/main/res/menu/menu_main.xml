@@ -3,19 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.rugged.tuberculosisapp.MainActivity">
     <item
+        android:id="@+id/action_test_reminder"
+        android:orderInCategory="105"
+        android:title= "@string/action_test_reminder"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="109"
         android:title="@string/action_settings"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_test_notification"
-        android:orderInCategory="105"
-        android:title= "@string/action_test_notification"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_test_alarm"
-        android:orderInCategory="106"
-        android:title= "@string/action_test_alarm"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_sign_out"

@@ -10,12 +10,9 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.rugged.tuberculosisapp.MainActivity;
 import com.rugged.tuberculosisapp.R;
-
-import java.util.Locale;
 
 public class MainPreferenceFragment extends PreferenceFragment {
 
@@ -90,7 +87,7 @@ public class MainPreferenceFragment extends PreferenceFragment {
                 // using RingtoneManager.
                 if (TextUtils.isEmpty(stringValue)) {
                     // Empty values correspond to 'silent' (no ringtone).
-                    preference.setSummary(R.string.pref_ringtone_silent);
+                    preference.setSummary(R.string.pref_notification_silent);
 
                 } else {
                     Ringtone ringtone = RingtoneManager.getRingtone(
@@ -98,7 +95,7 @@ public class MainPreferenceFragment extends PreferenceFragment {
 
                     if (ringtone == null) {
                         // Clear the summary if there was a lookup error.
-                        preference.setSummary(R.string.summary_choose_ringtone);
+                        preference.setSummary(R.string.pref_notification_sound);
                     } else {
                         // Set the summary to reflect the new ringtone display
                         // name.

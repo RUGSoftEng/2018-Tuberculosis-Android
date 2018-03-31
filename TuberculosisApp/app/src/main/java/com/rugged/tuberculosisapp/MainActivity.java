@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -16,6 +15,8 @@ import com.rugged.tuberculosisapp.information.TabInformation;
 import com.rugged.tuberculosisapp.calendar.TabCalendar;
 import com.rugged.tuberculosisapp.medication.TabMedication;
 import com.rugged.tuberculosisapp.notes.TabNotes;
+import com.rugged.tuberculosisapp.reminders.AlarmTestActivity;
+import com.rugged.tuberculosisapp.reminders.NotificationTestActivity;
 import com.rugged.tuberculosisapp.settings.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -90,6 +91,20 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivityForResult(intent, NEW_SETTING);
+        }
+
+        if (id == R.id.action_test_alarm) {
+            Intent intent = new Intent(this, AlarmTestActivity.class);
+            startActivity(intent);
+        }
+
+        if (id == R.id.action_test_notification) {
+            Intent intent = new Intent(this, NotificationTestActivity.class);
+            startActivity(intent);
+        }
+
+        if (id == R.id.action_sign_out) {
+            //TODO: Sign out option
         }
 
         return super.onOptionsItemSelected(item);

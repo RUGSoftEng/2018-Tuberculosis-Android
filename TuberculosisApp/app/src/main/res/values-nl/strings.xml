@@ -6,8 +6,8 @@
     <string name="pref_title_general">Algemeen</string>
     <string name="pref_title_language">Taal</string>
     <string name="pref_key_language">pref_key_language</string>
-    <string name="summary_choose_ringtone">Kies meldingsgeluid</string>
-    <string name="pref_ringtone_silent">Stil</string>
+    <string name="pref_notification_sound">Kies meldingsgeluid</string>
+    <string name="pref_notification_silent">Stil</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet et delectus accomodare his comsul copiosae</string>
     <string name="ask_physician">Vragen voor Arts</string>
     <string name="frequently_asked_questions">Veelgestelde Vragen</string>

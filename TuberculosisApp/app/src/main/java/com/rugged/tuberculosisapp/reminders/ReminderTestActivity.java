@@ -67,7 +67,6 @@ public class ReminderTestActivity extends AppCompatActivity {
         this.hourOfDay = c.get(Calendar.HOUR_OF_DAY);
         this.minute = c.get(Calendar.MINUTE);
         this.second = c.get(Calendar.SECOND);
-        Log.d("Current time ", String.valueOf(c.getTimeInMillis()));
     }
 
     public void updateDateButton(int year, int month, int dayOfMonth) {
@@ -110,10 +109,13 @@ public class ReminderTestActivity extends AppCompatActivity {
         Switch s = findViewById(R.id.pillSwitch);
         boolean switchValue = s.isChecked();
 
-        Intent intent = new Intent(this.getApplicationContext(), AlarmHandler.class);
+        Intent intent = new Intent(this, AlarmHandler.class);
         intent.putExtra(EXTRA_SWITCH, switchValue);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(ReminderTestActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Calendar current = Calendar.getInstance();
+        Log.d("Current time is", String.valueOf(current.getTimeInMillis()));
 
         Calendar alarmCal = Calendar.getInstance();
         alarmCal.set(year, month, dayOfMonth, hourOfDay, minute, 0);

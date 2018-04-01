@@ -148,8 +148,6 @@ public class CalendarView extends LinearLayout {
         // Capitalize first letter
         titleMonth = titleMonth.substring(0, 1).toUpperCase() + titleMonth.substring(1);
         txtDate.setText(titleMonth);
-
-        header.setBackgroundColor(getResources().getColor(android.R.color.white));
     }
 
     /**

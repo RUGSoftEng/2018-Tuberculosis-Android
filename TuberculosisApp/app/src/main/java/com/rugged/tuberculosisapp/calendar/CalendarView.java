@@ -23,17 +23,14 @@ import java.util.Locale;
 
 public class CalendarView extends LinearLayout {
 
-    // For logging
-    private static final String LOGTAG = "Calendar View";
-
-    // How many days to show, defaults to six weeks, 42 days
-    private static final int DAYS_COUNT = 42;
-
     // Current displayed month
     private Calendar currentDate = Calendar.getInstance();
 
     // Event handling
     private EventHandler eventHandler = null;
+
+    // Calendar adapter
+    private HashSet<Day> mEvents = null;
 
     // Internal components
     private LinearLayout header;
@@ -121,7 +118,7 @@ public class CalendarView extends LinearLayout {
     /**
      * Display dates correctly in grid
      */
-    public void updateCalendar(HashSet<Date> events) {
+    public void updateCalendar(HashSet<Day> events) {
         ArrayList<Date> cells = new ArrayList<>();
         Calendar calendar = (Calendar) currentDate.clone();
 
@@ -132,15 +129,23 @@ public class CalendarView extends LinearLayout {
         // Move calendar backwards to the beginning of the week
         calendar.add(Calendar.DAY_OF_MONTH, -monthBeginningCell);
 
+        // Calculate how many rows are needed
+        double daysInMonth = currentDate.getActualMaximum(Calendar.DAY_OF_MONTH);
+        int numberOfCells = (int) Math.ceil((daysInMonth + monthBeginningCell) / 7) * 7;
+
         // Fill cells
-        while (cells.size() < DAYS_COUNT)
-        {
+        while (cells.size() < numberOfCells) {
             cells.add(calendar.getTime());
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
 
+        // Save all events when they are added
+        if (events != null) {
+            mEvents = events;
+        }
+
         // Update grid
-        grid.setAdapter(new CalendarAdapter(getContext(), cells, events));
+        grid.setAdapter(new CalendarAdapter(getContext(), cells, mEvents));
 
         // Update title to month, (conversion character MMMM..)
         SimpleDateFormat sdf = new SimpleDateFormat("MMMM", new Locale(LanguageHelper.getCurrentLocale()));

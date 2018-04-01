@@ -4,7 +4,7 @@ public class Time {
 
     private int hour, minute;
 
-    Time(int hour, int minute) {
+    public Time(int hour, int minute) {
         this.hour = hour % 24;
         this.minute = minute % 60;
     }

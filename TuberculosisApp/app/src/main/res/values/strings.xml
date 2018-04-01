@@ -54,5 +54,12 @@
     <string name="description_romanian_flag">Romanian flag</string>
     <string name="text_hint_username">Username</string>
     <string name="text_hint_password">Password</string>
+    <string name="monday">Mon</string>
+    <string name="tuesday">Tue</string>
+    <string name="wednesday">Wed</string>
+    <string name="thursday">Thu</string>
+    <string name="friday">Fri</string>
+    <string name="saturday">Sat</string>
+    <string name="sunday">Sun</string>
 
 </resources>

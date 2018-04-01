@@ -43,4 +43,5 @@
     <string name="action_test_reminder">Test Erinnerung</string>
     <string name="pref_alarm_sound">Alarmton</string>
     <string name="pref_alarm_silent">Ton abspielen während Alarm</string>
+    <string name="title_calendar">Kalender</string>
 </resources>

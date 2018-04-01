@@ -20,4 +20,12 @@ public class TabCalendar extends Fragment {
         return view;
     }
 
+    /* Code to add events to the calendar
+    HashSet<Date> events = new HashSet<>();
+    events.add(new Date());
+
+    CalendarView cv = ((CalendarView)findViewById(R.id.calendarView));
+    cv.updateCalendar(events);
+     */
+
 }

@@ -32,4 +32,16 @@
     <string name="description_romanian_flag">Rumänischer Flagge</string>
     <string name="text_hint_username">Benutzernamen</string>
     <string name="text_hint_password">Passwort</string>
+    <string name="monday">Mo</string>
+    <string name="tuesday">Di</string>
+    <string name="wednesday">Mi</string>
+    <string name="thursday">Do</string>
+    <string name="friday">Fr</string>
+    <string name="saturday">Sa</string>
+    <string name="sunday">So</string>
+    <string name="action_sign_out">Abmelden</string>
+    <string name="action_test_reminder">Test Erinnerung</string>
+    <string name="pref_alarm_sound">Alarmton</string>
+    <string name="pref_alarm_silent">Ton abspielen während Alarm</string>
+    <string name="title_calendar">Kalender</string>
 </resources>

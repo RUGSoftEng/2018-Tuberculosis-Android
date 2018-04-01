@@ -9,8 +9,8 @@
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:layout_weight=".1"
         android:adjustViewBounds="true"
         android:contentDescription="Pill Icon"
@@ -23,7 +23,7 @@
         android:layout_weight=".5"
         android:text="@string/medication_name_placeholder"
         android:textColor="@android:color/black"
-        android:textSize="22sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/medicationTime"
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_weight=".2"
         android:text="@string/medication_time_placeholder"
-        android:textSize="18sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/medicationDose"
@@ -39,5 +39,5 @@
         android:layout_height="wrap_content"
         android:layout_weight=".2"
         android:text="@string/medication_dose_placeholder"
-        android:textSize="18sp" />
+        android:textSize="14sp" />
 </LinearLayout>

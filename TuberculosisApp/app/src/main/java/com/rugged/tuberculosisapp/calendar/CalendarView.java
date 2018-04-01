@@ -1,5 +1,7 @@
 package com.rugged.tuberculosisapp.calendar;
 
+import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -11,26 +13,26 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rugged.tuberculosisapp.R;
+import com.rugged.tuberculosisapp.medication.Medication;
 import com.rugged.tuberculosisapp.settings.LanguageHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Locale;
 
 
 public class CalendarView extends LinearLayout {
 
+    private Activity mActivity;
+
     // Current displayed month
     private Calendar currentDate = Calendar.getInstance();
 
-    // Event handling
-    private EventHandler eventHandler = null;
-
     // Calendar adapter
-    private HashSet<Day> mEvents = null;
+    private HashMap<Date, ArrayList<Medication>> mEvents = null;
 
     // Internal components
     private LinearLayout header;
@@ -94,16 +96,20 @@ public class CalendarView extends LinearLayout {
         });
 
         // Long-pressing a day
-        grid.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public boolean onItemLongClick(AdapterView<?> view, View cell, int position, long id) {
-                // Handle long-press
-                if (eventHandler == null)
-                    return false;
+            public void onItemClick(AdapterView<?> view, View cell, int position, long id) {
+                // Handle clicking on a day
+                Date clickedItem = (Date) view.getItemAtPosition(position);
+                ArrayList<Medication> medicationList = mEvents.get(clickedItem);
+                if (mEvents != null && medicationList != null) {
+                    ViewDayFragment viewDayFragment = new ViewDayFragment();
+                    viewDayFragment.setDate(clickedItem);
+                    viewDayFragment.setMedicationList(medicationList);
+                    viewDayFragment.show(mActivity.getFragmentManager(), "ViewDayFragment");
+                }
 
-                eventHandler.onDayLongPress((Date)view.getItemAtPosition(position));
-                return true;
             }
         });
     }
@@ -118,7 +124,7 @@ public class CalendarView extends LinearLayout {
     /**
      * Display dates correctly in grid
      */
-    public void updateCalendar(HashSet<Day> events) {
+    public void updateCalendar(HashMap<Date, ArrayList<Medication>> events) {
         ArrayList<Date> cells = new ArrayList<>();
         Calendar calendar = (Calendar) currentDate.clone();
 
@@ -135,6 +141,12 @@ public class CalendarView extends LinearLayout {
 
         // Fill cells
         while (cells.size() < numberOfCells) {
+            // Set everything less significant than day to 0 in order to get right keys for hash map..
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+
             cells.add(calendar.getTime());
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
@@ -155,18 +167,8 @@ public class CalendarView extends LinearLayout {
         txtDate.setText(titleMonth);
     }
 
-    /**
-     * Assign event handler to be passed needed events
-     */
-    public void setEventHandler(EventHandler eventHandler) {
-        this.eventHandler = eventHandler;
+    public void setActivity(Activity activity) {
+        mActivity = activity;
     }
 
-    /**
-     * This interface defines what events to be reported to
-     * the outside world
-     */
-    public interface EventHandler {
-        void onDayLongPress(Date date);
-    }
 }

@@ -44,4 +44,6 @@
     <string name="pref_alarm_sound">Alarmgeluid</string>
     <string name="pref_alarm_silent">Speel geluid tijdens alarm</string>
     <string name="title_calendar">Kalender</string>
+    <string name="action_dismiss">Terug</string>
+    <string name="medication_date">Medicatie voor %1$s</string>
 </resources>

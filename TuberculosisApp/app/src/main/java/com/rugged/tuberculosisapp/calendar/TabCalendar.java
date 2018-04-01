@@ -15,12 +15,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashSet;
+import java.util.HashMap;
 
 public class TabCalendar extends Fragment {
 
     public static final String TITLE = "TabCalendar";
-    private static HashSet<Day> events;
+    private static HashMap<Date, ArrayList<Medication>> events;
 
     @Nullable
     @Override
@@ -31,39 +31,39 @@ public class TabCalendar extends Fragment {
         initializeMedication();
 
         CalendarView cv = view.findViewById(R.id.calendarView);
+        cv.setActivity(getActivity());
         cv.updateCalendar(events);
 
         return view;
     }
 
     private void initializeMedication() {
-        events = new HashSet<>();
+        events = new HashMap<>();
         ArrayList<Medication> medicationList = new ArrayList<>();
         ArrayList<Medication> medicationList2 = new ArrayList<>();
         Time time1 = new Time(8, 0);
         Time time2 = new Time(16, 30);
-        medicationList.add(new Medication("Rifampicin", time1, 1, Medication.takenState.FALSE));
-        medicationList.add(new Medication("Isoniazid", time1, 2, Medication.takenState.FALSE));
-        medicationList.add(new Medication("Pyrazinamide", time1, 1, Medication.takenState.FALSE));
-        medicationList.add(new Medication("Ethambutol", time2, 2, Medication.takenState.FALSE));
-        medicationList2.add(new Medication("Rifampicin", time1, 1, Medication.takenState.TRUE));
+        medicationList.add(new Medication("Rifampicin", time1, 1, true));
+        medicationList.add(new Medication("Isoniazid", time1, 2, false));
+        medicationList.add(new Medication("Pyrazinamide", time1, 1, false));
+        medicationList.add(new Medication("Ethambutol", time2, 2, false));
+
+        medicationList2.add(new Medication("Rifampicin", time1, 1, true));
 
 
         Calendar cal = new GregorianCalendar(2018, 3, 9);
-        events.add(new Day(new Date(cal.getTimeInMillis()), medicationList));
-
+        events.put(new Date(cal.getTimeInMillis()), medicationList);
         cal.set(2018, 4, 1);
-        events.add(new Day(new Date(cal.getTimeInMillis()), medicationList));
-
+        events.put(new Date(cal.getTimeInMillis()), medicationList);
         cal.set(2018, 2, 25);
-        events.add(new Day(new Date(cal.getTimeInMillis()), medicationList));
+        events.put(new Date(cal.getTimeInMillis()), medicationList);
 
         cal.set(2018, 2, 13);
-        events.add(new Day(new Date(cal.getTimeInMillis()), medicationList2));
+        events.put(new Date(cal.getTimeInMillis()), medicationList2);
         cal.set(2018, 2, 14);
-        events.add(new Day(new Date(cal.getTimeInMillis()), medicationList2));
+        events.put(new Date(cal.getTimeInMillis()), medicationList2);
         cal.set(2018, 2, 15);
-        events.add(new Day(new Date(cal.getTimeInMillis()), medicationList2));
+        events.put(new Date(cal.getTimeInMillis()), medicationList2);
     }
 
 }

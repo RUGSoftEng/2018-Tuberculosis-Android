@@ -15,21 +15,20 @@ import com.rugged.tuberculosisapp.R;
 import com.rugged.tuberculosisapp.medication.Medication;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
+import java.util.HashMap;
 
 public class CalendarAdapter extends ArrayAdapter<Date> {
 
     private Context mContext;
 
     // Days with events
-    private HashSet<Day> eventDays;
+    private HashMap<Date, ArrayList<Medication>> eventDays;
 
     // For view inflation
     private LayoutInflater inflater;
 
-    CalendarAdapter(Context context, ArrayList<Date> days, HashSet<Day> eventDays) {
+    CalendarAdapter(Context context, ArrayList<Date> days, HashMap<Date, ArrayList<Medication>> eventDays) {
         super(context, R.layout.control_calendar_day, days);
         this.mContext = context;
         this.eventDays = eventDays;
@@ -74,26 +73,21 @@ public class CalendarAdapter extends ArrayAdapter<Date> {
         // If this day has an event, specify event image
         pillIndicator.setImageResource(0);
         if (eventDays != null) {
-            for (Day eventDay : eventDays) {
-                Date eventDate = eventDay.getDate();
-                if (eventDate.getDate() == day && eventDate.getMonth() == month
-                                                        && eventDate.getYear() == year) {
-                    // Mark this day for event
-                    pillIndicator.setImageResource(R.drawable.ic_medication);
-                    if (month < today.getMonth() || (month == today.getMonth() && day < today.getDate())) {
-                        // Set green check mark here
-                        //TODO: takenOverlay.setImageResource(R.drawable.ic_check);
-                        textDayNumber.setTextColor(view.getResources().getColor(android.R.color.holo_green_dark));
-                        for (Medication medication : eventDay.getMedicationList()) {
-                            if (medication.getTaken() == Medication.takenState.FALSE) {
-                                // Not taken, add red cross
-                                //TODO: takenOverlay.setImageResource(R.drawable.ic_cross);
-                                textDayNumber.setTextColor(view.getResources().getColor(android.R.color.holo_red_dark));
-                                break;
-                            }
+            if (eventDays.get(date) != null) {
+                // Mark this day for event
+                pillIndicator.setImageResource(R.drawable.ic_medication);
+                if (month < today.getMonth() || (month == today.getMonth() && day < today.getDate())) {
+                    // Set green check mark here
+                    //TODO: takenOverlay.setImageResource(R.drawable.ic_check);
+                    textDayNumber.setTextColor(view.getResources().getColor(android.R.color.holo_green_dark));
+                    for (Medication medication : eventDays.get(date)) {
+                        if (!medication.getTaken()) {
+                            // Not taken, add red cross
+                            //TODO: takenOverlay.setImageResource(R.drawable.ic_cross);
+                            textDayNumber.setTextColor(view.getResources().getColor(android.R.color.holo_red_dark));
+                            break;
                         }
                     }
-                    break;
                 }
             }
         }

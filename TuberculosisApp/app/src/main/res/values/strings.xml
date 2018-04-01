@@ -62,5 +62,7 @@
     <string name="friday">Fri</string>
     <string name="saturday">Sat</string>
     <string name="sunday">Sun</string>
+    <string name="action_dismiss">Back</string>
+    <string name="medication_date">Medication for %1$s</string>
 
 </resources>

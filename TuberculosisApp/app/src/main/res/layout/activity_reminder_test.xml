@@ -6,4 +6,48 @@
     android:layout_height="match_parent"
     tools:context="com.rugged.tuberculosisapp.reminders.ReminderTestActivity">
 
+    <Button
+        android:id="@+id/dateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:onClick="setDate"
+        android:text="01/04/2018"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/timeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:onClick="setTime"
+        android:text="15:42"
+        app:layout_constraintStart_toEndOf="@+id/dateButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/setAlarmButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:onClick="setAlarm"
+        android:text="Set Alarm"
+        app:layout_constraintStart_toEndOf="@+id/timeButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/pillSwitch"
+        android:layout_width="112dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="84dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Pill taken"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateButton" />
 </android.support.constraint.ConstraintLayout>

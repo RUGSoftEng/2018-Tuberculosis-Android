@@ -57,6 +57,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".information.VideoGridActivity" />
         </activity>
+        <activity android:name=".reminders.AlarmActivity"></activity>
     </application>
 
 </manifest>

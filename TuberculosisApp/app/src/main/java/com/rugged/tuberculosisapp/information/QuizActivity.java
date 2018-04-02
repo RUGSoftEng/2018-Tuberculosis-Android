@@ -56,7 +56,7 @@ public class QuizActivity extends AppCompatActivity {
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
        boolean checked = ((RadioButton) view).isChecked();
-       switch(view.getId()) {
+       switch (view.getId()) {
            case R.id.correct_answer1:
                if (checked)
                    correct[0] = true;
@@ -96,9 +96,9 @@ public class QuizActivity extends AppCompatActivity {
         array = new ArrayList<String>();
         for (int i = 0; i < nrOfQuestions; i++) {
             if (correct[i]) {
-                array.add("Your answer for question " + i + "is correct");
+                array.add("Your answer for question " + (i+1) + " is correct!");
             } else {
-                array.add("Your answer for question " + i + "is wrong");
+                array.add("Your answer for question " + (i+1) + " is wrong.");
             }
         }
 

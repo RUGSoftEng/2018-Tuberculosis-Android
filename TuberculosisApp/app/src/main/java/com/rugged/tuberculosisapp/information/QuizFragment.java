@@ -15,7 +15,7 @@ import com.rugged.tuberculosisapp.R;
 import java.util.ArrayList;
 
 public class QuizFragment extends DialogFragment {
-    private ArrayList<String> checked;
+    private ArrayList<String> checked = new ArrayList<>();
 
     @Nullable
     @Override
@@ -25,7 +25,8 @@ public class QuizFragment extends DialogFragment {
         ListView quizListView = view.findViewById(R.id.answersList);
         Button dismissButton = view.findViewById(R.id.buttonDismiss);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.answer_row, checked);
+        // TODO: make list view nicer, write custom adapter and custom list row layout
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, checked);
         quizListView.setAdapter(adapter);
 
         dismissButton.setOnClickListener(new View.OnClickListener() {
@@ -37,7 +38,6 @@ public class QuizFragment extends DialogFragment {
 
         return view;
     }
-
 
     public void setChecked(ArrayList<String> checked) {
         this.checked = checked;

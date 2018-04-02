@@ -5,19 +5,16 @@ public class Medication {
     private String name;
     private Time time;
     private int dose;
-    public enum takenState {
-        PENDING, TRUE, FALSE
-    }
-    private takenState isTaken;
+    private boolean isTaken;
 
-    public Medication(String name, Time time, int dose) {
+    Medication(String name, Time time, int dose) {
         this.name = name;
         //TODO: Change when API call is available
         this.time = time;
         this.dose = dose;
     }
 
-    public Medication(String name, Time time, int dose, takenState isTaken) {
+    public Medication(String name, Time time, int dose, boolean isTaken) {
         this.name = name;
         this.time = time;
         this.dose = dose;
@@ -36,7 +33,7 @@ public class Medication {
         return dose;
     }
 
-    public takenState getTaken() {
+    public boolean getTaken() {
         return isTaken;
     }
 }

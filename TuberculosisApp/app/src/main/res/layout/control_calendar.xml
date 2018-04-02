@@ -97,7 +97,7 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:textColor="#222222"
-            android:text="@string/tuesday"/>
+            android:text="@string/thursday"/>
 
         <TextView
             android:layout_width="0dp"

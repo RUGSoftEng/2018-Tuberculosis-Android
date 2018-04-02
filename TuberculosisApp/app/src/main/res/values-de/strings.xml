@@ -44,4 +44,6 @@
     <string name="pref_alarm_sound">Alarmton</string>
     <string name="pref_alarm_silent">Ton abspielen während Alarm</string>
     <string name="title_calendar">Kalender</string>
+    <string name="action_dismiss">Zurück</string>
+    <string name="medication_date">Medikamente für %1$s</string>
 </resources>

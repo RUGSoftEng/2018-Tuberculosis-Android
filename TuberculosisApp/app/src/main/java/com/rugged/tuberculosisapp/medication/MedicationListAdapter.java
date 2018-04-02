@@ -15,12 +15,15 @@ import java.util.List;
 
 public class MedicationListAdapter extends ArrayAdapter<Medication> {
 
-    private LayoutInflater mInflater;
+    private Context mContext;
+    private int mResourceId;
     private final List<Medication> mMedication;
 
 
-    MedicationListAdapter(Context context, int resourceId, List<Medication> medication) {
+    public MedicationListAdapter(Context context, int resourceId, List<Medication> medication) {
         super(context, resourceId, medication);
+        this.mContext = context;
+        this.mResourceId = resourceId;
         this.mMedication = medication;
     }
 
@@ -46,7 +49,7 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> {
         Medication medication = getItem(position);
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.medication_row, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(mResourceId, parent, false);
         }
 
         TextView medicationName = convertView.findViewById(R.id.medicationName);
@@ -54,6 +57,15 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> {
         TextView medicationDose = convertView.findViewById(R.id.medicationDose);
 
         if (medication != null) {
+            // If this adapter is used for the dialog color the text
+            if (mResourceId == R.layout.medication_row_dialog) {
+                boolean isTaken = medication.getTaken();
+                if (isTaken) {
+                    medicationName.setTextColor(mContext.getResources().getColor(android.R.color.holo_green_dark));
+                } else {
+                    medicationName.setTextColor(mContext.getResources().getColor(android.R.color.holo_red_dark));
+                }
+            }
             medicationName.setText(medication.getName());
             medicationTime.setText(medication.getTime());
             medicationDose.setText(convertView.getResources().getQuantityString(R.plurals.medication_dose, medication.getDose(), medication.getDose()));

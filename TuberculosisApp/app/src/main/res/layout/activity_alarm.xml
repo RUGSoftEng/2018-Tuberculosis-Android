@@ -38,6 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginBottom="16dp"
+        android:onClick="toCalendar"
         android:text="@string/alarm_to_calendar"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintLeft_toLeftOf="parent"

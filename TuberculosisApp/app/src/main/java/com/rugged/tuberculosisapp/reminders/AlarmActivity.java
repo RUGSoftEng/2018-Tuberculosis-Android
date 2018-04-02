@@ -7,9 +7,6 @@ import android.view.View;
 
 import com.rugged.tuberculosisapp.MainActivity;
 import com.rugged.tuberculosisapp.R;
-import com.rugged.tuberculosisapp.calendar.TabCalendar;
-import com.rugged.tuberculosisapp.settings.LanguageSelect;
-import com.rugged.tuberculosisapp.signin.SignInActivity;
 
 public class AlarmActivity extends AppCompatActivity {
 

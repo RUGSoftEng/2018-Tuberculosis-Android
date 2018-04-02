@@ -48,7 +48,7 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
@@ -71,17 +71,17 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <RadioButton android:id="@+id/radio_pirates"
+                <RadioButton android:id="@+id/correct_answer1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Q1A1"
                     android:onClick="onRadioButtonClicked"/>
-                <RadioButton android:id="@+id/radio_ninjas"
+                <RadioButton android:id="@+id/wrong_answer1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Q1A2"
                     android:onClick="onRadioButtonClicked"/>
-                <RadioButton android:id="@+id/radio_ninjas"
+                <RadioButton android:id="@+id/wrong_answer1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Q1A3"
@@ -89,6 +89,107 @@
                     tools:ignore="DuplicateIds" />
             </RadioGroup>
 
+            <TextView android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:textColor="@android:color/black"
+                android:text="@string/Question2"/>
+            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RadioButton android:id="@+id/wrong_answer2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yes"
+                    android:onClick="onRadioButtonClicked"
+                    tools:ignore="DuplicateIds" />
+                <RadioButton android:id="@+id/correct_answer2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no"
+                    android:onClick="onRadioButtonClicked"
+                    tools:ignore="DuplicateIds" />
+            </RadioGroup>
+
+            <TextView android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:textColor="@android:color/black"
+                android:text="@string/Question3"/>
+            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RadioButton android:id="@+id/wrong_answer3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Q3A1"
+                    android:onClick="onRadioButtonClicked"
+                    tools:ignore="DuplicateIds" />
+                <RadioButton android:id="@+id/wrong_answer3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Q3A2"
+                    android:onClick="onRadioButtonClicked"
+                    tools:ignore="DuplicateIds" />
+                <RadioButton android:id="@+id/correct_answer3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Q3A3"
+                    android:onClick="onRadioButtonClicked"
+                    tools:ignore="DuplicateIds" />
+            </RadioGroup>
+
+            <TextView android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:textColor="@android:color/black"
+                android:text="@string/Question4"/>
+            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RadioButton android:id="@+id/wrong_answer4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Q4A1"
+                    android:onClick="onRadioButtonClicked"
+                    tools:ignore="DuplicateIds" />
+                <RadioButton android:id="@+id/wrong_answer4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Q4A2"
+                    android:onClick="onRadioButtonClicked"
+                    tools:ignore="DuplicateIds" />
+                <RadioButton android:id="@+id/wrong_answer4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Q4A3"
+                    android:onClick="onRadioButtonClicked"
+                    tools:ignore="DuplicateIds" />
+                <RadioButton android:id="@+id/correct_answer4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Q4A4"
+                    android:onClick="onRadioButtonClicked"
+                    tools:ignore="DuplicateIds" />
+                <RadioButton android:id="@+id/wrong_answer4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Q4A5"
+                    android:onClick="onRadioButtonClicked"
+                    tools:ignore="DuplicateIds" />
+                <RadioButton android:id="@+id/wrong_answer4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Q4A6"
+                android:onClick="onRadioButtonClicked"
+                tools:ignore="DuplicateIds" />
+                <RadioButton android:id="@+id/wrong_answer4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Q4A7"
+                    android:onClick="onRadioButtonClicked"
+                    tools:ignore="DuplicateIds" />
+            </RadioGroup>
 
         </LinearLayout>
     </ScrollView>
@@ -100,6 +201,8 @@
         android:layout_marginBottom="8dp"
         android:layout_marginRight="16dp"
         android:text="@string/show_answers"
+        android:onClick="submitQuiz"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" android:layout_marginEnd="16dp" />
+
 </android.support.constraint.ConstraintLayout>

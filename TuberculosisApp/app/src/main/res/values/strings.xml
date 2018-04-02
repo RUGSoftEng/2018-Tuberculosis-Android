@@ -81,5 +81,21 @@
     <string name="Q1A1">Via the air</string>
     <string name="Q1A2">Via blood contact</string>
     <string name="Q1A3">Via food</string>
+    <string name="Question2">Does a person with latent tuberculosis have symptoms?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="Question3">How is the bacteria spread?</string>
+    <string name="Q3A1">Via the blood</string>
+    <string name="Q3A2">Via the lymph</string>
+    <string name="Q3A3">Both are correct</string>
+    <string name="Question4">What is the most common place in the body for TB?</string>
+    <string name="Q4A1">The heart</string>
+    <string name="Q4A2">The bones and joints</string>
+    <string name="Q4A3">Lymph nodes</string>
+    <string name="Q4A4">The lungs</string>
+    <string name="Q4A5">The gastro-intestinal system</string>
+    <string name="Q4A6">The central nervous system</string>
+    <string name="Q4A7">The liver</string>
+    <string name="quiz_answers">Quiz answers</string>
 
 </resources>

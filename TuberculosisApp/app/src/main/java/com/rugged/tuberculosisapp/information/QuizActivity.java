@@ -11,8 +11,13 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerFragment;
 import com.rugged.tuberculosisapp.R;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class QuizActivity extends AppCompatActivity {
-    private boolean checked;
+    static final int nrOfQuestions = 4;
+    boolean[] correct = new boolean[nrOfQuestions];
+    ArrayList<String> array;
     private static String videoUrl;
 
     @Override
@@ -44,9 +49,62 @@ public class QuizActivity extends AppCompatActivity {
                         //TODO: error handling
                     }
                 });
+
+        Arrays.fill(correct, false);
     }
-   public void onRadioButtonClicked(View view) {
+
+    public void onRadioButtonClicked(View view) {
         // Is the button now checked?
-        checked = ((RadioButton) view).isChecked();
+       boolean checked = ((RadioButton) view).isChecked();
+       switch (view.getId()) {
+           case R.id.correct_answer1:
+               if (checked)
+                   correct[0] = true;
+                   break;
+           case R.id.correct_answer2:
+               if (checked)
+                   correct[1] = true;
+                   break;
+           case R.id.correct_answer3:
+               if (checked)
+                   correct[2] = true;
+                   break;
+           case R.id.correct_answer4:
+               if (checked)
+                   correct[3] = true;
+                   break;
+           case R.id.wrong_answer1:
+               if (checked)
+                   correct[0] = false;
+                   break;
+           case R.id.wrong_answer2:
+               if (checked)
+                   correct[1] = false;
+                   break;
+           case R.id.wrong_answer3:
+               if (checked)
+                   correct[2] = false;
+                   break;
+           case R.id.wrong_answer4:
+               if (checked)
+                   correct[3] = false;
+                   break;
+       }
     }
+
+    public void submitQuiz(View view){
+        array = new ArrayList<String>();
+        for (int i = 0; i < nrOfQuestions; i++) {
+            if (correct[i]) {
+                array.add("Your answer for question " + (i+1) + " is correct!");
+            } else {
+                array.add("Your answer for question " + (i+1) + " is wrong.");
+            }
+        }
+
+        QuizFragment quizfragment = new QuizFragment();
+        quizfragment.setChecked(array);
+        quizfragment.show(getFragmentManager(), "QuizFragment");
+    }
+
 }

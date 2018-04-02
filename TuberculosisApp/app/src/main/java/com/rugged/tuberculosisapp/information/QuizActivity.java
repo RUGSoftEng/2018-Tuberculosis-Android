@@ -3,6 +3,8 @@ package com.rugged.tuberculosisapp.information;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.RadioButton;
 
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -10,7 +12,7 @@ import com.google.android.youtube.player.YouTubePlayerFragment;
 import com.rugged.tuberculosisapp.R;
 
 public class QuizActivity extends AppCompatActivity {
-
+    private boolean checked;
     private static String videoUrl;
 
     @Override
@@ -42,5 +44,9 @@ public class QuizActivity extends AppCompatActivity {
                         //TODO: error handling
                     }
                 });
+    }
+   public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        checked = ((RadioButton) view).isChecked();
     }
 }

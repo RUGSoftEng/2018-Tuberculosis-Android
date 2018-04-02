@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel mChannel = new NotificationChannel("reminders", name, importance);
             mChannel.setDescription(description);
-            mChannel.canBypassDnd();
             mChannel.enableLights(true);
             mChannel.enableVibration(true);
             // Register the channel with the system; you can't change the importance

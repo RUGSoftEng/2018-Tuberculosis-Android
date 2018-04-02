@@ -3,4 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="white">#FFFFFF</color>
+    <color name="icon_red_pill_gradient_start">#e95c61</color>
+    <color name="icon_red_pill_gradient_end">#c84b50</color>
+
 </resources>

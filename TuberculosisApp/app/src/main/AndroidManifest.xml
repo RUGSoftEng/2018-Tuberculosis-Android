@@ -61,6 +61,14 @@
             android:name=".reminders.AlarmActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
+        <activity
+            android:name=".achievements.ActivityAchievements"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
         <receiver android:name=".reminders.ReminderHandler"></receiver>
     </application>
 

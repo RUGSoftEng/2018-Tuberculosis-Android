@@ -13,7 +13,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.rugged.tuberculosisapp.achievements.ActivityAchievements;
 import com.rugged.tuberculosisapp.information.TabInformation;
 import com.rugged.tuberculosisapp.calendar.TabCalendar;
 import com.rugged.tuberculosisapp.medication.TabMedication;
@@ -138,4 +140,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    public void openAchievements(View view) {
+        Intent intent = new Intent(this, ActivityAchievements.class);
+        startActivity(intent);
+    }
+
 }

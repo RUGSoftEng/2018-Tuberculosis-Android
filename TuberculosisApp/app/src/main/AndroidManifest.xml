@@ -61,7 +61,7 @@
             android:name=".reminders.AlarmActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
-        <receiver android:name=".reminders.AlarmHandler"></receiver>
+        <receiver android:name=".reminders.ReminderHandler"></receiver>
     </application>
 
 </manifest>

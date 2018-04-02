@@ -38,7 +38,7 @@ public class ViewDayFragment extends DialogFragment {
         String dateFormatted = sdf.format(date);
         titleMedicationDialog.setText(getResources().getString(R.string.medication_date, dateFormatted));
 
-        MedicationListAdapter adapter = new MedicationListAdapter(this.getActivity(), R.layout.medication_row_dialog, medicationList);
+        MedicationListAdapter adapter = new MedicationListAdapter(this.getActivity(), R.layout.medication_row_dialog, medicationList, date);
         medicationListView.setAdapter(adapter);
 
         dismissButton.setOnClickListener(new View.OnClickListener() {

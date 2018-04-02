@@ -67,5 +67,9 @@
     <string name="sunday">Sun</string>
     <string name="action_dismiss">Back</string>
     <string name="medication_date">Medication for %1$s</string>
+    <string name="Question1">How is de tuberculosis bacteria transmitted?</string>
+    <string name="Q1A1">Via the air</string>
+    <string name="Q1A2">Via blood contact</string>
+    <string name="Q1A3">Via food</string>
 
 </resources>

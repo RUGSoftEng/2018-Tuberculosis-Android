@@ -46,6 +46,7 @@ public class ReminderHandler extends BroadcastReceiver {
                 .setContentTitle(context.getString(R.string.notification_title))
                 .setContentText(context.getString(R.string.notification_text))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setVibrate(new long[0])
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);

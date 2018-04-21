@@ -21,6 +21,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         if (item.getItemId() == android.R.id.home) {
             // Set result when user exits settings activity
             setResult(mainPreferenceFragment.getResultCode());
+            onBackPressed();
         }
         return super.onOptionsItemSelected(item);
     }

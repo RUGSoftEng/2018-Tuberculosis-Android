@@ -70,21 +70,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleQuestion" />
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/editText"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/border"
-            android:inputType="textPersonName">
+            android:background="@drawable/border">
 
-            <android.support.design.widget.TextInputEditText
+            <EditText
+                android:id="@+id/editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/ask_physician_hint" />
-        </android.support.design.widget.TextInputLayout>
+                android:hint="@string/ask_physician_hint"
+                android:inputType="textMultiLine"
+                android:singleLine="false" />
+        </android.support.v4.widget.NestedScrollView>
 
         <Button
             android:id="@+id/submitQuestion"

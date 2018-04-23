@@ -39,23 +39,13 @@ public class TabNotes extends Fragment {
     }
 
     private void prepareListData() {
-        TextView question1 = new TextView(getActivity());
-        question1.setId(View.generateViewId());
-        question1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        question1.setText(getText(R.string.lorem_ipsum));
+        int numOfEntries = 10; // Will come from API call
 
-        TextView question2 = new TextView(getActivity());
-        question1.setId(View.generateViewId());
-        question1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        question1.setText(getText(R.string.lorem_ipsum));
-
-        TextView question3 = new TextView(getActivity());
-        question1.setId(View.generateViewId());
-        question1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        question1.setText(getText(R.string.lorem_ipsum));
-
-        entries.addView(question1);
-        entries.addView(question2);
-        entries.addView(question3);
+        for (int i = 0; i < numOfEntries; i++) {
+            TextView question = new TextView(getActivity());
+            question.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            question.setText(getText(R.string.lorem_ipsum)); // String will come from API call
+            entries.addView(question);
+        }
     }
 }

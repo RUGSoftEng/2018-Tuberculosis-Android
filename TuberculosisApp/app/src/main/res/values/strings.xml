@@ -97,5 +97,6 @@
     <string name="Q4A6">The central nervous system</string>
     <string name="Q4A7">The liver</string>
     <string name="quiz_answers">Quiz answers</string>
+    <string name="action_save">Save</string>
 
 </resources>

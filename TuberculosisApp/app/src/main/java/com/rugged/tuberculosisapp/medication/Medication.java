@@ -5,7 +5,7 @@ public class Medication {
     private String name;
     private Time time;
     private int dose;
-    private boolean isTaken;
+    private boolean isTaken = false;
 
     Medication(String name, Time time, int dose) {
         this.name = name;
@@ -25,8 +25,8 @@ public class Medication {
         return name;
     }
 
-    public String getTime() {
-        return time.toString();
+    public Time getTime() {
+        return time;
     }
 
     public int getDose() {
@@ -36,4 +36,9 @@ public class Medication {
     public boolean getTaken() {
         return isTaken;
     }
+
+    public void setTaken(boolean taken) {
+        isTaken = taken;
+    }
+
 }

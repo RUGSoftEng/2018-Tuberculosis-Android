@@ -55,10 +55,10 @@ public class TabCalendar extends Fragment {
         events.put(new Date(cal.getTimeInMillis()), medicationList);
         cal.set(2018, 4, 1);
         events.put(new Date(cal.getTimeInMillis()), medicationList);
-        cal.set(2018, 2, 25);
+        cal.set(2018, 3, 22);
         events.put(new Date(cal.getTimeInMillis()), medicationList);
 
-        cal.set(2018, 2, 13);
+        cal.set(2018, 3, 21);
         events.put(new Date(cal.getTimeInMillis()), medicationList2);
         cal.set(2018, 2, 14);
         events.put(new Date(cal.getTimeInMillis()), medicationList2);

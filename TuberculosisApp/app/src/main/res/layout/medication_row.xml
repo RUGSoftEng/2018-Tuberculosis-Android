@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_weight=".1"
+        android:adjustViewBounds="true"
+        android:contentDescription="Pill Icon"
+        app:srcCompat="@drawable/ic_medication" />
+
+    <TextView
+        android:id="@+id/medicationName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5"
+        android:text="@string/medication_name_placeholder"
+        android:textColor="@android:color/black"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/medicationTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".2"
+        android:text="@string/medication_time_placeholder"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/medicationDose"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".2"
+        android:text="@string/medication_dose_placeholder"
+        android:textSize="18sp" />
+</LinearLayout>

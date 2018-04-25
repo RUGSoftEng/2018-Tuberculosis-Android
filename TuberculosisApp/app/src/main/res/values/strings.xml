@@ -1,0 +1,102 @@
+<resources>
+    <!-- Strings related to Settings -->
+
+    <!-- General settings -->
+    <string-array name="pref_language_entries">
+        <item>English</item>
+        <item>Nederlands</item>
+        <item>Deutsch</item>
+    </string-array>
+    <string-array name="pref_language_values">
+        <item>en</item>
+        <item>nl</item>
+        <item>de</item>
+    </string-array>
+    <string name="pref_title_general">General</string>
+    <string name="pref_title_language">Language</string>
+    <string name="pref_key_language">pref_key_language</string>
+
+    <!-- Channel strings -->
+    <string name="channel_reminders_name">Reminder</string>
+    <string name="channel_reminders_description">Notification received when it is time to take medication</string>
+
+    <!-- Reminder strings -->
+    <string name="notification_title">Medication</string>
+    <string name="notification_text">It is time to take medication</string>
+    <string name="alarm_title">You forgot to take medication</string>
+    <string name="alarm_to_calendar">Go to calendar</string>
+    <string name="alarm_dismiss">Dismiss</string>
+
+    <!-- Notification settings -->
+    <string name="pref_notification_silent">Play sound during notification</string>
+    <string name="pref_alarm_silent">Play sound during alarm</string>
+    <string name="pref_notification_sound">Notification sound</string>
+    <string name="pref_alarm_sound">Alarm sound</string>
+
+
+    <!-- General strings -->
+    <string name="app_name">TuBuddy</string>
+    <string name="title_information">Information</string>
+    <string name="title_medication">Medication</string>
+    <string name="title_calendar">Calendar</string>
+    <string name="title_achievements">Achievements</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_test_reminder">Test Reminders</string>
+    <string name="action_sign_out">Log out</string>
+
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet et delectus accomodare his comsul copiosae</string>
+    <string name="ask_physician">Question for Physician</string>
+    <string name="frequently_asked_questions">Frequently Asked Questions</string>
+    <string name="ask_physician_hint">Ask a question</string>
+    <string name="action_submit">Submit</string>
+
+    <string name="quiz">Quiz</string>
+    <string name="show_answers">Show Answers</string>
+    <string name="lorem_ipsum_question">Lorem ipsum dolor sit amet et?</string>
+    <plurals name="medication_dose">
+        <item quantity="one">%1$d pill</item>
+        <item quantity="other">%1$d pills</item>
+    </plurals>
+    <string name="action_sign_in">Sign in</string>
+    <string name="medication_name_placeholder">Medication name</string>
+    <string name="medication_time_placeholder">18:00</string>
+    <string name="medication_dose_placeholder">3 pills</string>
+    <string name="title_language_select">Language select</string>
+    <string name="description_dutch_flag">Dutch flag</string>
+    <string name="description_english_flag">English flag</string>
+    <string name="description_german_flag">German flag</string>
+    <string name="description_romanian_flag">Romanian flag</string>
+    <string name="text_hint_username">Username</string>
+    <string name="text_hint_password">Password</string>
+    <string name="monday">Mon</string>
+    <string name="tuesday">Tue</string>
+    <string name="wednesday">Wed</string>
+    <string name="thursday">Thu</string>
+    <string name="friday">Fri</string>
+    <string name="saturday">Sat</string>
+    <string name="sunday">Sun</string>
+    <string name="action_dismiss">Back</string>
+    <string name="medication_date">Medication for %1$s</string>
+    <string name="Question1">How is de tuberculosis bacteria transmitted?</string>
+    <string name="Q1A1">Via the air</string>
+    <string name="Q1A2">Via blood contact</string>
+    <string name="Q1A3">Via food</string>
+    <string name="Question2">Does a person with latent tuberculosis have symptoms?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="Question3">How is the bacteria spread?</string>
+    <string name="Q3A1">Via the blood</string>
+    <string name="Q3A2">Via the lymph</string>
+    <string name="Q3A3">Both are correct</string>
+    <string name="Question4">What is the most common place in the body for TB?</string>
+    <string name="Q4A1">The heart</string>
+    <string name="Q4A2">The bones and joints</string>
+    <string name="Q4A3">Lymph nodes</string>
+    <string name="Q4A4">The lungs</string>
+    <string name="Q4A5">The gastro-intestinal system</string>
+    <string name="Q4A6">The central nervous system</string>
+    <string name="Q4A7">The liver</string>
+    <string name="quiz_answers">Quiz answers</string>
+    <string name="action_save">Save</string>
+
+</resources>

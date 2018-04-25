@@ -1,0 +1,52 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    tools:context="com.rugged.tuberculosisapp.signin.TabSignIn">
+
+    <ImageView
+        android:id="@+id/imageLogo"
+        android:layout_width="217dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
+        android:src="@drawable/logo_tubuddy" />
+
+    <EditText
+        android:id="@+id/textUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="46dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/imageLogo"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/text_hint_username"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/textPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/textUsername"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/text_hint_password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/signInButton"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignEnd="@id/textPassword"
+        android:layout_alignLeft="@id/textPassword"
+        android:layout_alignRight="@id/textPassword"
+        android:layout_alignStart="@id/textPassword"
+        android:layout_below="@id/textPassword"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="@string/action_sign_in" />
+</RelativeLayout>

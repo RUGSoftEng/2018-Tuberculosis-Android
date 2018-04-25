@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TuBuddy</string>
+    <string name="pref_title_general">Allgemein</string>
+    <string name="pref_title_language">Sprache</string>
+    <string name="pref_key_language">pref_key_language</string>
+    <string name="pref_notification_silent">Lautlos</string>
+    <string name="pref_notification_sound">Benachrichtigungston</string>
+    <string name="title_information">Informationen</string>
+    <string name="title_medication">Medikamente</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet et delectus accomodare his comsul copiosae</string>
+    <string name="ask_physician">Frage den Artz</string>
+    <string name="frequently_asked_questions">Häufig gestellte Fragen</string>
+    <string name="ask_physician_hint">Stelle eine Frage</string>
+    <string name="action_submit">Absenden</string>
+    <string name="quiz">Quiz</string>
+    <string name="show_answers">Antworten aufzeigen</string>
+    <string name="lorem_ipsum_question">Lorem ipsum dolor sit amet et?</string>
+    <plurals name="medication_dose">
+        <item quantity="one">%1$d Pille</item>
+        <item quantity="other">%1$d Pillen</item>
+    </plurals>
+    <string name="action_sign_in">Einloggen</string>
+    <string name="medication_name_placeholder">Nahme von Medikamente</string>
+    <string name="medication_time_placeholder">18:00</string>
+    <string name="medication_dose_placeholder">3 Pillen</string>
+    <string name="title_language_select">Sprache auswählen</string>
+    <string name="description_dutch_flag">Niederländischer Flagge</string>
+    <string name="description_english_flag">Englische Flagge</string>
+    <string name="description_german_flag">Deutsche Flagge</string>
+    <string name="description_romanian_flag">Rumänischer Flagge</string>
+    <string name="text_hint_username">Benutzernamen</string>
+    <string name="text_hint_password">Passwort</string>
+    <string name="monday">Mo</string>
+    <string name="tuesday">Di</string>
+    <string name="wednesday">Mi</string>
+    <string name="thursday">Do</string>
+    <string name="friday">Fr</string>
+    <string name="saturday">Sa</string>
+    <string name="sunday">So</string>
+    <string name="action_sign_out">Abmelden</string>
+    <string name="action_test_reminder">Test Erinnerung</string>
+    <string name="pref_alarm_sound">Alarmton</string>
+    <string name="pref_alarm_silent">Ton abspielen während Alarm</string>
+    <string name="title_calendar">Kalender</string>
+    <string name="action_dismiss">Zurück</string>
+    <string name="medication_date">Medikamente für %1$s</string>
+    <string name="title_achievements">Errungenschaften</string>
+    <string name="action_save">Speichern</string>
+</resources>

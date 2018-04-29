@@ -104,6 +104,7 @@ public class CalendarView extends LinearLayout {
                 ArrayList<Medication> medicationList = mEvents.get(clickedItem);
                 if (mEvents != null && medicationList != null) {
                     ViewDayFragment viewDayFragment = new ViewDayFragment();
+                    viewDayFragment.setCalendarView(CalendarView.this);
                     viewDayFragment.setDate(clickedItem);
                     viewDayFragment.setMedicationList(medicationList);
                     viewDayFragment.show(mActivity.getFragmentManager(), "ViewDayFragment");

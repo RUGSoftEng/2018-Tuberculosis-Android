@@ -41,29 +41,29 @@ public class TabCalendar extends Fragment {
         events = new HashMap<>();
         ArrayList<Medication> medicationList = new ArrayList<>();
         ArrayList<Medication> medicationList2 = new ArrayList<>();
+        ArrayList<Medication> medicationList3 = new ArrayList<>();
         Time time1 = new Time(8, 0);
         Time time2 = new Time(16, 30);
+
         medicationList.add(new Medication("Rifampicin", time1, 1, true));
-        medicationList.add(new Medication("Isoniazid", time1, 2, false));
-        medicationList.add(new Medication("Pyrazinamide", time1, 1, false));
-        medicationList.add(new Medication("Ethambutol", time2, 2, false));
 
         medicationList2.add(new Medication("Rifampicin", time1, 1, true));
+        medicationList2.add(new Medication("Isoniazid", time1, 2, false));
+        medicationList2.add(new Medication("Pyrazinamide", time1, 1, false));
+        medicationList2.add(new Medication("Ethambutol", time2, 2, false));
+
+        medicationList3.add(new Medication("Rifampicin", time1, 1, true));
+        medicationList3.add(new Medication("Ethambutol", time2, 2, false));
 
 
         Calendar cal = new GregorianCalendar(2018, 3, 9);
         events.put(new Date(cal.getTimeInMillis()), medicationList);
-        cal.set(2018, 4, 1);
-        events.put(new Date(cal.getTimeInMillis()), medicationList);
         cal.set(2018, 3, 28);
-        events.put(new Date(cal.getTimeInMillis()), medicationList);
-
-        cal.set(2018, 3, 30);
         events.put(new Date(cal.getTimeInMillis()), medicationList2);
-        cal.set(2018, 2, 14);
-        events.put(new Date(cal.getTimeInMillis()), medicationList2);
-        cal.set(2018, 2, 15);
-        events.put(new Date(cal.getTimeInMillis()), medicationList2);
+        cal.set(2018, 2, 23);
+        events.put(new Date(cal.getTimeInMillis()), medicationList3);
+        cal.set(2018, 3, 31);
+        events.put(new Date(cal.getTimeInMillis()), medicationList3);
     }
 
 }

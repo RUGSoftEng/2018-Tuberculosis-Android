@@ -76,14 +76,19 @@ public class CalendarAdapter extends ArrayAdapter<Date> {
             if (eventDays.get(date) != null) {
                 // Mark this day for event
                 pillIndicator.setImageResource(R.drawable.ic_medication);
-                if (month < today.getMonth() || (month == today.getMonth() && day < today.getDate())) {
+                if (month < today.getMonth() || (month == today.getMonth() && day <= today.getDate())) {
                     // Set green check mark here
                     takenOverlay.setImageResource(R.drawable.ic_check);
                     //textDayNumber.setTextColor(view.getResources().getColor(android.R.color.holo_green_dark));
                     for (Medication medication : eventDays.get(date)) {
                         if (!medication.getTaken()) {
                             // Not taken, add red cross
-                            takenOverlay.setImageResource(R.drawable.ic_cross);
+                            if (day < today.getDate()) {
+                                takenOverlay.setImageResource(R.drawable.ic_cross);
+                                takenOverlay.setAlpha((float)0.75);
+                            } else {
+                                takenOverlay.setImageResource(0);
+                            }
                             //textDayNumber.setTextColor(view.getResources().getColor(android.R.color.holo_red_dark));
                             break;
                         }

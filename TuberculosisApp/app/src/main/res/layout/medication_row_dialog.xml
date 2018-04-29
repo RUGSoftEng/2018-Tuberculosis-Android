@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:paddingBottom="8dp"
     android:paddingTop="8dp">
 
@@ -11,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_weight=".1"
+        android:layout_weight=".3"
         android:adjustViewBounds="true"
         android:contentDescription="Pill Icon"
         app:srcCompat="@drawable/ic_medication" />
@@ -20,7 +21,9 @@
         android:id="@+id/medicationName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight=".5"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_weight="1"
         android:text="@string/medication_name_placeholder"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
@@ -29,7 +32,9 @@
         android:id="@+id/medicationTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight=".2"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_weight=".5"
         android:text="@string/medication_time_placeholder"
         android:textSize="14sp" />
 
@@ -37,7 +42,15 @@
         android:id="@+id/medicationDose"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight=".2"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_weight=".6"
         android:text="@string/medication_dose_placeholder"
         android:textSize="14sp" />
+
+    <CheckBox
+        android:id="@+id/takenCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

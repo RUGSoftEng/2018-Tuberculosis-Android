@@ -1,7 +1,6 @@
 package com.rugged.tuberculosisapp.calendar;
 
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -109,7 +108,6 @@ public class CalendarView extends LinearLayout {
                     viewDayFragment.setMedicationList(medicationList);
                     viewDayFragment.show(mActivity.getFragmentManager(), "ViewDayFragment");
                 }
-
             }
         });
     }

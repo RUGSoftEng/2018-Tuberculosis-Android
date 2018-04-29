@@ -41,4 +41,9 @@ public class Medication {
         isTaken = taken;
     }
 
+    @Override
+    public String toString() {
+        return "Name: " + name + ", Time: " + time.toString() + ", Dose: " + dose + ", isTaken: " + isTaken;
+    }
+
 }

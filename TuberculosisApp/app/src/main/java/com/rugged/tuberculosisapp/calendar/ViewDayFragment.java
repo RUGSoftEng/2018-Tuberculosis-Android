@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewManager;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,7 +19,6 @@ import com.rugged.tuberculosisapp.settings.LanguageHelper;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
 
 public class ViewDayFragment extends DialogFragment {
@@ -80,9 +78,8 @@ public class ViewDayFragment extends DialogFragment {
 
     private void saveNewMedicineStates() {
         // Set medicine taken states to respective checkbox states
-        HashMap<Medication, CheckBox> takenCheckBoxes = adapter.getTakenCheckBoxes();
         for (Medication medication : medicationList) {
-            medication.setTaken(takenCheckBoxes.get(medication).isChecked());
+            medication.setTaken(adapter.isChecked(medication));
             // TODO: Add API call to update taken state in database
         }
     }

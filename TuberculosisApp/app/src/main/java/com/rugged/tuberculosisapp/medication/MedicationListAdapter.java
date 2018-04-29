@@ -3,27 +3,28 @@ package com.rugged.tuberculosisapp.medication;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.rugged.tuberculosisapp.R;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
-public class MedicationListAdapter extends ArrayAdapter<Medication> {
+public class MedicationListAdapter extends ArrayAdapter<Medication> implements CompoundButton.OnCheckedChangeListener {
 
     private Context mContext;
     private int mResourceId;
     private final List<Medication> mMedication;
     private Date date;
-    private HashMap<Medication, CheckBox> takenCheckBoxes;
+    public SparseBooleanArray mCheckedStates;
 
     // User has x days to change the taken state of medicines before it is locked
     private static final int DAYS_UNTIL_CHECKBOX_IS_LOCKED = 1;
@@ -41,7 +42,7 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> {
         this.mResourceId = resourceId;
         this.mMedication = medication;
         this.date = date;
-        this.takenCheckBoxes = new HashMap<>();
+        this.mCheckedStates = new SparseBooleanArray();
     }
 
 
@@ -88,10 +89,10 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> {
                         medicationName.setTextColor(mContext.getResources().getColor(android.R.color.holo_red_dark));
                     }
 
-                    // Update checkbox state and link it to the medication
-                    // TODO: maybe override equals method in medication, shouldn't be necessary though
+                    // Attach listener, update checkbox state
+                    takenCheckBox.setOnCheckedChangeListener(this);
+                    takenCheckBox.setTag(position);
                     takenCheckBox.setChecked(isTaken);
-                    takenCheckBoxes.put(medication, takenCheckBox);
                 }
 
                 // Lock checkbox after a certain amount of days or if date is in the future
@@ -107,8 +108,13 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> {
         return convertView;
     }
 
-    public HashMap<Medication, CheckBox> getTakenCheckBoxes() {
-        return takenCheckBoxes;
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        mCheckedStates.put((Integer)compoundButton.getTag(), b);
+    }
+
+    public boolean isChecked(Medication medication) {
+        return mCheckedStates.get(getPosition(medication));
     }
 
     public Boolean checkBoxesAreLocked(Date date) {

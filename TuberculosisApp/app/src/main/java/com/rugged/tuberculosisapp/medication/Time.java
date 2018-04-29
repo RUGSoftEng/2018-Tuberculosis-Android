@@ -13,4 +13,5 @@ public class Time {
     public String toString() {
         return hour + ":" + (minute > 9 ? minute : "0" + minute);
     }
+
 }

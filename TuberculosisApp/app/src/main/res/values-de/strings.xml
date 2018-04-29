@@ -48,5 +48,5 @@
     <string name="medication_date">Medikamente für %1$s</string>
     <string name="title_achievements">Errungenschaften</string>
     <string name="action_save">Speichern</string>
-    <string name="invalidLogIn">"Ungültiger Benutzername oder Passwort "</string>
+    <string name="invalidLogIn">"Ungültiger Benutzername oder Passwort."</string>
 </resources>

@@ -23,6 +23,7 @@ import java.util.Locale;
 
 public class ViewDayFragment extends DialogFragment {
 
+    private CalendarView calendarView;
     private Date date;
     private ArrayList<Medication> medicationList;
     private MedicationListAdapter adapter;
@@ -68,6 +69,10 @@ public class ViewDayFragment extends DialogFragment {
         return view;
     }
 
+    public void setCalendarView(CalendarView calendarView) {
+        this.calendarView = calendarView;
+    }
+
     public void setDate(Date date) {
         this.date = date;
     }
@@ -82,6 +87,7 @@ public class ViewDayFragment extends DialogFragment {
             medication.setTaken(adapter.isChecked(medication));
             // TODO: Add API call to update taken state in database
         }
+        calendarView.updateCalendar();
     }
 
 }

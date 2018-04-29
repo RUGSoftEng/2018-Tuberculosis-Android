@@ -63,8 +63,7 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> {
         }
 
         TextView medicationName = convertView.findViewById(R.id.medicationName);
-        TextView medicationTime = convertView.findViewById(R.id.medicationTime);
-        TextView medicationDose = convertView.findViewById(R.id.medicationDose);
+
 
         if (medication != null) {
             // If this adapter is used for the dialog color the text
@@ -81,8 +80,7 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> {
                 }
             }
             medicationName.setText(medication.getName());
-            medicationTime.setText(medication.getTime());
-            medicationDose.setText(convertView.getResources().getQuantityString(R.plurals.medication_dose, medication.getDose(), medication.getDose()));
+
         }
 
         return convertView;

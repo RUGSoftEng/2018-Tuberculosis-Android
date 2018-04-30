@@ -39,12 +39,12 @@ public class TabNotes extends Fragment {
     }
 
     private void prepareListData() {
-        int numOfEntries = 10; // Will come from API call
+        int numOfEntries = 10; //TODO get entries from API call
 
         for (int i = 0; i < numOfEntries; i++) {
             TextView question = new TextView(getActivity());
             question.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            question.setText(getText(R.string.lorem_ipsum)); // String will come from API call
+            question.setText(getText(R.string.lorem_ipsum)); //TODO get strings from API call
             entries.addView(question);
         }
     }

@@ -48,4 +48,5 @@
     <string name="medication_date">Medicatie voor %1$s</string>
     <string name="title_achievements">Prestaties</string>
     <string name="action_save">Opslaan</string>
+    <string name="invalidLogIn">Ongeldige gebruikersnaam of wachtwoord.</string>
 </resources>

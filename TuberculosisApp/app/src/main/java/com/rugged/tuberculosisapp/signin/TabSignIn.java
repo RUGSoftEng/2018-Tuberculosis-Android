@@ -19,10 +19,19 @@ import android.widget.TextView;
 
 import com.rugged.tuberculosisapp.MainActivity;
 
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
+import java.net.URL;
+
 
 public class TabSignIn extends Fragment {
 
     public static final String TITLE = "TabSignIn";
+    public static final String LOGIN_URL = "http://192.168.50.4:2002/api/accounts/login";
     // TODO remove DUMMY_ACCOUNTS when authentication goes through database
     private static final Account[] DUMMY_ACCOUNTS = new Account[] {
         new Account("admin", "admin"),
@@ -69,12 +78,36 @@ public class TabSignIn extends Fragment {
 
     // TODO change authentication function to call database (API)
     private boolean authenticate(Account account) {
-        for (int i = 0; i < DUMMY_ACCOUNTS.length; i++) {
+        /*for (int i = 0; i < DUMMY_ACCOUNTS.length; i++) {
             if (account.getUsername().equals(DUMMY_ACCOUNTS[i].getUsername())
                     && account.getPassword().equals(DUMMY_ACCOUNTS[i].getPassword())) {
                 return true;
             }
         }
-        return false;
+        return false;*/
+
+        try {
+            URL url = new URL(LOGIN_URL);
+            HttpURLConnection client = (HttpURLConnection) url.openConnection();
+            client.setRequestMethod("POST");
+            client.setRequestProperty("username", account.getUsername());
+            client.setRequestProperty("password", account.getPassword());
+            client.setRequestProperty("Content-Type", "application/json");
+            client.setDoOutput(true);
+
+            OutputStream os = client.getOutputStream();
+            os.write();
+            os.flush();
+            os.close();
+        } catch(MalformedURLException error) {
+            // TODO Handle an incorrectly entered URL
+        }
+        catch(SocketTimeoutException error) {
+            // TODO Handle URL access timeout.
+        }
+        catch (IOException error) {
+            // TODO Handle input and output errors
+        }
+
     }
 }

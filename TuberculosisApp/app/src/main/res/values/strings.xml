@@ -98,5 +98,6 @@
     <string name="Q4A7">The liver</string>
     <string name="quiz_answers">Quiz answers</string>
     <string name="action_save">Save</string>
+    <string name="invalidLogIn">Invalid username or password.</string>
 
 </resources>

@@ -83,7 +83,7 @@ public class CalendarAdapter extends ArrayAdapter<Date> {
                     for (Medication medication : eventDays.get(date)) {
                         if (!medication.getTaken()) {
                             // Not taken, add red cross
-                            if (day < today.getDate()) {
+                            if (month != today.getMonth() && day != today.getDate()) {
                                 takenOverlay.setImageResource(R.drawable.ic_cross);
                                 takenOverlay.setAlpha((float)0.75);
                             } else {

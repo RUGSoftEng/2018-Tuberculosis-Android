@@ -3,6 +3,7 @@ package com.rugged.tuberculosisapp.signin;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,22 +19,28 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rugged.tuberculosisapp.MainActivity;
+import com.rugged.tuberculosisapp.network.RetrofitClientInstance;
+import com.rugged.tuberculosisapp.network.ServerAPI;
 
-import java.io.BufferedOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.SocketTimeoutException;
-import java.net.URL;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
+import static android.content.ContentValues.TAG;
 
 
 public class TabSignIn extends Fragment {
 
     public static final String TITLE = "TabSignIn";
-    public static final String LOGIN_URL = "http://192.168.50.4:2002/api/accounts/login";
-    // TODO remove DUMMY_ACCOUNTS when authentication goes through database
-    private static final Account[] DUMMY_ACCOUNTS = new Account[] {
+    private static final boolean IS_CONNECTED_TO_DATABASE = false; // TODO remove when authentication goes through server
+    public static String userAPIToken = "";
+    private boolean canSignIn = false;
+
+    private static final Account[] DUMMY_ACCOUNTS = new Account[] { // TODO remove when authentication goes through server
         new Account("admin", "admin"),
         new Account("marco", "marco"),
         new Account("niek", "niek"),
@@ -76,38 +83,46 @@ public class TabSignIn extends Fragment {
         return view;
     }
 
-    // TODO change authentication function to call database (API)
     private boolean authenticate(Account account) {
-        /*for (int i = 0; i < DUMMY_ACCOUNTS.length; i++) {
-            if (account.getUsername().equals(DUMMY_ACCOUNTS[i].getUsername())
-                    && account.getPassword().equals(DUMMY_ACCOUNTS[i].getPassword())) {
-                return true;
+        if (IS_CONNECTED_TO_DATABASE) {
+            canSignIn = false;
+            Retrofit retrofit = new RetrofitClientInstance().getRetrofitInstance();
+            ServerAPI serverAPI = retrofit.create(ServerAPI.class);
+            Call<ResponseBody> call = serverAPI.login(account);
+
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Log.d(TAG, "onResponse: Server Response: " + response.toString());
+                    if (response.code() == 200) { // 200 means the login was successful
+                        try { // The response body will return the following: {"token":"String containing api_token for authorization of requests"}
+                            String token = response.body().string(); // First we retrieve the response
+                            token = token.split(":")[1]; // Now we get the part after the ":"
+                            token = token.substring(1, token.length()-2); // Now we will remove the closing bracket and the " signs yielding the token
+                            userAPIToken = token; // Save the token (will be needed for other API calls TODO find out why it does not get saved??
+                            canSignIn = true; // TODO find out why it does not save true to signIn??
+                            Log.d(TAG,"userAPIToken = " + token);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.e(TAG, "onFailure: Something went wrong: " + t.getMessage());
+                }
+            });
+            System.out.println("canSignIn = " + canSignIn);  // TODO always prints false??
+            System.out.println("userAPIToken = " + userAPIToken); // TODO never gets set??
+            return canSignIn;
+        } else {
+            for (int i = 0; i < DUMMY_ACCOUNTS.length; i++) {
+                if (account.getUsername().equals(DUMMY_ACCOUNTS[i].getUsername())
+                        && account.getPassword().equals(DUMMY_ACCOUNTS[i].getPassword())) {
+                    return true;
+                }
             }
+            return false;
         }
-        return false;*/
-
-        try {
-            URL url = new URL(LOGIN_URL);
-            HttpURLConnection client = (HttpURLConnection) url.openConnection();
-            client.setRequestMethod("POST");
-            client.setRequestProperty("username", account.getUsername());
-            client.setRequestProperty("password", account.getPassword());
-            client.setRequestProperty("Content-Type", "application/json");
-            client.setDoOutput(true);
-
-            OutputStream os = client.getOutputStream();
-            os.write();
-            os.flush();
-            os.close();
-        } catch(MalformedURLException error) {
-            // TODO Handle an incorrectly entered URL
-        }
-        catch(SocketTimeoutException error) {
-            // TODO Handle URL access timeout.
-        }
-        catch (IOException error) {
-            // TODO Handle input and output errors
-        }
-
     }
 }

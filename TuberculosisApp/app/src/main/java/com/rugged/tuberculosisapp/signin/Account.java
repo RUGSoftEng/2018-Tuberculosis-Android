@@ -16,6 +16,4 @@ public class Account {
     public String getPassword() {
         return this.password;
     }
-
-    // Probably: TODO add toJSON function for API calls
 }

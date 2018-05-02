@@ -36,7 +36,7 @@ import static android.content.ContentValues.TAG;
 public class TabSignIn extends Fragment {
 
     public static final String TITLE = "TabSignIn";
-    private static final boolean IS_CONNECTED_TO_DATABASE = true; // TODO remove when authentication goes through server
+    private static final boolean IS_CONNECTED_TO_DATABASE = false; // TODO remove when authentication goes through server
     public static String userAPIToken = "";
     private boolean canSignIn = false;
 

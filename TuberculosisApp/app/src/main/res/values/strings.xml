@@ -61,6 +61,7 @@
     <string name="medication_name_placeholder">Medication name</string>
     <string name="medication_time_placeholder">18:00</string>
     <string name="medication_dose_placeholder">3 pills</string>
+    <string name="medication_taken">Taken today:</string>
     <string name="title_language_select">Language select</string>
     <string name="description_dutch_flag">Dutch flag</string>
     <string name="description_english_flag">English flag</string>
@@ -99,5 +100,6 @@
     <string name="quiz_answers">Quiz answers</string>
     <string name="action_save">Save</string>
     <string name="invalidLogIn">Invalid username or password.</string>
+    <string name="more_info_buttion">More info</string>
 
 </resources>

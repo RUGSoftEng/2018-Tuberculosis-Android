@@ -71,14 +71,16 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
         }
 
         TextView medicationName = convertView.findViewById(R.id.medicationName);
-        TextView medicationTime = convertView.findViewById(R.id.medicationTime);
-        TextView medicationDose = convertView.findViewById(R.id.medicationDose);
+
 
         if (medication != null) {
             // If this adapter is used for the dialog color the text
             if (mResourceId == R.layout.medication_row_dialog) {
                 Date today = new Date();
                 final CheckBox takenCheckBox = convertView.findViewById(R.id.takenCheckBox);
+
+                TextView medicationTime = convertView.findViewById(R.id.medicationTime);
+                TextView medicationDose = convertView.findViewById(R.id.medicationDose);
 
                 // Check if date is before today or today, if so color medication according to their isTaken state
                 if (date.before(today) || date.equals(today)) {
@@ -99,10 +101,11 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
                 if (checkBoxesAreLocked(date)) {
                     takenCheckBox.setEnabled(false);
                 }
+                medicationTime.setText(medication.getTime().toString());
+                medicationDose.setText(convertView.getResources().getQuantityString(R.plurals.medication_dose, medication.getDose(), medication.getDose()));
             }
             medicationName.setText(medication.getName());
-            medicationTime.setText(medication.getTime().toString());
-            medicationDose.setText(convertView.getResources().getQuantityString(R.plurals.medication_dose, medication.getDose(), medication.getDose()));
+
         }
 
         return convertView;

@@ -25,19 +25,4 @@
         android:textColor="@android:color/black"
         android:textSize="22sp" />
 
-    <TextView
-        android:id="@+id/medicationTime"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight=".2"
-        android:text="@string/medication_time_placeholder"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/medicationDose"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight=".2"
-        android:text="@string/medication_dose_placeholder"
-        android:textSize="18sp" />
 </LinearLayout>

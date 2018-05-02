@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.RadioButton;
 
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -13,20 +14,32 @@ import com.rugged.tuberculosisapp.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class QuizActivity extends AppCompatActivity {
     static final int nrOfQuestions = 4;
     boolean[] correct = new boolean[nrOfQuestions];
     ArrayList<String> array;
     private static String videoUrl;
+    private List <Quiz> quizList;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
+
         // Get intent that started this activity
         Intent intent = getIntent();
+        // Get the list of questions
+        listView = findViewById(R.id.quizList);
+        retrieveQuizList();
+        QuizAdapter adapter = new QuizAdapter(this, R.layout.activity_quiz, quizList);
+
+        // Set list adapter
+        listView.setAdapter(adapter);
+        // TODO Get list from api
 
         // Set video url
         videoUrl = intent.getStringExtra(VideoGridActivity.VIDEO_URL_MESSAGE);
@@ -106,5 +119,12 @@ public class QuizActivity extends AppCompatActivity {
         quizfragment.setChecked(array);
         quizfragment.show(getFragmentManager(), "QuizFragment");
     }
-
+    public void retrieveQuizList(){
+        quizList = new ArrayList<Quiz>();
+        ArrayList<String> options = new ArrayList<String>();
+        options.add("Answer 1");
+        options.add("Answer 2");
+        options.add("Answer 3");
+        quizList.add(new Quiz("Question 1",options,"Answer 1"));
+    }
 }

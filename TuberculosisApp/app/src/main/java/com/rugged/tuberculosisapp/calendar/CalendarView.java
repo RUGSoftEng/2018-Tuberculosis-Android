@@ -159,7 +159,7 @@ public class CalendarView extends LinearLayout {
         grid.setAdapter(new CalendarAdapter(getContext(), cells, mEvents));
 
         // Update title to month, (conversion character MMMM..)
-        SimpleDateFormat sdf = new SimpleDateFormat("MMMM", new Locale(LanguageHelper.getCurrentLocale()));
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM YYYY", new Locale(LanguageHelper.getCurrentLocale()));
         String titleMonth = sdf.format(currentDate.getTime());
         // Capitalize first letter
         titleMonth = titleMonth.substring(0, 1).toUpperCase() + titleMonth.substring(1);

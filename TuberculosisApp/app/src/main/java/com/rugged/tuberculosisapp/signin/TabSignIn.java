@@ -88,30 +88,35 @@ public class TabSignIn extends Fragment {
             canSignIn = false;
             Retrofit retrofit = new RetrofitClientInstance().getRetrofitInstance();
             ServerAPI serverAPI = retrofit.create(ServerAPI.class);
-            Call<ResponseBody> call = serverAPI.login(account);
+            final Call<ResponseBody> call = serverAPI.login(account);
 
-            call.enqueue(new Callback<ResponseBody>() {
+            Thread t = new Thread(new Runnable() {
                 @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    Log.d(TAG, "onResponse: Server Response: " + response.toString());
-                    if (response.code() == 200) { // 200 means the login was successful
-                        try { // The response body will return the following: {"token":"String containing api_token for authorization of requests"}
+                public void run() {
+                    try {
+                        Response <ResponseBody> response = call.execute();
+                        if (response.code() == 200) { // 200 means the login was successful
+                            // The response body will return the following: {"token":"String containing api_token for authorization of requests"}
                             String token = response.body().string(); // First we retrieve the response
-                            token = token.split(":")[1]; // Now we get the part after the ":"
+                            // token = token.split(":")[1]; // Now we get the part after the ":"
                             token = token.substring(1, token.length()-2); // Now we will remove the closing bracket and the " signs yielding the token
                             userAPIToken = token; // Save the token (will be needed for other API calls TODO find out why it does not get saved??
                             canSignIn = true; // TODO find out why it does not save true to signIn??
                             Log.d(TAG,"userAPIToken = " + token);
-                        } catch (IOException e) {
-                            e.printStackTrace();
                         }
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Log.e(TAG, "onFailure: Something went wrong: " + t.getMessage());
-                }
             });
+
+            t.start();
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             System.out.println("canSignIn = " + canSignIn);  // TODO always prints false??
             System.out.println("userAPIToken = " + userAPIToken); // TODO never gets set??
             return canSignIn;

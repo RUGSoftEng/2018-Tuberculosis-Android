@@ -36,6 +36,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
-        android:alpha=".90" />
+        android:alpha=".6"/>
 
 </FrameLayout>

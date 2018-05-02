@@ -63,9 +63,10 @@ public class CalendarAdapter extends ArrayAdapter<Date> {
 
         if (month != today.getMonth() || year != today.getYear()) {
             // If this day is outside current month, grey it out
-            textDayNumber.setTextColor(mContext.getResources().getColor(android.R.color.darker_gray));
+            textDayNumber.setTextColor(Color.rgb(100, 100, 100));
         } else if (day == today.getDate()) {
             // If it is today, set it to blue/bold
+            // TODO: circle around today
             textDayNumber.setTypeface(null, Typeface.BOLD);
             textDayNumber.setTextColor(mContext.getResources().getColor(android.R.color.holo_blue_bright));
         }
@@ -85,7 +86,7 @@ public class CalendarAdapter extends ArrayAdapter<Date> {
                             // Not taken, add red cross
                             if (month != today.getMonth() || day != today.getDate()) {
                                 takenOverlay.setImageResource(R.drawable.ic_cross);
-                                takenOverlay.setAlpha((float)0.75);
+                                takenOverlay.setAlpha((float)0.45);
                             } else {
                                 takenOverlay.setImageResource(0);
                             }

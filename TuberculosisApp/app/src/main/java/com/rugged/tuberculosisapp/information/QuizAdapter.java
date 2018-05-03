@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.rugged.tuberculosisapp.R;
@@ -41,10 +42,13 @@ public class QuizAdapter extends ArrayAdapter<Quiz> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_quiz, parent, false);
         }
 
-        TextView categoryTitle = (TextView) convertView.findViewById(R.id.quizList);
-
+        TextView quizQuestion = (TextView) convertView.findViewById(R.id.quizQuestion);
+        RadioGroup quizOptions  = (RadioGroup) convertView.findViewById(R.id.quizOptions);
         if (quiz != null) {
-            categoryTitle.setText(quiz.getQuestion());
+            quizQuestion.setText(quiz.getQuestion());
+            List<String> options = quiz.getOptions();
+            if(quiz.getOptions() != null){
+            }
         }
 
         return convertView;

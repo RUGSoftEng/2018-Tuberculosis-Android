@@ -1,5 +1,6 @@
 package com.rugged.tuberculosisapp.information;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -33,6 +35,7 @@ public class QuizAdapter extends ArrayAdapter<Quiz> {
         }
     }
 
+    @SuppressLint("ResourceType")
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -45,9 +48,20 @@ public class QuizAdapter extends ArrayAdapter<Quiz> {
         TextView quizQuestion = (TextView) convertView.findViewById(R.id.quizQuestion);
         RadioGroup quizOptions  = (RadioGroup) convertView.findViewById(R.id.quizOptions);
         if (quiz != null) {
-            quizQuestion.setText(quiz.getQuestion());
-            List<String> options = quiz.getOptions();
-            if(quiz.getOptions() != null){
+            for(Quiz question: mquizList) {
+                quizQuestion.setText(question.getQuestion());
+                List<String> options = question.getOptions();
+                if (options != null) {
+                    for (String option : options) {
+                        RadioButton button = new RadioButton(mContext);
+                        if(option.equals(question.getAnswer())){
+                            button.setId(1);
+                        } else{
+                            button.setId(2);
+                        }
+                        quizOptions.addView(button);
+                    }
+                }
             }
         }
 

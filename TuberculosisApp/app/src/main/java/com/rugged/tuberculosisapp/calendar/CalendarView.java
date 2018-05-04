@@ -210,9 +210,14 @@ public class CalendarView extends LinearLayout {
                                 Boolean isTaken = jsonResponse.getTaken();
                                 Medication medication = new Medication(name, time, amount, isTaken);
 
-                                ArrayList<Medication> medicationList = new ArrayList<>();
+                                ArrayList<Medication> medicationList;
+                                // If there already exists a list for this date retrieve it
+                                if (mEvents.containsKey(date)) {
+                                    medicationList = mEvents.get(date);
+                                } else {
+                                    medicationList = new ArrayList<>();
+                                }
                                 medicationList.add(medication);
-
                                 mEvents.put(date, medicationList);
                             }
                         } catch (Exception e) {

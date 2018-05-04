@@ -13,25 +13,35 @@ import android.widget.TextView;
 
 import com.rugged.tuberculosisapp.R;
 import com.rugged.tuberculosisapp.medication.Medication;
+import com.rugged.tuberculosisapp.medication.Time;
+import com.rugged.tuberculosisapp.network.RetrofitClientInstance;
+import com.rugged.tuberculosisapp.network.ServerAPI;
 import com.rugged.tuberculosisapp.settings.LanguageHelper;
 
+import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 
 public class CalendarView extends LinearLayout {
 
     private Activity mActivity;
 
+    private HashMap<Date, ArrayList<Medication>> mEvents = new HashMap<>();
+
     // Current displayed month
     private Calendar currentDate = Calendar.getInstance();
-
-    // Calendar adapter
-    private HashMap<Date, ArrayList<Medication>> mEvents = null;
 
     // Internal components
     private LinearLayout header;
@@ -117,6 +127,9 @@ public class CalendarView extends LinearLayout {
      * Display dates correctly in grid
      */
     public void updateCalendar() {
+        if (TabCalendar.ENABLE_API) {
+            getDatesFromAPI();
+        }
         updateCalendar(null);
     }
 
@@ -158,12 +171,68 @@ public class CalendarView extends LinearLayout {
         // Update grid
         grid.setAdapter(new CalendarAdapter(getContext(), cells, mEvents));
 
-        // Update title to month, (conversion character MMMM..)
+        // Update title to month and year, (conversion characters MMMM YYYY..)
         SimpleDateFormat sdf = new SimpleDateFormat("MMMM YYYY", new Locale(LanguageHelper.getCurrentLocale()));
         String titleMonth = sdf.format(currentDate.getTime());
         // Capitalize first letter
         titleMonth = titleMonth.substring(0, 1).toUpperCase() + titleMonth.substring(1);
         txtDate.setText(titleMonth);
+    }
+
+    private void getDatesFromAPI() {
+        Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
+        ServerAPI serverAPI = retrofit.create(ServerAPI.class);
+        // TODO: change patient_id and access_token to values stored after successful login
+        final Call<List<JSONResponse>> call = serverAPI.getCalendarData(2,
+                "2018-05-01", "2018-06-01", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IlBhc3N3b3JkIiwidXNlcm5hbWUiOiJVc2VybmFtZSJ9.Ph4KPcfL-ykh_Wj7K0sg_lKe7eJthjDh7ABb9KHrMZU");
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Response<List<JSONResponse>> response = call.execute();
+
+                    // Successful API call
+                    if (response.code() == 200) {
+                        try {
+                            for (JSONResponse jsonResponse : response.body()) {
+                                Locale locale = new Locale(LanguageHelper.getCurrentLocale());
+                                DateFormat format = new SimpleDateFormat("yyyy-MM-dd", locale);
+                                Date date = format.parse(jsonResponse.getDate());
+
+                                format = new SimpleDateFormat("HH:mm:ss", locale);
+                                Date dt = format.parse(jsonResponse.getDosage().getIntakeMoment());
+                                Calendar cal = Calendar.getInstance();
+                                cal.setTime(dt);
+                                Time time = new Time(cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE));
+                                String name = jsonResponse.getDosage().getMedicine().getName();
+                                int amount = jsonResponse.getDosage().getAmount();
+                                Boolean isTaken = jsonResponse.getTaken();
+                                Medication medication = new Medication(name, time, amount, isTaken);
+
+                                ArrayList<Medication> medicationList = new ArrayList<>();
+                                medicationList.add(medication);
+
+                                mEvents.put(date, medicationList);
+                            }
+                        } catch (Exception e) {
+                            // TODO: advanced exception handling, catch specific exceptions: nullPointer, parse etc.
+                            e.printStackTrace();
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        t.start();
+        try {
+            // Wait for the thread to finish
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setActivity(Activity activity) {

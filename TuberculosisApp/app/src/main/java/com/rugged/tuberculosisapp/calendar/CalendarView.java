@@ -128,6 +128,7 @@ public class CalendarView extends LinearLayout {
      */
     public void updateCalendar() {
         if (TabCalendar.ENABLE_API) {
+            mEvents.clear();
             getDatesFromAPI();
         }
         updateCalendar(null);

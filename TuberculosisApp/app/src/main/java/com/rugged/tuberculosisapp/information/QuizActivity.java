@@ -69,40 +69,7 @@ public class QuizActivity extends AppCompatActivity {
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
        boolean checked = ((RadioButton) view).isChecked();
-       switch (view.getId()) {
-           case R.id.correct_answer1:
-               if (checked)
-                   correct[0] = true;
-                   break;
-           case R.id.correct_answer2:
-               if (checked)
-                   correct[1] = true;
-                   break;
-           case R.id.correct_answer3:
-               if (checked)
-                   correct[2] = true;
-                   break;
-           case R.id.correct_answer4:
-               if (checked)
-                   correct[3] = true;
-                   break;
-           case R.id.wrong_answer1:
-               if (checked)
-                   correct[0] = false;
-                   break;
-           case R.id.wrong_answer2:
-               if (checked)
-                   correct[1] = false;
-                   break;
-           case R.id.wrong_answer3:
-               if (checked)
-                   correct[2] = false;
-                   break;
-           case R.id.wrong_answer4:
-               if (checked)
-                   correct[3] = false;
-                   break;
-       }
+
     }
 
     public void submitQuiz(View view){

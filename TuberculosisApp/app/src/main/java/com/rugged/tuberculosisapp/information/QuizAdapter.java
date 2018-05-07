@@ -42,24 +42,23 @@ public class QuizAdapter extends ArrayAdapter<Quiz> {
         Quiz quiz = getItem(position);
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_quiz, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.quiz_question, parent, false);
         }
 
         TextView quizQuestion = (TextView) convertView.findViewById(R.id.quizQuestion);
         RadioGroup quizOptions  = (RadioGroup) convertView.findViewById(R.id.quizOptions);
         if (quiz != null) {
+            int i = 0;
             for(Quiz question: mquizList) {
                 quizQuestion.setText(question.getQuestion());
                 List<String> options = question.getOptions();
                 if (options != null) {
                     for (String option : options) {
                         RadioButton button = new RadioButton(mContext);
-                        if(option.equals(question.getAnswer())){
-                            button.setId(1);
-                        } else{
-                            button.setId(2);
-                        }
+                        button.setText(option);
+                        button.setId(i);
                         quizOptions.addView(button);
+                        i++;
                     }
                 }
             }

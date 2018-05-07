@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import static android.view.Window.FEATURE_NO_TITLE;
+
 public class ViewDayFragment extends DialogFragment {
 
     private CalendarView calendarView;
@@ -32,7 +34,7 @@ public class ViewDayFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_view_day, container, false);
-        setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Dialog);
+        getDialog().requestWindowFeature(FEATURE_NO_TITLE);
 
         TextView titleMedicationDialog = view.findViewById(R.id.titleMedicationDialog);
         ListView medicationListView = view.findViewById(R.id.medicationListDialog);

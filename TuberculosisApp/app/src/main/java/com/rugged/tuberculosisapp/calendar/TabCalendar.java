@@ -21,7 +21,7 @@ public class TabCalendar extends Fragment {
 
     public static final String TITLE = "TabCalendar";
     private static HashMap<Date, ArrayList<Medication>> events = new HashMap<>();
-    public static final boolean ENABLE_API = true;
+    public static final boolean ENABLE_API = false;
 
     @Nullable
     @Override

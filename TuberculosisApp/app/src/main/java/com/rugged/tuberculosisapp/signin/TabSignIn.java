@@ -87,7 +87,7 @@ public class TabSignIn extends Fragment {
     private boolean authenticate(Account account) {
         if (IS_CONNECTED_TO_DATABASE) {
             canSignIn = false;
-            Retrofit retrofit = new RetrofitClientInstance().getRetrofitInstance();
+            Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
             ServerAPI serverAPI = retrofit.create(ServerAPI.class);
             final Call<ResponseBody> call = serverAPI.login(account);
 

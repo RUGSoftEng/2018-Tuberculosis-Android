@@ -20,25 +20,28 @@ import java.util.HashMap;
 public class TabCalendar extends Fragment {
 
     public static final String TITLE = "TabCalendar";
-    private static HashMap<Date, ArrayList<Medication>> events;
+    private static HashMap<Date, ArrayList<Medication>> events = new HashMap<>();
+    public static final boolean ENABLE_API = false;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tab_calendar, container, false);
 
-        // Initialize medication on different days
-        initializeMedication();
-
         CalendarView cv = view.findViewById(R.id.calendarView);
         cv.setActivity(getActivity());
-        cv.updateCalendar(events);
+
+        if (ENABLE_API) {
+            cv.updateCalendar();
+        } else {
+            initializeMedication();
+            cv.updateCalendar(events);
+        }
 
         return view;
     }
 
     private void initializeMedication() {
-        events = new HashMap<>();
         ArrayList<Medication> medicationList = new ArrayList<>();
         ArrayList<Medication> medicationList2 = new ArrayList<>();
         ArrayList<Medication> medicationList3 = new ArrayList<>();
@@ -62,7 +65,7 @@ public class TabCalendar extends Fragment {
         events.put(new Date(cal.getTimeInMillis()), medicationList2);
         cal.set(2018, 2, 23);
         events.put(new Date(cal.getTimeInMillis()), medicationList3);
-        cal.set(2018, 4, 2);
+        cal.set(2018, 4, 4);
         events.put(new Date(cal.getTimeInMillis()), medicationList3);
     }
 

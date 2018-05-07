@@ -1,6 +1,6 @@
 package com.rugged.tuberculosisapp.network;
 
-import com.rugged.tuberculosisapp.calendar.JSONResponse;
+import com.rugged.tuberculosisapp.calendar.CalendarJSONHolder;
 import com.rugged.tuberculosisapp.signin.Account;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public interface ServerAPI {
 
     @Headers("Content-Type: application/json")
     @GET("accounts/patients/{id}/dosages/scheduled")
-    Call<List<JSONResponse>> getCalendarData(
+    Call<List<CalendarJSONHolder>> getCalendarData(
             @Path("id") int patient_id,
             @Query("from") String from_date, @Query("until") String until_date,
             @Header("access_token") String access_token

@@ -1,6 +1,6 @@
 package com.rugged.tuberculosisapp.calendar;
 
-public class JSONResponse {
+public class CalendarJSONHolder {
 
     private Dosage dosage;
     private String date;

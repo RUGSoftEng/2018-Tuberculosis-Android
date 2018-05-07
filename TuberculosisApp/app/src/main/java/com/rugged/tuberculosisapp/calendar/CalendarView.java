@@ -50,6 +50,8 @@ public class CalendarView extends LinearLayout {
     private TextView txtDate;
     private GridView grid;
 
+    Locale mLocale = new Locale(LanguageHelper.getCurrentLocale());
+
     public CalendarView(Context context) {
         super(context);
     }
@@ -173,7 +175,7 @@ public class CalendarView extends LinearLayout {
         grid.setAdapter(new CalendarAdapter(getContext(), cells, mEvents));
 
         // Update title to month and year, (conversion characters MMMM YYYY..)
-        SimpleDateFormat sdf = new SimpleDateFormat("MMMM YYYY", new Locale(LanguageHelper.getCurrentLocale()));
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM YYYY", mLocale);
         String titleMonth = sdf.format(currentDate.getTime());
         // Capitalize first letter
         titleMonth = titleMonth.substring(0, 1).toUpperCase() + titleMonth.substring(1);
@@ -183,25 +185,32 @@ public class CalendarView extends LinearLayout {
     private void getDatesFromAPI() {
         Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
         ServerAPI serverAPI = retrofit.create(ServerAPI.class);
+
+        Calendar cal = (Calendar) currentDate.clone();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-01", mLocale);
+        String fromDate = sdf.format(cal.getTime());
+        cal.add(Calendar.MONTH, 1);
+        String toDate = sdf.format(cal.getTime());
+
         // TODO: change patient_id and access_token to values stored after successful login
-        final Call<List<JSONResponse>> call = serverAPI.getCalendarData(2,
-                "2018-05-01", "2018-06-01", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IlBhc3N3b3JkIiwidXNlcm5hbWUiOiJVc2VybmFtZSJ9.Ph4KPcfL-ykh_Wj7K0sg_lKe7eJthjDh7ABb9KHrMZU");
+        final Call<List<CalendarJSONHolder>> call = serverAPI.getCalendarData(2,
+                fromDate, toDate, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IlBhc3N3b3JkIiwidXNlcm5hbWUiOiJVc2VybmFtZSJ9.Ph4KPcfL-ykh_Wj7K0sg_lKe7eJthjDh7ABb9KHrMZU");
 
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Response<List<JSONResponse>> response = call.execute();
+                    Response<List<CalendarJSONHolder>> response = call.execute();
 
                     // Successful API call
                     if (response.code() == 200) {
                         try {
-                            for (JSONResponse jsonResponse : response.body()) {
-                                Locale locale = new Locale(LanguageHelper.getCurrentLocale());
-                                DateFormat format = new SimpleDateFormat("yyyy-MM-dd", locale);
+                            for (CalendarJSONHolder jsonResponse : response.body()) {
+
+                                DateFormat format = new SimpleDateFormat("yyyy-MM-dd", mLocale);
                                 Date date = format.parse(jsonResponse.getDate());
 
-                                format = new SimpleDateFormat("HH:mm:ss", locale);
+                                format = new SimpleDateFormat("HH:mm:ss", mLocale);
                                 Date dt = format.parse(jsonResponse.getDosage().getIntakeMoment());
                                 Calendar cal = Calendar.getInstance();
                                 cal.setTime(dt);

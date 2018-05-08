@@ -39,7 +39,7 @@
     <string name="friday">Fr</string>
     <string name="saturday">Sa</string>
     <string name="sunday">So</string>
-    <string name="action_sign_out">Abmelden</string>
+    <string name="action_sign_out">Ausloggen</string>
     <string name="action_test_reminder">Test Erinnerung</string>
     <string name="pref_alarm_sound">Alarmton</string>
     <string name="pref_alarm_silent">Ton abspielen während Alarm</string>
@@ -49,4 +49,6 @@
     <string name="title_achievements">Errungenschaften</string>
     <string name="action_save">Speichern</string>
     <string name="invalidLogIn">"Ungültiger Benutzername oder Passwort."</string>
+    <string name="account_type">TubuddyPatientAccount</string>
+    <string name="token_label">Vollständigen Zugriff auf ein TuBuddy Patientenkonto</string>
 </resources>

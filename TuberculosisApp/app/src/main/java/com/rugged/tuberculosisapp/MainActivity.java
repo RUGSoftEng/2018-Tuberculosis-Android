@@ -1,5 +1,7 @@
 package com.rugged.tuberculosisapp;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -27,6 +29,8 @@ import com.rugged.tuberculosisapp.medication.TabMedication;
 import com.rugged.tuberculosisapp.notes.TabNotes;
 import com.rugged.tuberculosisapp.reminders.ReminderTestActivity;
 import com.rugged.tuberculosisapp.settings.SettingsActivity;
+import com.rugged.tuberculosisapp.signin.Identification;
+import com.rugged.tuberculosisapp.signin.SignInActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,6 +51,12 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int NEW_SETTING = 1;
     public static final int NEW_LANGUAGE = 2;
+
+    // Boolean to enable API calls
+    public static final boolean ENABLE_API = false;
+
+    // TODO: Move this elsewhere
+    public static Identification identification = new Identification();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -128,7 +138,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_sign_out) {
-            //TODO: Sign out option
+            AccountManager am = AccountManager.get(this);
+            Account account = am.getAccounts()[0];
+            am.invalidateAuthToken(account.type, MainActivity.identification.getToken());
+            // TODO: Do we want to remove the account as well? If so uncomment..
+            //am.removeAccount(account, null, null);
+
+            Intent intent = new Intent(this, SignInActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

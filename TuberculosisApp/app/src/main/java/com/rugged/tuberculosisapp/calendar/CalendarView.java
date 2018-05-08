@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.rugged.tuberculosisapp.MainActivity;
 import com.rugged.tuberculosisapp.R;
 import com.rugged.tuberculosisapp.medication.Medication;
 import com.rugged.tuberculosisapp.medication.Time;
@@ -134,7 +135,7 @@ public class CalendarView extends LinearLayout {
      * Display dates correctly in grid
      */
     public void updateCalendar() {
-        if (TabCalendar.ENABLE_API) {
+        if (MainActivity.ENABLE_API) {
             mEvents.clear();
             getDatesFromAPI();
         }
@@ -197,9 +198,8 @@ public class CalendarView extends LinearLayout {
         cal.add(Calendar.MONTH, 1);
         String toDate = sdf.format(cal.getTime());
 
-        // TODO: change patient_id and access_token to values stored after successful login
-        final Call<List<CalendarJSONHolder>> call = serverAPI.getCalendarData(2,
-                fromDate, toDate, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IlBhc3N3b3JkIiwidXNlcm5hbWUiOiJVc2VybmFtZSJ9.Ph4KPcfL-ykh_Wj7K0sg_lKe7eJthjDh7ABb9KHrMZU");
+        final Call<List<CalendarJSONHolder>> call = serverAPI.getCalendarData(MainActivity.identification.getId(),
+                fromDate, toDate, MainActivity.identification.getToken());
 
         Thread t = new Thread(new Runnable() {
             @Override

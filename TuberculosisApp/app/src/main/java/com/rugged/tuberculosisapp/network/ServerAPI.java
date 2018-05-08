@@ -2,10 +2,10 @@ package com.rugged.tuberculosisapp.network;
 
 import com.rugged.tuberculosisapp.calendar.CalendarJSONHolder;
 import com.rugged.tuberculosisapp.signin.Account;
+import com.rugged.tuberculosisapp.signin.Identification;
 
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -19,7 +19,7 @@ public interface ServerAPI {
 
     @Headers("Content-Type: application/json")
     @POST("accounts/login")
-    Call<ResponseBody> login(
+    Call<Identification> login(
             @Body Account account
     );
 

@@ -4,18 +4,15 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.rugged.tuberculosisapp.R;
 import com.rugged.tuberculosisapp.SectionsPagerAdapter;
-import com.rugged.tuberculosisapp.signin.TabSignIn;
 
 public class SignInActivity extends AppCompatActivity {
 

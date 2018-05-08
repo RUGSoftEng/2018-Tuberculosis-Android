@@ -24,9 +24,7 @@ import com.rugged.tuberculosisapp.network.ServerAPI;
 
 import java.io.IOException;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
@@ -37,7 +35,8 @@ public class TabSignIn extends Fragment {
 
     public static final String TITLE = "TabSignIn";
     private static final boolean IS_CONNECTED_TO_DATABASE = false; // TODO remove when authentication goes through server
-    public static String userAPIToken = "";
+
+    public static Identification identification;
     private boolean canSignIn = false;
 
     private static final Account[] DUMMY_ACCOUNTS = new Account[] { // TODO remove when authentication goes through server
@@ -87,40 +86,39 @@ public class TabSignIn extends Fragment {
     private boolean authenticate(Account account) {
         if (IS_CONNECTED_TO_DATABASE) {
             canSignIn = false;
+
             Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
             ServerAPI serverAPI = retrofit.create(ServerAPI.class);
-            final Call<ResponseBody> call = serverAPI.login(account);
+
+            final Call<Identification> call = serverAPI.login(account);
 
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        Response <ResponseBody> response = call.execute();
+                        Response <Identification> response = call.execute();
                         if (response.code() == 200) { // 200 means the login was successful
-                            // The response body will return the following: {"token":"String containing api_token for authorization of requests"}
-                            String token = response.body().string(); // First we retrieve the response
-                            // token = token.split(":")[1]; // Now we get the part after the ":"
-                            token = token.substring(1, token.length()-2); // Now we will remove the closing bracket and the " signs yielding the token
-                            userAPIToken = token; // Save the token (will be needed for other API calls TODO find out why it does not get saved??
-                            canSignIn = true; // TODO find out why it does not save true to signIn??
-                            Log.d(TAG,"userAPIToken = " + token);
+                            identification = response.body();
+                            Log.d(TAG,"userAPIToken = " + identification.getToken());
+                            Log.d(TAG,"userID = " + identification.getId());
+                            canSignIn = true;
                         }
                     } catch (IOException e) {
+                        // TODO add more advanced exception handling
                         e.printStackTrace();
                     }
                 }
             });
 
             t.start();
-            try {
+            try { // This is done to make sure that the function waits with returning until the API call is finished
                 t.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-            System.out.println("canSignIn = " + canSignIn);  // TODO always prints false??
-            System.out.println("userAPIToken = " + userAPIToken); // TODO never gets set??
             return canSignIn;
+
         } else {
             for (int i = 0; i < DUMMY_ACCOUNTS.length; i++) {
                 if (account.getUsername().equals(DUMMY_ACCOUNTS[i].getUsername())

@@ -4,7 +4,6 @@ import android.accounts.AbstractAccountAuthenticator;
 import android.accounts.Account;
 import android.accounts.AccountAuthenticatorResponse;
 import android.accounts.AccountManager;
-import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -84,38 +83,4 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
         return null;
     }
 
-    @Override
-    public Bundle getAccountRemovalAllowed(AccountAuthenticatorResponse response, Account account) throws NetworkErrorException {
-        return super.getAccountRemovalAllowed(response, account);
-    }
-
-    @Override
-    public Bundle getAccountCredentialsForCloning(AccountAuthenticatorResponse response, Account account) throws NetworkErrorException {
-        return super.getAccountCredentialsForCloning(response, account);
-    }
-
-    @Override
-    public Bundle addAccountFromCredentials(AccountAuthenticatorResponse response, Account account, Bundle accountCredentials) throws NetworkErrorException {
-        return super.addAccountFromCredentials(response, account, accountCredentials);
-    }
-
-    @Override
-    public Bundle startAddAccountSession(AccountAuthenticatorResponse response, String accountType, String authTokenType, String[] requiredFeatures, Bundle options) throws NetworkErrorException {
-        return super.startAddAccountSession(response, accountType, authTokenType, requiredFeatures, options);
-    }
-
-    @Override
-    public Bundle startUpdateCredentialsSession(AccountAuthenticatorResponse response, Account account, String authTokenType, Bundle options) throws NetworkErrorException {
-        return super.startUpdateCredentialsSession(response, account, authTokenType, options);
-    }
-
-    @Override
-    public Bundle finishSession(AccountAuthenticatorResponse response, String accountType, Bundle sessionBundle) throws NetworkErrorException {
-        return super.finishSession(response, accountType, sessionBundle);
-    }
-
-    @Override
-    public Bundle isCredentialsUpdateSuggested(AccountAuthenticatorResponse response, Account account, String statusToken) throws NetworkErrorException {
-        return super.isCredentialsUpdateSuggested(response, account, statusToken);
-    }
 }

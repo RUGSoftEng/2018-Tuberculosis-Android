@@ -1,9 +1,9 @@
 package com.rugged.tuberculosisapp.signin;
 
+import android.accounts.AccountManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,15 +30,22 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-import static android.content.ContentValues.TAG;
+import static com.rugged.tuberculosisapp.MainActivity.ENABLE_API;
 
 
 public class TabSignIn extends Fragment {
 
     public static final String TITLE = "TabSignIn";
-    private static final boolean IS_CONNECTED_TO_DATABASE = false; // TODO remove when authentication goes through server
-    public static String userAPIToken = "";
+
+    public static final String ACCOUNT_TYPE = "TubuddyPatientAccount";
+    public static final String TOKEN_TYPE = "access_token";
+    public static final String KEY_PATIENT_ID = "patient_id";
+
     private boolean canSignIn = false;
+
+    private static Account mAccount;
+
+    private AccountManager mAccountManager;
 
     private static final Account[] DUMMY_ACCOUNTS = new Account[] { // TODO remove when authentication goes through server
         new Account("admin", "admin"),
@@ -54,6 +61,7 @@ public class TabSignIn extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tab_sign_in, container, false);
+        mAccountManager = AccountManager.get(getContext());
 
         Button signInButton = view.findViewById(R.id.signInButton);
         final EditText textUsername = view.findViewById(R.id.textUsername);
@@ -65,8 +73,9 @@ public class TabSignIn extends Fragment {
             public void onClick(View v) {
                 String username = textUsername.getText().toString();
                 String password = textPassword.getText().toString();
+                mAccount = new Account(username, password);
                 invalidText.removeAllViews();
-                if (authenticate(new Account(username, password))) {
+                if (authenticate(mAccount)) {
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
                 } else {
@@ -85,42 +94,40 @@ public class TabSignIn extends Fragment {
     }
 
     private boolean authenticate(Account account) {
-        if (IS_CONNECTED_TO_DATABASE) {
+        if (ENABLE_API) {
             canSignIn = false;
+
             Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
             ServerAPI serverAPI = retrofit.create(ServerAPI.class);
-            final Call<ResponseBody> call = serverAPI.login(account);
+
+            final Call<Identification> call = serverAPI.login(account);
 
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        Response <ResponseBody> response = call.execute();
+                        Response <Identification> response = call.execute();
                         if (response.code() == 200) { // 200 means the login was successful
-                            // The response body will return the following: {"token":"String containing api_token for authorization of requests"}
-                            String token = response.body().string(); // First we retrieve the response
-                            // token = token.split(":")[1]; // Now we get the part after the ":"
-                            token = token.substring(1, token.length()-2); // Now we will remove the closing bracket and the " signs yielding the token
-                            userAPIToken = token; // Save the token (will be needed for other API calls TODO find out why it does not get saved??
-                            canSignIn = true; // TODO find out why it does not save true to signIn??
-                            Log.d(TAG,"userAPIToken = " + token);
+                            MainActivity.identification = response.body();
+                            createAccount(response.body().getId(), response.body().getToken());
+                            canSignIn = true;
                         }
                     } catch (IOException e) {
+                        // TODO add more advanced exception handling
                         e.printStackTrace();
                     }
                 }
             });
 
             t.start();
-            try {
+            try { // This is done to make sure that the function waits with returning until the API call is finished
                 t.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-            System.out.println("canSignIn = " + canSignIn);  // TODO always prints false??
-            System.out.println("userAPIToken = " + userAPIToken); // TODO never gets set??
             return canSignIn;
+
         } else {
             for (int i = 0; i < DUMMY_ACCOUNTS.length; i++) {
                 if (account.getUsername().equals(DUMMY_ACCOUNTS[i].getUsername())
@@ -131,4 +138,13 @@ public class TabSignIn extends Fragment {
             return false;
         }
     }
+
+    private void createAccount(int patientId, String authToken) {
+        android.accounts.Account account = new android.accounts.Account(mAccount.getUsername(), ACCOUNT_TYPE);
+
+        mAccountManager.addAccountExplicitly(account, mAccount.getPassword(), null);
+        mAccountManager.setAuthToken(account, TOKEN_TYPE, authToken);
+        mAccountManager.setUserData(account, KEY_PATIENT_ID, Integer.toString(patientId));
+    }
+
 }

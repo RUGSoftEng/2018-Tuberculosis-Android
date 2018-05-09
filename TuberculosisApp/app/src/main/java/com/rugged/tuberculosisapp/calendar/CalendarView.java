@@ -3,7 +3,6 @@ package com.rugged.tuberculosisapp.calendar;
 import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -11,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.rugged.tuberculosisapp.MainActivity;
 import com.rugged.tuberculosisapp.R;
 import com.rugged.tuberculosisapp.medication.Medication;
 import com.rugged.tuberculosisapp.medication.Time;
@@ -24,7 +24,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -50,7 +49,7 @@ public class CalendarView extends LinearLayout {
     private TextView txtDate;
     private GridView grid;
 
-    Locale mLocale = new Locale(LanguageHelper.getCurrentLocale());
+    private Locale mLocale = new Locale(LanguageHelper.getCurrentLocale());
 
     public CalendarView(Context context) {
         super(context);
@@ -70,8 +69,7 @@ public class CalendarView extends LinearLayout {
      * Load control xml layout
      */
     private void initControl(Context context) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.control_calendar, this);
+        inflate(context, R.layout.control_calendar, this);
 
         assignUiElements();
         assignClickHandlers();
@@ -87,13 +85,22 @@ public class CalendarView extends LinearLayout {
         grid = (GridView) findViewById(R.id.calendar_grid);
     }
 
+    private void onNextMonth() {
+        currentDate.add(Calendar.MONTH, 1);
+        updateCalendar();
+    }
+
+    private void onPreviousMonth() {
+        currentDate.add(Calendar.MONTH, -1);
+        updateCalendar();
+    }
+
     private void assignClickHandlers() {
         // Add one month and refresh UI
         btnNext.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentDate.add(Calendar.MONTH, 1);
-                updateCalendar();
+                onNextMonth();
             }
         });
 
@@ -101,8 +108,7 @@ public class CalendarView extends LinearLayout {
         btnPrev.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentDate.add(Calendar.MONTH, -1);
-                updateCalendar();
+                onPreviousMonth();
             }
         });
 
@@ -129,7 +135,7 @@ public class CalendarView extends LinearLayout {
      * Display dates correctly in grid
      */
     public void updateCalendar() {
-        if (TabCalendar.ENABLE_API) {
+        if (MainActivity.ENABLE_API) {
             mEvents.clear();
             getDatesFromAPI();
         }
@@ -174,8 +180,8 @@ public class CalendarView extends LinearLayout {
         // Update grid
         grid.setAdapter(new CalendarAdapter(getContext(), cells, mEvents));
 
-        // Update title to month and year, (conversion characters MMMM YYYY..)
-        SimpleDateFormat sdf = new SimpleDateFormat("MMMM YYYY", mLocale);
+        // Update title to month and year, (conversion characters MMMM yyyy..)
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM yyyy", mLocale);
         String titleMonth = sdf.format(currentDate.getTime());
         // Capitalize first letter
         titleMonth = titleMonth.substring(0, 1).toUpperCase() + titleMonth.substring(1);
@@ -192,9 +198,8 @@ public class CalendarView extends LinearLayout {
         cal.add(Calendar.MONTH, 1);
         String toDate = sdf.format(cal.getTime());
 
-        // TODO: change patient_id and access_token to values stored after successful login
-        final Call<List<CalendarJSONHolder>> call = serverAPI.getCalendarData(2,
-                fromDate, toDate, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IlBhc3N3b3JkIiwidXNlcm5hbWUiOiJVc2VybmFtZSJ9.Ph4KPcfL-ykh_Wj7K0sg_lKe7eJthjDh7ABb9KHrMZU");
+        final Call<List<CalendarJSONHolder>> call = serverAPI.getCalendarData(MainActivity.identification.getId(),
+                fromDate, toDate, MainActivity.identification.getToken());
 
         Thread t = new Thread(new Runnable() {
             @Override

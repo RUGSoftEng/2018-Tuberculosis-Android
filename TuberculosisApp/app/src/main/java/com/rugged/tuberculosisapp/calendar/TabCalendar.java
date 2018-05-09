@@ -17,11 +17,12 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 
+import static com.rugged.tuberculosisapp.MainActivity.ENABLE_API;
+
 public class TabCalendar extends Fragment {
 
     public static final String TITLE = "TabCalendar";
     private static HashMap<Date, ArrayList<Medication>> events = new HashMap<>();
-    public static final boolean ENABLE_API = false;
 
     @Nullable
     @Override

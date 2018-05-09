@@ -3,6 +3,7 @@ package com.rugged.tuberculosisapp.signin;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,19 +19,35 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rugged.tuberculosisapp.MainActivity;
+import com.rugged.tuberculosisapp.network.RetrofitClientInstance;
+import com.rugged.tuberculosisapp.network.ServerAPI;
+
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
+import static android.content.ContentValues.TAG;
 
 
 public class TabSignIn extends Fragment {
 
     public static final String TITLE = "TabSignIn";
-    // TODO remove DUMMY_ACCOUNTS when authentication goes through database
-    private static final Account[] DUMMY_ACCOUNTS = new Account[] {
+    private static final boolean IS_CONNECTED_TO_DATABASE = false; // TODO remove when authentication goes through server
+    public static String userAPIToken = "";
+    private boolean canSignIn = false;
+
+    private static final Account[] DUMMY_ACCOUNTS = new Account[] { // TODO remove when authentication goes through server
         new Account("admin", "admin"),
         new Account("marco", "marco"),
         new Account("niek", "niek"),
         new Account("pj", "pj"),
         new Account("robert", "robert"),
-        new Account("roel", "roel")
+        new Account("roel", "roel"),
+        new Account("", "")
     };
 
     @Nullable
@@ -67,14 +84,51 @@ public class TabSignIn extends Fragment {
         return view;
     }
 
-    // TODO change authentication function to call database (API)
     private boolean authenticate(Account account) {
-        for (int i = 0; i < DUMMY_ACCOUNTS.length; i++) {
-            if (account.getUsername().equals(DUMMY_ACCOUNTS[i].getUsername())
-                    && account.getPassword().equals(DUMMY_ACCOUNTS[i].getPassword())) {
-                return true;
+        if (IS_CONNECTED_TO_DATABASE) {
+            canSignIn = false;
+            Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
+            ServerAPI serverAPI = retrofit.create(ServerAPI.class);
+            final Call<ResponseBody> call = serverAPI.login(account);
+
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Response <ResponseBody> response = call.execute();
+                        if (response.code() == 200) { // 200 means the login was successful
+                            // The response body will return the following: {"token":"String containing api_token for authorization of requests"}
+                            String token = response.body().string(); // First we retrieve the response
+                            // token = token.split(":")[1]; // Now we get the part after the ":"
+                            token = token.substring(1, token.length()-2); // Now we will remove the closing bracket and the " signs yielding the token
+                            userAPIToken = token; // Save the token (will be needed for other API calls TODO find out why it does not get saved??
+                            canSignIn = true; // TODO find out why it does not save true to signIn??
+                            Log.d(TAG,"userAPIToken = " + token);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            t.start();
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+
+            System.out.println("canSignIn = " + canSignIn);  // TODO always prints false??
+            System.out.println("userAPIToken = " + userAPIToken); // TODO never gets set??
+            return canSignIn;
+        } else {
+            for (int i = 0; i < DUMMY_ACCOUNTS.length; i++) {
+                if (account.getUsername().equals(DUMMY_ACCOUNTS[i].getUsername())
+                        && account.getPassword().equals(DUMMY_ACCOUNTS[i].getPassword())) {
+                    return true;
+                }
+            }
+            return false;
         }
-        return false;
     }
 }

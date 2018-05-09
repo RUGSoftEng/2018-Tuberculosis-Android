@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.rugged.tuberculosisapp.R;
@@ -31,9 +32,24 @@ public class TabMedication extends Fragment {
 
         medicationListView = view.findViewById(R.id.medicationList);
 
-        MedicationListAdapter adapter = new MedicationListAdapter(this.getContext(), R.layout.medication_row, medicationList);
+        final MedicationListAdapter adapter = new MedicationListAdapter(this.getContext(), R.layout.medication_row, medicationList);
 
         medicationListView.setAdapter(adapter);
+
+        medicationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(medicationList != null) {
+                    ViewMedicationFragment viewMedicationFragment = new ViewMedicationFragment();
+                    Medication medication = adapter.getItem(i);
+                    viewMedicationFragment.setMedicationName(medication.getName());
+                    viewMedicationFragment.show(getActivity().getFragmentManager(), "ViewMedicationFragment");
+                }
+
+
+
+            }
+        });
 
         return view;
     }

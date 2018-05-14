@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int NEW_LANGUAGE = 2;
 
     // Boolean to enable API calls
-    public static final boolean ENABLE_API = true;
+    public static final boolean ENABLE_API = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

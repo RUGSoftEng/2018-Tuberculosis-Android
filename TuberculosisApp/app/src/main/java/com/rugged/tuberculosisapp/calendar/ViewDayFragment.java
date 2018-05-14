@@ -1,6 +1,7 @@
 package com.rugged.tuberculosisapp.calendar;
 
 import android.app.DialogFragment;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -141,11 +142,11 @@ public class ViewDayFragment extends DialogFragment {
                 try {
                     Response<ResponseBody> response = call.execute();
 
-                    // TODO: add strings to strings.xml
+                    Resources res = getResources();
                     if (response.code() == 200) {
-                        showToast("Medication updated.", Toast.LENGTH_SHORT);
+                        showToast(res.getString(R.string.data_updated, res.getString(R.string.title_medication)), Toast.LENGTH_SHORT);
                     } else {
-                        showToast("Saving failed!", Toast.LENGTH_LONG);
+                        showToast(res.getString(R.string.save_error, res.getString(R.string.title_medication)), Toast.LENGTH_LONG);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

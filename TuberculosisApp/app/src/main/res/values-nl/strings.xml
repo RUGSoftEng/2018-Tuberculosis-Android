@@ -51,4 +51,6 @@
     <string name="invalidLogIn">Ongeldige gebruikersnaam of wachtwoord.</string>
     <string name="account_type">TubuddyPatientAccount</string>
     <string name="token_label">Volledige toegang tot een TuBuddy patientenaccount</string>
+    <string name="data_updated">%1$s is bijgewerkt.</string>
+    <string name="save_error">%1$s kon niet worden bijgewerkt!</string>
 </resources>

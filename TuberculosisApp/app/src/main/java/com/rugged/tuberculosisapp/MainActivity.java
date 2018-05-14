@@ -28,6 +28,7 @@ import com.rugged.tuberculosisapp.calendar.TabCalendar;
 import com.rugged.tuberculosisapp.medication.TabMedication;
 import com.rugged.tuberculosisapp.notes.TabNotes;
 import com.rugged.tuberculosisapp.reminders.ReminderTestActivity;
+import com.rugged.tuberculosisapp.settings.LanguageHelper;
 import com.rugged.tuberculosisapp.settings.SettingsActivity;
 import com.rugged.tuberculosisapp.settings.UserData;
 import com.rugged.tuberculosisapp.signin.Identification;
@@ -58,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        // Set language
+        LanguageHelper.changeLocale(getResources(), UserData.getLocaleString());
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 

@@ -89,12 +89,14 @@ public class QuizActivity extends AppCompatActivity {
     }
     public void retrieveQuizList(){
         quizList = new ArrayList<Quiz>();
+        ArrayList<String> option = new ArrayList<String>();
+        option.add("Answer 1");
         ArrayList<String> options = new ArrayList<String>();
         options.add("Answer 1");
         options.add("Answer 2");
+        quizList.add(new Quiz("qUESTION 1?",option,"Answer 2"));
         options.add("Answer 3");
-        options.add("Answer 4");
-        quizList.add(new Quiz("Question 1",options,"Answer 1"));
         quizList.add(new Quiz("Question 2",options,"Answer 1"));
+
     }
 }

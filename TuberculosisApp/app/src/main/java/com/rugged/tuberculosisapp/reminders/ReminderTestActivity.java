@@ -36,7 +36,6 @@ public class ReminderTestActivity extends AppCompatActivity {
     private int dayOfMonth;
     private int hourOfDay;
     private int minute;
-    private int second;
 
     private static final int NOTIFICATION = 0;
     private static final int ALARM = 1;
@@ -65,15 +64,23 @@ public class ReminderTestActivity extends AppCompatActivity {
         };
     }
 
+    /**
+     * Initializes this class' date and time to the current
+     */
     public void initTime() {
         this.year = c.get(Calendar.YEAR);
         this.month = c.get(Calendar.MONTH);
         this.dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
         this.hourOfDay = c.get(Calendar.HOUR_OF_DAY);
         this.minute = c.get(Calendar.MINUTE);
-        this.second = c.get(Calendar.SECOND);
     }
 
+    /**
+     * Set the date fields of this class and update the date button text
+     * @param year year
+     * @param month month indexed from 0-11
+     * @param dayOfMonth day of month
+     */
     public void updateDateButton(int year, int month, int dayOfMonth) {
         this.year = year;
         this.month = month;
@@ -83,6 +90,11 @@ public class ReminderTestActivity extends AppCompatActivity {
         db.setText(date);
     }
 
+    /**
+     * Set the time fields of this class and update the text of the time button
+     * @param hourOfDay hour of day
+     * @param minute minute
+     */
     public void updateTimeButton(int hourOfDay, int minute) {
         this.hourOfDay = hourOfDay;
         this.minute = minute;
@@ -91,6 +103,10 @@ public class ReminderTestActivity extends AppCompatActivity {
         tb.setText(time);
     }
 
+    /**
+     * Opens and shows a date picker
+     * @param view view
+     */
     public void setDate(View view) {
         DatePickerDialog dialog = new DatePickerDialog(
                 this,
@@ -101,6 +117,10 @@ public class ReminderTestActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /**
+     * Opens and shows a time picker
+     * @param view view
+     */
     public void setTime(View view) {
         TimePickerDialog dialog = new TimePickerDialog(
                 this,
@@ -111,14 +131,26 @@ public class ReminderTestActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /**
+     * Sets a reminder of type notification
+     * @param view view
+     */
     public void setNotification(View view) {
         setReminder(NOTIFICATION);
     }
 
+    /**
+     * Sets a reminder of type alarm
+     * @param view view
+     */
     public void setAlarm(View view) {
         setReminder(ALARM);
     }
 
+    /**
+     * Shows a toast displaying the type and time that a reminder is set to
+     * @param type type of reminder (notification/alarm)
+     */
     public void showReminderToast(int type) {
         Button tb = findViewById(R.id.timeButton);
         Button db = findViewById(R.id.dateButton);
@@ -133,6 +165,10 @@ public class ReminderTestActivity extends AppCompatActivity {
         toast.show();
     }
 
+    /**
+     * Sets a reminder at the date and time of this class' fields.
+     * @param type type of reminder to be set (notification/alarm)
+     */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void setReminder(int type) {
         Intent intent = new Intent(this, ReminderHandler.class);

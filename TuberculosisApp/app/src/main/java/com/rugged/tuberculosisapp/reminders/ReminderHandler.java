@@ -22,13 +22,12 @@ public class ReminderHandler extends BroadcastReceiver {
         boolean switchValue = intent.getBooleanExtra(ReminderTestActivity.EXTRA_SWITCH, false);
         int reminderType = intent.getIntExtra(ReminderTestActivity.EXTRA_TYPE, 0);
 
-        if (switchValue) {
+        if (!switchValue) {
             if (reminderType == NOTIFICATION) {
                 showNotification(context);
             }
             if (reminderType == ALARM) {
-                Intent i = new Intent(context, AlarmActivity.class);
-                context.startActivity(i);
+                showAlarm(context);
             }
         }
     }
@@ -54,5 +53,10 @@ public class ReminderHandler extends BroadcastReceiver {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         // notificationId is a unique int for each notification that you must define
         notificationManager.notify(1, mBuilder.build());
+    }
+
+    public void showAlarm(Context context) {
+        Intent i = new Intent(context, AlarmActivity.class);
+        context.startActivity(i);
     }
 }

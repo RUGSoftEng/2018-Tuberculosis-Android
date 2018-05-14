@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        // Set language
+        // Update language
         LanguageHelper.changeLocale(getResources(), UserData.getLocaleString());
 
         super.onCreate(savedInstanceState);

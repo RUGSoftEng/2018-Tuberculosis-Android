@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,7 @@ public class QuizAdapter extends ArrayAdapter<Quiz> {
                 quizQuestion.setText(question.getQuestion());
                 List<String> options = question.getOptions();
                 if (options != null) {
+                    quizOptions.removeAllViews();
                     for (String option : options) {
                         RadioButton button = new RadioButton(mContext);
                         button.setText(option);

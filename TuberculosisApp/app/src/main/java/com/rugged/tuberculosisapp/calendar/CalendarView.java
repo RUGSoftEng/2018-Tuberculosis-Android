@@ -16,6 +16,7 @@ import com.rugged.tuberculosisapp.medication.Medication;
 import com.rugged.tuberculosisapp.network.RetrofitClientInstance;
 import com.rugged.tuberculosisapp.network.ServerAPI;
 import com.rugged.tuberculosisapp.settings.LanguageHelper;
+import com.rugged.tuberculosisapp.settings.UserData;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -197,8 +198,8 @@ public class CalendarView extends LinearLayout {
         cal.add(Calendar.MONTH, 1);
         String toDate = sdf.format(cal.getTime());
 
-        final Call<List<CalendarJSONHolder>> call = serverAPI.getCalendarData(MainActivity.identification.getId(),
-                fromDate, toDate, MainActivity.identification.getToken());
+        final Call<List<CalendarJSONHolder>> call = serverAPI.getCalendarData(UserData.getIdentification().getId(),
+                fromDate, toDate, UserData.getIdentification().getToken());
 
         Thread t = new Thread(new Runnable() {
             @Override

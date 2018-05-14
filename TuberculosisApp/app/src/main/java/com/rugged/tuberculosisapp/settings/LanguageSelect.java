@@ -21,11 +21,20 @@ public class LanguageSelect extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_language_select);
+        if (UserData.isFirstLaunch()) {
+            setContentView(R.layout.activity_language_select);
+            UserData.setIsFirstLaunch(false);
+        } else {
+            checkAccount();
+        }
     }
+
     public void chooseLanguage(View view) {
         LanguageHelper.changeLocale(getResources(), (String) view.getTag());
+        checkAccount();
+    }
 
+    private void checkAccount() {
         AccountManager mAccountManager = AccountManager.get(this);
         Account accounts[] = mAccountManager.getAccountsByType(ACCOUNT_TYPE);
         if (accounts.length == 0 || !ENABLE_API) {
@@ -41,7 +50,7 @@ public class LanguageSelect extends AppCompatActivity {
                     try {
                         Bundle bundle = future.getResult();
                         String authToken = bundle.getString(AccountManager.KEY_AUTHTOKEN);
-                        MainActivity.identification.setToken(authToken);
+                        UserData.getIdentification().setToken(authToken);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -50,7 +59,7 @@ public class LanguageSelect extends AppCompatActivity {
 
             t.start();
 
-            MainActivity.identification.setId(Integer.parseInt(mAccountManager.getUserData(accounts[0], TabSignIn.KEY_PATIENT_ID)));
+            UserData.getIdentification().setId(Integer.parseInt(mAccountManager.getUserData(accounts[0], TabSignIn.KEY_PATIENT_ID)));
 
             try {
                 t.join();
@@ -62,4 +71,5 @@ public class LanguageSelect extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
 }

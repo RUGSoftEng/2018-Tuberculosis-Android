@@ -22,6 +22,7 @@ import com.rugged.tuberculosisapp.medication.MedicationListAdapter;
 import com.rugged.tuberculosisapp.network.RetrofitClientInstance;
 import com.rugged.tuberculosisapp.network.ServerAPI;
 import com.rugged.tuberculosisapp.settings.LanguageHelper;
+import com.rugged.tuberculosisapp.settings.UserData;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -131,8 +132,8 @@ public class ViewDayFragment extends DialogFragment {
         Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
         ServerAPI serverAPI = retrofit.create(ServerAPI.class);
 
-        final Call<ResponseBody> call = serverAPI.updateTakenState(MainActivity.identification.getId(),
-                MainActivity.identification.getToken(), newJsonData);
+        final Call<ResponseBody> call = serverAPI.updateTakenState(UserData.getIdentification().getId(),
+                UserData.getIdentification().getToken(), newJsonData);
 
         Thread t = new Thread(new Runnable() {
             @Override

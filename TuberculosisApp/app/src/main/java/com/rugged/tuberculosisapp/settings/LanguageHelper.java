@@ -18,10 +18,11 @@ public abstract class LanguageHelper {
         config.locale = myLocale;
         res.updateConfiguration(config, dm);
 
+        UserData.setLocale(locale);
         currentLocale = locale;
     }
 
     public static String getCurrentLocale() {
-        return currentLocale;
+        return UserData.getLocaleString();
     }
 }

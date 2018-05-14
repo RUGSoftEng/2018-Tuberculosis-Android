@@ -35,7 +35,7 @@ public class LanguageSelect extends AppCompatActivity {
             final AccountManagerFuture<Bundle> future = mAccountManager.getAuthToken(accounts[0], TabSignIn.TOKEN_TYPE,
                     null, this, null, null);
 
-            new Thread(new Runnable() {
+            Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
@@ -46,9 +46,17 @@ public class LanguageSelect extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-            }).start();
+            });
+
+            t.start();
 
             MainActivity.identification.setId(Integer.parseInt(mAccountManager.getUserData(accounts[0], TabSignIn.KEY_PATIENT_ID)));
+
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);

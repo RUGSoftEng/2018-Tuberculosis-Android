@@ -53,6 +53,7 @@ public class QuizAdapter extends ArrayAdapter<Quiz> {
                 quizQuestion.setText(question.getQuestion());
                 List<String> options = question.getOptions();
                 if (options != null) {
+                    quizOptions.removeAllViews();
                     for (String option : options) {
                         RadioButton button = new RadioButton(mContext);
                         button.setText(option);

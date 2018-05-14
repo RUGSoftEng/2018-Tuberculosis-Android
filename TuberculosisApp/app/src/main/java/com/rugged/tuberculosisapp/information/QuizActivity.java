@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 
@@ -92,6 +93,8 @@ public class QuizActivity extends AppCompatActivity {
         options.add("Answer 1");
         options.add("Answer 2");
         options.add("Answer 3");
+        options.add("Answer 4");
         quizList.add(new Quiz("Question 1",options,"Answer 1"));
+        quizList.add(new Quiz("Question 2",options,"Answer 1"));
     }
 }

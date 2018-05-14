@@ -14,6 +14,7 @@ import android.widget.ListView;
 import com.rugged.tuberculosisapp.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class QuizFragment extends DialogFragment {
     private ArrayList<String> checked = new ArrayList<>();
@@ -27,7 +28,6 @@ public class QuizFragment extends DialogFragment {
         ListView quizListView = view.findViewById(R.id.answersList);
         Button dismissButton = view.findViewById(R.id.buttonDismiss);
 
-        // TODO: make list view nicer, write custom adapter and custom list row layout
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, checked);
         quizListView.setAdapter(adapter);
 

@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rugged.tuberculosisapp.R;
 
@@ -48,8 +49,8 @@ public class QuizAdapter extends ArrayAdapter<Quiz> {
         TextView quizQuestion = (TextView) convertView.findViewById(R.id.quizQuestion);
         RadioGroup quizOptions  = (RadioGroup) convertView.findViewById(R.id.quizOptions);
         if (quiz != null) {
-            int i = 0;
-            for(Quiz question: mquizList) {
+            int i = 1;
+            for(final Quiz question: mquizList) {
                 quizQuestion.setText(question.getQuestion());
                 List<String> options = question.getOptions();
                 if (options != null) {
@@ -60,6 +61,21 @@ public class QuizAdapter extends ArrayAdapter<Quiz> {
                         button.setId(i);
                         quizOptions.addView(button);
                         i++;
+                        if (option.equals(quiz.getAnswer())) {
+                            button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Toast.makeText(mContext, "Correct!", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else {
+                            button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Toast.makeText(mContext, "Wrong", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                    }
                     }
                 }
             }
@@ -76,5 +92,8 @@ public class QuizAdapter extends ArrayAdapter<Quiz> {
     @Override
     public boolean hasStableIds() {
         return true;
+    }
+    private void itemchange(View view){
+
     }
 }

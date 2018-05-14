@@ -9,31 +9,21 @@
 
 
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        >
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <fragment class="com.google.android.youtube.player.YouTubePlayerFragment"
+
+            <fragment
                 android:id="@+id/videoViewFragment"
+                class="com.google.android.youtube.player.YouTubePlayerFragment"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" >
-            </fragment>
+                app:layout_constraintTop_toTopOf="parent"></fragment>
 
             <TextView
                 android:id="@+id/titleMedication"
@@ -45,6 +35,7 @@
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
                 app:layout_constraintTop_toBottomOf="@+id/videoViewFragment" />
+
             <View
                 android:id="@+id/quizDivider"
                 style="@style/Divider"
@@ -58,24 +49,12 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/titleMedication" />
+
             <ListView
                 android:id="@+id/quizList"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-            </ListView>
+                android:layout_height="wrap_content"></ListView>
 
         </LinearLayout>
-    </ScrollView>
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginRight="16dp"
-        android:text="@string/show_answers"
-        android:onClick="submitQuiz"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" android:layout_marginEnd="16dp" />
 
 </android.support.constraint.ConstraintLayout>

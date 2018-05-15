@@ -1,14 +1,14 @@
 package com.rugged.tuberculosisapp.information;
 
 public class JSONVideoHolder {
-    private String videoUrl;
+    private String reference;
     private String title;
     private String topic;
 
-    JSONVideoHolder(String topic,String title, String videoUrl) {
+    JSONVideoHolder(String topic,String title, String reference) {
         this.topic = topic;
         this.title = title;
-        this.videoUrl = videoUrl;
+        this.reference = reference;
     }
 
     public String getTitle() {
@@ -19,7 +19,7 @@ public class JSONVideoHolder {
         return topic;
     }
 
-    public String getVideoUrl() {
-        return videoUrl;
+    public String getReference() {
+        return reference;
     }
 }

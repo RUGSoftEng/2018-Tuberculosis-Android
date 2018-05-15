@@ -128,7 +128,9 @@ public class TabInformation extends Fragment {
                             if (response.body() != null) {
                                 ArrayList<String> videos = new ArrayList<>();
                                 for(JSONVideoHolder cVideo : response.body()){
-                                    videos.add(cVideo.getVideoUrl());
+                                    String temp = cVideo.getReference();
+                                    temp = temp.replace("https://www.youtube.com/watch?v=","");
+                                    videos.add(temp);
                                 }
                                 listCategories.add(new Category(title,videos));
                             }

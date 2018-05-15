@@ -20,7 +20,6 @@ import java.util.List;
 public class QuizActivity extends AppCompatActivity {
     static final int nrOfQuestions = 4;
     boolean[] correct = new boolean[nrOfQuestions];
-    ArrayList<String> array;
     private static String videoUrl;
     private List <Quiz> quizList;
     private ListView listView;
@@ -67,36 +66,17 @@ public class QuizActivity extends AppCompatActivity {
         Arrays.fill(correct, false);
     }
 
-    public void onRadioButtonClicked(View view) {
-        // Is the button now checked?
-       boolean checked = ((RadioButton) view).isChecked();
-
-    }
-
-    public void submitQuiz(View view){
-        array = new ArrayList<String>();
-        for (int i = 0; i < nrOfQuestions; i++) {
-            if (correct[i]) {
-                array.add("Your answer for question " + (i+1) + " is correct!");
-            } else {
-                array.add("Your answer for question " + (i+1) + " is wrong.");
-            }
-        }
-
-        QuizFragment quizfragment = new QuizFragment();
-        quizfragment.setChecked(array);
-        quizfragment.show(getFragmentManager(), "QuizFragment");
-    }
     public void retrieveQuizList(){
         quizList = new ArrayList<Quiz>();
         ArrayList<String> option = new ArrayList<String>();
         option.add("4");
+        option.add("3");
         ArrayList<String> options = new ArrayList<String>();
-        options.add("Answer 1");
-        options.add("Answer 2");
-        quizList.add(new Quiz("2 + 2 = ?",option,"Answer 2"));
-        options.add("Answer 3");
-        quizList.add(new Quiz("Question 2",options,"Answer 1"));
+        options.add("daily");
+        options.add("weekly");
+        quizList.add(new Quiz("2 + 2 = ?",option,"4"));
+        options.add("twice a day");
+        quizList.add(new Quiz("How many times do you need to take the pill rifampicin",options,"twice a day"));
 
     }
 }

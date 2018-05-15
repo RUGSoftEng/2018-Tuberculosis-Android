@@ -24,9 +24,6 @@ import java.util.Calendar;
 
 public class ReminderTestActivity extends AppCompatActivity {
 
-    public static final String EXTRA_SWITCH = "com.example.test.EXTRA_SWITCH";
-    public static final String EXTRA_TYPE = "com.example.test.EXTRA_TYPE";
-
     private DatePickerDialog.OnDateSetListener onDateSetListener;
     private TimePickerDialog.OnTimeSetListener onTimeSetListener;
 
@@ -175,13 +172,14 @@ public class ReminderTestActivity extends AppCompatActivity {
 
         Switch s = findViewById(R.id.pillSwitch);
         boolean switchValue = s.isChecked();
-        intent.putExtra(EXTRA_SWITCH, switchValue);
+        intent.putExtra("EXTRA_SWITCH", switchValue);
         if (type == NOTIFICATION) {
-            intent.putExtra(EXTRA_TYPE, NOTIFICATION);
+            intent.putExtra("EXTRA_TYPE", NOTIFICATION);
         }
         if (type == ALARM) {
-            intent.putExtra(EXTRA_TYPE, ALARM);
+            intent.putExtra("EXTRA_TYPE", ALARM);
         }
+        intent.putExtra("EXTRA_MED", "Test");
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(ReminderTestActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 

@@ -93,7 +93,7 @@ public class CalendarAdapter extends ArrayAdapter<Date> {
                     takenOverlay.setImageResource(R.drawable.ic_check);
                     //textDayNumber.setTextColor(view.getResources().getColor(android.R.color.holo_green_dark));
                     for (Medication medication : eventDays.get(date)) {
-                        if (!medication.getTaken()) {
+                        if (!medication.isTaken()) {
                             // Not taken, add red cross
                             if (year != today.getYear() || month != today.getMonth() || day != today.getDate()) {
                                 takenOverlay.setImageResource(R.drawable.ic_cross);

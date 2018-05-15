@@ -15,6 +15,7 @@ import com.rugged.tuberculosisapp.R;
 import com.rugged.tuberculosisapp.medication.Medication;
 import com.rugged.tuberculosisapp.network.RetrofitClientInstance;
 import com.rugged.tuberculosisapp.network.ServerAPI;
+import com.rugged.tuberculosisapp.reminders.ReminderSetter;
 import com.rugged.tuberculosisapp.settings.LanguageHelper;
 import com.rugged.tuberculosisapp.settings.UserData;
 
@@ -23,7 +24,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -34,7 +38,6 @@ import retrofit2.Retrofit;
 
 
 public class CalendarView extends LinearLayout {
-
     private Activity mActivity;
 
     private HashMap<Date, ArrayList<Medication>> mEvents = new HashMap<>();
@@ -51,18 +54,23 @@ public class CalendarView extends LinearLayout {
 
     private Locale mLocale = new Locale(LanguageHelper.getCurrentLocale());
 
+    private ReminderSetter rs;
+
     public CalendarView(Context context) {
         super(context);
+        this.rs = new ReminderSetter(super.getContext());
     }
 
     public CalendarView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initControl(context);
+        this.rs = new ReminderSetter(super.getContext());
     }
 
     public CalendarView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initControl(context);
+        this.rs = new ReminderSetter(super.getContext());
     }
 
     /**
@@ -186,6 +194,25 @@ public class CalendarView extends LinearLayout {
         // Capitalize first letter
         titleMonth = titleMonth.substring(0, 1).toUpperCase() + titleMonth.substring(1);
         txtDate.setText(titleMonth);
+
+        // Create reminders for the current date
+        if (mEvents != null) {
+            //TODO get medication ArrayList of current day instead
+            Calendar cal = new GregorianCalendar(2018, 4, 15);
+            Date currentDate = new Date(cal.getTimeInMillis());
+            ArrayList<Medication> meds = mEvents.get(currentDate);
+            if (meds != null) {
+                //Makes sure meds are sorted on time when passing it to the ReminderSetter
+                Collections.sort(meds, new Comparator<Medication>() {
+                    @Override
+                    public int compare(Medication o1, Medication o2) {
+                        return o1.getTime().compareTo(o2.getTime());
+                    }
+                });
+                //TODO having the date time fields in meds hold the date will remove the need to pass currentDate and do some computations
+                rs.setReminders(currentDate, meds);
+            }
+        }
     }
 
     private void getDatesFromAPI() {
@@ -214,6 +241,7 @@ public class CalendarView extends LinearLayout {
 
                                 DateFormat format = new SimpleDateFormat("yyyy-MM-dd", mLocale);
                                 Date date = format.parse(jsonResponse.getDate());
+                                date.toString();
 
                                 Medication medication = jsonResponse.toMedication();
                                 ArrayList<Medication> medicationList;

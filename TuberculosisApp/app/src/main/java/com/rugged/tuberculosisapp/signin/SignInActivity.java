@@ -13,6 +13,8 @@ import android.widget.EditText;
 
 import com.rugged.tuberculosisapp.R;
 import com.rugged.tuberculosisapp.SectionsPagerAdapter;
+import com.rugged.tuberculosisapp.settings.LanguageHelper;
+import com.rugged.tuberculosisapp.settings.UserData;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -25,6 +27,11 @@ public class SignInActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Update language
+        if (UserData.getLocaleString() != null) {
+            LanguageHelper.changeLocale(getResources(), UserData.getLocaleString());
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 

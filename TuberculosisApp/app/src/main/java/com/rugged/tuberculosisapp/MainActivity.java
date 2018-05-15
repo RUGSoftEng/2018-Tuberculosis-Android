@@ -28,7 +28,9 @@ import com.rugged.tuberculosisapp.calendar.TabCalendar;
 import com.rugged.tuberculosisapp.medication.TabMedication;
 import com.rugged.tuberculosisapp.notes.TabNotes;
 import com.rugged.tuberculosisapp.reminders.ReminderTestActivity;
+import com.rugged.tuberculosisapp.settings.LanguageHelper;
 import com.rugged.tuberculosisapp.settings.SettingsActivity;
+import com.rugged.tuberculosisapp.settings.UserData;
 import com.rugged.tuberculosisapp.signin.Identification;
 import com.rugged.tuberculosisapp.signin.SignInActivity;
 
@@ -55,11 +57,13 @@ public class MainActivity extends AppCompatActivity {
     // Boolean to enable API calls
     public static final boolean ENABLE_API = false;
 
-    // TODO: Move this elsewhere
-    public static Identification identification = new Identification();
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        // Update language
+        if (UserData.getLocaleString() != null) {
+            LanguageHelper.changeLocale(getResources(), UserData.getLocaleString());
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -140,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_sign_out) {
             AccountManager am = AccountManager.get(this);
             Account account = am.getAccounts()[0];
-            am.invalidateAuthToken(account.type, MainActivity.identification.getToken());
+            am.invalidateAuthToken(account.type, UserData.getIdentification().getToken());
             // TODO: Do we want to remove the account as well? If so uncomment..
             //am.removeAccount(account, null, null);
 

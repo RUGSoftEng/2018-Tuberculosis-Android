@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.rugged.tuberculosisapp.MainActivity;
 import com.rugged.tuberculosisapp.network.RetrofitClientInstance;
 import com.rugged.tuberculosisapp.network.ServerAPI;
+import com.rugged.tuberculosisapp.settings.UserData;
 
 import java.io.IOException;
 
@@ -108,7 +109,7 @@ public class TabSignIn extends Fragment {
                     try {
                         Response <Identification> response = call.execute();
                         if (response.code() == 200) { // 200 means the login was successful
-                            MainActivity.identification = response.body();
+                            UserData.setIdentification(response.body());
                             createAccount(response.body().getId(), response.body().getToken());
                             canSignIn = true;
                         }

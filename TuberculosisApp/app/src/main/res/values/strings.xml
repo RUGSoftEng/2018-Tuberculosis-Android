@@ -103,5 +103,8 @@
     <string name="more_info_buttion">More info</string>
     <string name="account_type">TubuddyPatientAccount</string>
     <string name="token_label">Full access to a TuBuddy patient account</string>
-
+    <!-- TODO: maybe make these strings quantitative -->
+    <string name="data_updated">%1$s has been updated.</string>
+    <string name="save_error">%1$s could not be saved!</string>
+    <!-- -->
 </resources>

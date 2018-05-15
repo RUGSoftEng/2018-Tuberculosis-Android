@@ -21,11 +21,20 @@ public class LanguageSelect extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_language_select);
+        if (UserData.isFirstLaunch() || UserData.getLocaleString() == null) {
+            setContentView(R.layout.activity_language_select);
+            UserData.setIsFirstLaunch(false);
+        } else {
+            checkAccount();
+        }
     }
+
     public void chooseLanguage(View view) {
         LanguageHelper.changeLocale(getResources(), (String) view.getTag());
+        checkAccount();
+    }
 
+    private void checkAccount() {
         AccountManager mAccountManager = AccountManager.get(this);
         Account accounts[] = mAccountManager.getAccountsByType(ACCOUNT_TYPE);
         if (accounts.length == 0 || !ENABLE_API) {
@@ -35,23 +44,32 @@ public class LanguageSelect extends AppCompatActivity {
             final AccountManagerFuture<Bundle> future = mAccountManager.getAuthToken(accounts[0], TabSignIn.TOKEN_TYPE,
                     null, this, null, null);
 
-            new Thread(new Runnable() {
+            Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
                         Bundle bundle = future.getResult();
                         String authToken = bundle.getString(AccountManager.KEY_AUTHTOKEN);
-                        MainActivity.identification.setToken(authToken);
+                        UserData.getIdentification().setToken(authToken);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-            }).start();
+            });
 
-            MainActivity.identification.setId(Integer.parseInt(mAccountManager.getUserData(accounts[0], TabSignIn.KEY_PATIENT_ID)));
+            t.start();
+
+            UserData.getIdentification().setId(Integer.parseInt(mAccountManager.getUserData(accounts[0], TabSignIn.KEY_PATIENT_ID)));
+
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
     }
+
 }

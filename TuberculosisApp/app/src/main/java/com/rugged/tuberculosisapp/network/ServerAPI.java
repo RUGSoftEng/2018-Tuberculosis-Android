@@ -6,6 +6,7 @@ import com.rugged.tuberculosisapp.signin.Identification;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -30,4 +31,13 @@ public interface ServerAPI {
             @Query("from") String from_date, @Query("until") String until_date,
             @Header("access_token") String access_token
     );
+
+    @Headers("Content-Type: application/json")
+    @POST("accounts/patients/{id}/dosages/scheduled")
+    Call<ResponseBody> updateTakenState(
+            @Path("id") int patient_id,
+            @Header("access_token") String access_token,
+            @Body List<CalendarJSONHolder> JSONData
+    );
+
 }

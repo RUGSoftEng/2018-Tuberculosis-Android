@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.rugged.tuberculosisapp.R;
 import com.rugged.tuberculosisapp.settings.LanguageHelper;
@@ -37,6 +39,10 @@ public class TabMedication extends Fragment {
 
         medicationListView = view.findViewById(R.id.medicationList);
 
+
+
+
+
         final MedicationListAdapter adapter = new MedicationListAdapter(this.getContext(), R.layout.medication_row, medicationList);
 
         medicationListView.setAdapter(adapter);
@@ -44,12 +50,25 @@ public class TabMedication extends Fragment {
         medicationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if(medicationList != null) {
+                ImageView takenImage = view.findViewById(R.id.takenImage);
+                if (takenImage.getTag().equals("R.drawable.ic_cross")) showToast(getString(R.string.taken_text) + " " + getString(R.string.answer_no), Toast.LENGTH_LONG);
+                if (takenImage.getTag().equals("R.drawable.ic_check")) showToast(getString(R.string.taken_text) + " " + getString(R.string.answer_yes), Toast.LENGTH_LONG);
+                //if (takenImage.getTag().equals("R.drawable.ic_line")) showToast(getString(R.string.taken_text) + " " + getString(R.string.answer_no), Toast.LENGTH_LONG);
+              /*  if(medicationList != null) {
                     ViewMedicationFragment viewMedicationFragment = new ViewMedicationFragment();
                     Medication medication = adapter.getItem(i);
                     viewMedicationFragment.setMedicationName(medication.getName());
                     viewMedicationFragment.show(getActivity().getFragmentManager(), "ViewMedicationFragment");
-                }
+                }*/
+            }
+
+            private void showToast(final String text, final int duration) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), text, duration).show();
+                    }
+                });
             }
         });
 

@@ -6,23 +6,49 @@
     android:paddingTop="8dp">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/pillImage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:layout_weight=".1"
+        android:layout_weight=".15"
         android:adjustViewBounds="true"
         android:contentDescription="Pill Icon"
-        app:srcCompat="@drawable/ic_medication" />
+        app:srcCompat="@drawable/ic_pill" />
+
+
 
     <TextView
         android:id="@+id/medicationName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_weight=".5"
         android:text="@string/medication_name_placeholder"
         android:textColor="@android:color/black"
-        android:textSize="22sp" />
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/takenImage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_weight=".15"
+        android:adjustViewBounds="true"
+        android:contentDescription="Taken Icon"
+        app:srcCompat="@drawable/ic_cross" />
+
+    <ImageView
+        android:id="@+id/infoImage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="32dp"
+        android:layout_weight=".15"
+        android:adjustViewBounds="true"
+        android:contentDescription="Info Icon"
+        app:srcCompat="@drawable/ic_information" />
 
 </LinearLayout>

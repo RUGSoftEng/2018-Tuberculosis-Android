@@ -106,5 +106,8 @@
     <!-- TODO: maybe make these strings quantitative -->
     <string name="data_updated">%1$s has been updated.</string>
     <string name="save_error">%1$s could not be saved!</string>
+    <string name="question_empty">Please enter a question.</string>
+    <string name="question_successful">Question is sent successfully!</string>
+    <string name="question_failed">Failed to send your question, try again later.</string>
     <!-- -->
 </resources>

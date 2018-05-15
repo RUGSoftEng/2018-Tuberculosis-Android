@@ -60,7 +60,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // Update language
-        LanguageHelper.changeLocale(getResources(), UserData.getLocaleString());
+        if (UserData.getLocaleString() != null) {
+            LanguageHelper.changeLocale(getResources(), UserData.getLocaleString());
+        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

@@ -15,8 +15,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.rugged.tuberculosisapp.MainActivity;
 import com.rugged.tuberculosisapp.R;
 import com.rugged.tuberculosisapp.medication.Medication;
 import com.rugged.tuberculosisapp.medication.MedicationListAdapter;

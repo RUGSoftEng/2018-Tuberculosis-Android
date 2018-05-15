@@ -244,7 +244,6 @@ public class CalendarView extends LinearLayout {
 
                                 DateFormat format = new SimpleDateFormat("yyyy-MM-dd", mLocale);
                                 Date date = format.parse(jsonResponse.getDate());
-                                date.toString();
 
                                 Medication medication = jsonResponse.toMedication();
                                 ArrayList<Medication> medicationList;

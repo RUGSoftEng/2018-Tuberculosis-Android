@@ -1,5 +1,7 @@
 package com.rugged.tuberculosisapp.notes;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +20,7 @@ import com.rugged.tuberculosisapp.network.ServerAPI;
 import com.rugged.tuberculosisapp.settings.UserData;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -44,7 +47,9 @@ public class TabNotes extends Fragment {
         entries = view.findViewById(R.id.FAQEntries);
 
         // Prepare categories
-        prepareListData();
+        ArrayList<FAQEntry> FAQEntries = new ArrayList<>();
+        retrieveFAQEnries(FAQEntries);
+        prepareListData(FAQEntries);
 
         Button submitQuestion = view.findViewById(R.id.submitQuestionButton);
         final EditText textQuestion = view.findViewById(R.id.questionEditText);
@@ -117,38 +122,51 @@ public class TabNotes extends Fragment {
         }
     }
 
-    private void prepareListData() {
-        int numOfEntries = 10; //TODO get entries from API call
+    private void retrieveFAQEnries(ArrayList<FAQEntry> FAQEntries) { // TODO get entries from API call
+        FAQEntries.add(new FAQEntry(getText(R.string.question_number_1).toString(), getText(R.string.answer_number_1).toString()));
+        FAQEntries.add(new FAQEntry(getText(R.string.question_number_2).toString(), getText(R.string.answer_number_2).toString()));
+        FAQEntries.add(new FAQEntry(getText(R.string.question_number_3).toString(), getText(R.string.answer_number_3).toString()));
+        FAQEntries.add(new FAQEntry(getText(R.string.question_number_4).toString(), getText(R.string.answer_number_4).toString()));
+        FAQEntries.add(new FAQEntry(getText(R.string.question_number_5).toString(), getText(R.string.answer_number_5).toString()));
+    }
 
-        for (int i = 0; i < numOfEntries; i++) {
+    private void prepareListData(ArrayList<FAQEntry> FAQEntries) {
+        for (int i = 0; i < FAQEntries.size(); i++) {
+            final FAQEntry currentEntry = FAQEntries.get(i);
+
             final TextView question = new TextView(getActivity());
             question.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            question.setText(getText(R.string.lorem_ipsum)); //TODO get strings from API call
+            question.setText(currentEntry.getQuestion());
+            question.setTextColor(Color.rgb(80,80,80));
+
             if (i > 0) { // Add distance between questions
                 question.setPadding(0, 24, 0, 0);
             }
+
             question.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int elementIdx = entries.indexOfChild(question);
 
                     if (elementIdx == questionIdx) { // Clicking the same question
-                        question.setText(R.string.lorem_ipsum);
+                        question.setTypeface(null, Typeface.NORMAL);
                         entries.removeViewAt(elementIdx+1);
                         questionIdx = NO_LAST_QUESTION;
                     } else if (questionIdx == NO_LAST_QUESTION) { // No question has been selected previously
-                        question.setText("I am clicked yo");
+                        question.setTypeface(null, Typeface.BOLD);
 
                         final TextView answer = new TextView(getActivity());
                         answer.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                        answer.setText("testy answer");
+                        answer.setText(currentEntry.getAnswer());
+                        answer.setTextColor(Color.rgb(80,80,80));
                         entries.addView(answer, elementIdx+1);
 
                         questionIdx = elementIdx;
                     } else { // Clicking on a different question
-                        question.setText("I am clicked yo2");
+                        question.setTypeface(null, Typeface.BOLD);
+
                         TextView previousQuestionText = (TextView) entries.getChildAt(questionIdx);
-                        previousQuestionText.setText(R.string.lorem_ipsum);
+                        previousQuestionText.setTypeface(null, Typeface.NORMAL);
 
                         entries.removeViewAt(questionIdx+1);
                         if (questionIdx < elementIdx) {
@@ -157,7 +175,8 @@ public class TabNotes extends Fragment {
 
                         final TextView answer = new TextView(getActivity());
                         answer.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                        answer.setText("testy answer2");
+                        answer.setText(currentEntry.getAnswer());
+                        answer.setTextColor(Color.rgb(80,80,80));
                         entries.addView(answer, elementIdx+1);
 
                         questionIdx = elementIdx;

@@ -20,10 +20,8 @@ public class LanguageSelect extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Update language
-
         super.onCreate(savedInstanceState);
-        if (UserData.isFirstLaunch()) {
+        if (UserData.isFirstLaunch() || UserData.getLocaleString() == null) {
             setContentView(R.layout.activity_language_select);
             UserData.setIsFirstLaunch(false);
         } else {

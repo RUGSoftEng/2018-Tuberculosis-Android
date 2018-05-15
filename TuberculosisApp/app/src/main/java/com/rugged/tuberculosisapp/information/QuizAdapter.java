@@ -50,18 +50,15 @@ public class QuizAdapter extends ArrayAdapter<Quiz> {
         TextView quizQuestion = (TextView) convertView.findViewById(R.id.quizQuestion);
         RadioGroup quizOptions  = (RadioGroup) convertView.findViewById(R.id.quizOptions);
         if (quiz != null) {
-            int i = 1;
-            for(final Quiz question: mquizList) {
-                quizQuestion.setText(question.getQuestion());
-                List<String> options = question.getOptions();
+
+                quizQuestion.setText(quiz.getQuestion());
+                List<String> options = quiz.getOptions();
+            quizOptions.removeAllViews();
                 if (options != null) {
-                    quizOptions.removeAllViews();
                     for (String option : options) {
                         RadioButton button = new RadioButton(mContext);
                         button.setText(option);
-                        button.setId(i);
                         quizOptions.addView(button);
-                        i++;
                         if (option.equals(quiz.getAnswer())) {
                             button.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -80,7 +77,7 @@ public class QuizAdapter extends ArrayAdapter<Quiz> {
                     }
                 }
             }
-        }
+
 
         return convertView;
     }

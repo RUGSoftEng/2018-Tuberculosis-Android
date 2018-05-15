@@ -4,18 +4,17 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.rugged.tuberculosisapp.R;
 import com.rugged.tuberculosisapp.SectionsPagerAdapter;
-import com.rugged.tuberculosisapp.signin.TabSignIn;
+import com.rugged.tuberculosisapp.settings.LanguageHelper;
+import com.rugged.tuberculosisapp.settings.UserData;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -28,6 +27,11 @@ public class SignInActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Update language
+        if (UserData.getLocaleString() != null) {
+            LanguageHelper.changeLocale(getResources(), UserData.getLocaleString());
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
@@ -54,7 +58,7 @@ public class SignInActivity extends AppCompatActivity {
         viewPager.setAdapter(mSectionsPagerAdapter);
     }
 
-    @Override
+    @Override // To clear focus from EditText when tapping outside of the EditText
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             View v = getCurrentFocus();

@@ -3,7 +3,6 @@ package com.rugged.tuberculosisapp.calendar;
 import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -11,27 +10,37 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.rugged.tuberculosisapp.MainActivity;
 import com.rugged.tuberculosisapp.R;
 import com.rugged.tuberculosisapp.medication.Medication;
+import com.rugged.tuberculosisapp.network.RetrofitClientInstance;
+import com.rugged.tuberculosisapp.network.ServerAPI;
 import com.rugged.tuberculosisapp.settings.LanguageHelper;
+import com.rugged.tuberculosisapp.settings.UserData;
 
+import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 
 public class CalendarView extends LinearLayout {
 
     private Activity mActivity;
 
+    private HashMap<Date, ArrayList<Medication>> mEvents = new HashMap<>();
+
     // Current displayed month
     private Calendar currentDate = Calendar.getInstance();
-
-    // Calendar adapter
-    private HashMap<Date, ArrayList<Medication>> mEvents = null;
 
     // Internal components
     private LinearLayout header;
@@ -39,6 +48,8 @@ public class CalendarView extends LinearLayout {
     private ImageView btnNext;
     private TextView txtDate;
     private GridView grid;
+
+    private Locale mLocale = new Locale(LanguageHelper.getCurrentLocale());
 
     public CalendarView(Context context) {
         super(context);
@@ -58,8 +69,7 @@ public class CalendarView extends LinearLayout {
      * Load control xml layout
      */
     private void initControl(Context context) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.control_calendar, this);
+        inflate(context, R.layout.control_calendar, this);
 
         assignUiElements();
         assignClickHandlers();
@@ -75,13 +85,22 @@ public class CalendarView extends LinearLayout {
         grid = (GridView) findViewById(R.id.calendar_grid);
     }
 
+    private void onNextMonth() {
+        currentDate.add(Calendar.MONTH, 1);
+        updateCalendar();
+    }
+
+    private void onPreviousMonth() {
+        currentDate.add(Calendar.MONTH, -1);
+        updateCalendar();
+    }
+
     private void assignClickHandlers() {
         // Add one month and refresh UI
         btnNext.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentDate.add(Calendar.MONTH, 1);
-                updateCalendar();
+                onNextMonth();
             }
         });
 
@@ -89,8 +108,7 @@ public class CalendarView extends LinearLayout {
         btnPrev.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentDate.add(Calendar.MONTH, -1);
-                updateCalendar();
+                onPreviousMonth();
             }
         });
 
@@ -104,6 +122,7 @@ public class CalendarView extends LinearLayout {
                 ArrayList<Medication> medicationList = mEvents.get(clickedItem);
                 if (mEvents != null && medicationList != null) {
                     ViewDayFragment viewDayFragment = new ViewDayFragment();
+                    viewDayFragment.setCalendarView(CalendarView.this);
                     viewDayFragment.setDate(clickedItem);
                     viewDayFragment.setMedicationList(medicationList);
                     viewDayFragment.show(mActivity.getFragmentManager(), "ViewDayFragment");
@@ -116,6 +135,10 @@ public class CalendarView extends LinearLayout {
      * Display dates correctly in grid
      */
     public void updateCalendar() {
+        if (MainActivity.ENABLE_API) {
+            mEvents.clear();
+            getDatesFromAPI();
+        }
         updateCalendar(null);
     }
 
@@ -157,12 +180,70 @@ public class CalendarView extends LinearLayout {
         // Update grid
         grid.setAdapter(new CalendarAdapter(getContext(), cells, mEvents));
 
-        // Update title to month, (conversion character MMMM..)
-        SimpleDateFormat sdf = new SimpleDateFormat("MMMM", new Locale(LanguageHelper.getCurrentLocale()));
+        // Update title to month and year, (conversion characters MMMM yyyy..)
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM yyyy", mLocale);
         String titleMonth = sdf.format(currentDate.getTime());
         // Capitalize first letter
         titleMonth = titleMonth.substring(0, 1).toUpperCase() + titleMonth.substring(1);
         txtDate.setText(titleMonth);
+    }
+
+    private void getDatesFromAPI() {
+        Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
+        ServerAPI serverAPI = retrofit.create(ServerAPI.class);
+
+        Calendar cal = (Calendar) currentDate.clone();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-01", mLocale);
+        String fromDate = sdf.format(cal.getTime());
+        cal.add(Calendar.MONTH, 1);
+        String toDate = sdf.format(cal.getTime());
+
+        final Call<List<CalendarJSONHolder>> call = serverAPI.getCalendarData(UserData.getIdentification().getId(),
+                fromDate, toDate, UserData.getIdentification().getToken());
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Response<List<CalendarJSONHolder>> response = call.execute();
+
+                    // Successful API call
+                    if (response.code() == 200) {
+                        try {
+                            for (CalendarJSONHolder jsonResponse : response.body()) {
+
+                                DateFormat format = new SimpleDateFormat("yyyy-MM-dd", mLocale);
+                                Date date = format.parse(jsonResponse.getDate());
+
+                                Medication medication = jsonResponse.toMedication();
+                                ArrayList<Medication> medicationList;
+                                // If there already exists a list for this date retrieve it
+                                if (mEvents.containsKey(date)) {
+                                    medicationList = mEvents.get(date);
+                                } else {
+                                    medicationList = new ArrayList<>();
+                                }
+                                medicationList.add(medication);
+                                mEvents.put(date, medicationList);
+                            }
+                        } catch (Exception e) {
+                            // TODO: advanced exception handling, catch specific exceptions: nullPointer, parse etc.
+                            e.printStackTrace();
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        t.start();
+        try {
+            // Wait for the thread to finish
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setActivity(Activity activity) {

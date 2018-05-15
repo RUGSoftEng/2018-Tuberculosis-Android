@@ -10,10 +10,15 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.rugged.tuberculosisapp.R;
+import com.rugged.tuberculosisapp.settings.LanguageHelper;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class TabMedication extends Fragment {
 
@@ -45,9 +50,6 @@ public class TabMedication extends Fragment {
                     viewMedicationFragment.setMedicationName(medication.getName());
                     viewMedicationFragment.show(getActivity().getFragmentManager(), "ViewMedicationFragment");
                 }
-
-
-
             }
         });
 
@@ -55,13 +57,19 @@ public class TabMedication extends Fragment {
     }
 
     private void prepareListData() {
-        medicationList = new ArrayList<>();
-        Time time1 = new Time(8, 0);
-        Time time2 = new Time(16, 30);
-        medicationList.add(new Medication("Rifampicin", time1, 1));
-        medicationList.add(new Medication("Isoniazid", time1, 2));
-        medicationList.add(new Medication("Pyrazinamide", time1, 1));
-        medicationList.add(new Medication("Ethambutol", time2, 2));
+        try {
+            medicationList = new ArrayList<>();
+            DateFormat df = new SimpleDateFormat("HH:mm", new Locale(LanguageHelper.getCurrentLocale()));
+
+            Date time1 = df.parse("08:00");
+            Date time2 = df.parse("16:30");
+            medicationList.add(new Medication("Rifampicin", time1, 1));
+            medicationList.add(new Medication("Isoniazid", time1, 2));
+            medicationList.add(new Medication("Pyrazinamide", time1, 1));
+            medicationList.add(new Medication("Ethambutol", time2, 2));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
 }

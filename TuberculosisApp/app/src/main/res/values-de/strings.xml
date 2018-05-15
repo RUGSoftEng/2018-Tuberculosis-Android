@@ -51,4 +51,6 @@
     <string name="invalidLogIn">"Ungültiger Benutzername oder Passwort."</string>
     <string name="account_type">TubuddyPatientAccount</string>
     <string name="token_label">Vollständigen Zugriff auf ein TuBuddy Patientenkonto</string>
+    <string name="data_updated">%1$s wurden aktualisiert.</string>
+    <string name="save_error">%1$s könnten nicht gespeichert werden!</string>
 </resources>

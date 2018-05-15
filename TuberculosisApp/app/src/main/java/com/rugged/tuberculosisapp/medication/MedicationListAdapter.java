@@ -13,10 +13,14 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.rugged.tuberculosisapp.R;
+import com.rugged.tuberculosisapp.settings.LanguageHelper;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MedicationListAdapter extends ArrayAdapter<Medication> implements CompoundButton.OnCheckedChangeListener {
 
@@ -72,7 +76,6 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
 
         TextView medicationName = convertView.findViewById(R.id.medicationName);
 
-
         if (medication != null) {
             // If this adapter is used for the dialog color the text
             if (mResourceId == R.layout.medication_row_dialog) {
@@ -101,7 +104,8 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
                 if (checkBoxesAreLocked(date)) {
                     takenCheckBox.setEnabled(false);
                 }
-                medicationTime.setText(medication.getTime().toString());
+                DateFormat df = new SimpleDateFormat("HH:mm", new Locale(LanguageHelper.getCurrentLocale()));
+                medicationTime.setText(df.format(medication.getTime()));
                 medicationDose.setText(convertView.getResources().getQuantityString(R.plurals.medication_dose, medication.getDose(), medication.getDose()));
             }
             medicationName.setText(medication.getName());

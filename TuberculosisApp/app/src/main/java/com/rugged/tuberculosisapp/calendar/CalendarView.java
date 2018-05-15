@@ -13,10 +13,10 @@ import android.widget.TextView;
 import com.rugged.tuberculosisapp.MainActivity;
 import com.rugged.tuberculosisapp.R;
 import com.rugged.tuberculosisapp.medication.Medication;
-import com.rugged.tuberculosisapp.medication.Time;
 import com.rugged.tuberculosisapp.network.RetrofitClientInstance;
 import com.rugged.tuberculosisapp.network.ServerAPI;
 import com.rugged.tuberculosisapp.settings.LanguageHelper;
+import com.rugged.tuberculosisapp.settings.UserData;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -198,8 +198,8 @@ public class CalendarView extends LinearLayout {
         cal.add(Calendar.MONTH, 1);
         String toDate = sdf.format(cal.getTime());
 
-        final Call<List<CalendarJSONHolder>> call = serverAPI.getCalendarData(MainActivity.identification.getId(),
-                fromDate, toDate, MainActivity.identification.getToken());
+        final Call<List<CalendarJSONHolder>> call = serverAPI.getCalendarData(UserData.getIdentification().getId(),
+                fromDate, toDate, UserData.getIdentification().getToken());
 
         Thread t = new Thread(new Runnable() {
             @Override
@@ -215,16 +215,7 @@ public class CalendarView extends LinearLayout {
                                 DateFormat format = new SimpleDateFormat("yyyy-MM-dd", mLocale);
                                 Date date = format.parse(jsonResponse.getDate());
 
-                                format = new SimpleDateFormat("HH:mm:ss", mLocale);
-                                Date dt = format.parse(jsonResponse.getDosage().getIntakeMoment());
-                                Calendar cal = Calendar.getInstance();
-                                cal.setTime(dt);
-                                Time time = new Time(cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE));
-                                String name = jsonResponse.getDosage().getMedicine().getName();
-                                int amount = jsonResponse.getDosage().getAmount();
-                                Boolean isTaken = jsonResponse.getTaken();
-                                Medication medication = new Medication(name, time, amount, isTaken);
-
+                                Medication medication = jsonResponse.toMedication();
                                 ArrayList<Medication> medicationList;
                                 // If there already exists a list for this date retrieve it
                                 if (mEvents.containsKey(date)) {

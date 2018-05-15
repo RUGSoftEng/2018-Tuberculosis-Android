@@ -1,20 +1,21 @@
 package com.rugged.tuberculosisapp.medication;
 
+import java.util.Date;
+
 public class Medication {
 
     private String name;
-    private Time time;
+    private Date time;
     private int dose;
     private boolean isTaken = false;
 
-    Medication(String name, Time time, int dose) {
+    Medication(String name, Date time, int dose) {
         this.name = name;
-        //TODO: Change when API call is available
         this.time = time;
         this.dose = dose;
     }
 
-    public Medication(String name, Time time, int dose, boolean isTaken) {
+    public Medication(String name, Date time, int dose, boolean isTaken) {
         this.name = name;
         this.time = time;
         this.dose = dose;
@@ -25,7 +26,7 @@ public class Medication {
         return name;
     }
 
-    public Time getTime() {
+    public Date getTime() {
         return time;
     }
 
@@ -43,6 +44,7 @@ public class Medication {
 
     @Override
     public String toString() {
+
         return "Name: " + name + ", Time: " + time.toString() + ", Dose: " + dose + ", isTaken: " + isTaken;
     }
 

@@ -74,7 +74,10 @@ public class TabNotes extends Fragment {
                 public void run() {
                     try {
                         Response<ResponseBody> response = call.execute();
-                        if (response.code() == 201 || response.code() == 405) { // 201 means successfully created TODO: remove 405 when we are allowed to put notes
+                        System.out.println("id = " + UserData.getIdentification().getId() +
+                                " token = " + UserData.getIdentification().getToken());
+                        System.out.println("response from server = " + response.code());
+                        if (response.code() == 201) { // 201 means successfully created
                             editText.setText("");
                             getActivity().runOnUiThread(new Runnable() { // To display a toast in a thread you need this
                                 public void run() {

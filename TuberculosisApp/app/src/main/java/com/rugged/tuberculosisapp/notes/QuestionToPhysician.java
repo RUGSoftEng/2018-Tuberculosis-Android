@@ -7,11 +7,11 @@ import java.util.Date;
 import java.util.Locale;
 
 public class QuestionToPhysician {
-    private String question;
+    private String note;
     private String created_at;
 
     public QuestionToPhysician(String question) {
-        this.question = question;
+        this.note = question;
 
         Locale locale = new Locale(LanguageHelper.getCurrentLocale());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", locale);
@@ -20,7 +20,7 @@ public class QuestionToPhysician {
     }
 
     public String getQuestion() {
-        return question;
+        return note;
     }
 
     public String getDate() {

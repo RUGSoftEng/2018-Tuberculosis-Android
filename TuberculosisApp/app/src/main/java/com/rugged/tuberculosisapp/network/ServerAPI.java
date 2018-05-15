@@ -47,7 +47,7 @@ public interface ServerAPI {
     Call<ResponseBody> askPhysician(
             @Path("id") int patient_id,
             @Header("access_token") String access_token,
-            @Body QuestionToPhysician question
+            @Body QuestionToPhysician note
     );
 
 }

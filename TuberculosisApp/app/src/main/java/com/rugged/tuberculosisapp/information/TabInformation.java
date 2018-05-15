@@ -77,6 +77,7 @@ public class TabInformation extends Fragment {
     private void prepareListData() {
         listCategories = new ArrayList<>();
        final ArrayList<String> titles = new ArrayList<>();
+       /**
         Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
         ServerAPI serverAPI = retrofit.create(ServerAPI.class);
 
@@ -148,11 +149,11 @@ public class TabInformation extends Fragment {
 
             }
         }
-
+**/
 
         // Add data headers to children in list view
         // TODO: API call to get categories
-      /**  ArrayList<String> videoUrls1 = new ArrayList<>(), videoUrls2 = new ArrayList<>();
+       ArrayList<String> videoUrls1 = new ArrayList<>(), videoUrls2 = new ArrayList<>();
         videoUrls1.add("yR51KVF4OX0");
         videoUrls1.add("yR51KVF4OX0");
         videoUrls1.add("yR51KVF4OX0");
@@ -164,6 +165,6 @@ public class TabInformation extends Fragment {
         videoUrls2.add("IGZLkRN76Dc");
         videoUrls2.add("yR51KVF4OX0");
         listCategories.add(new Category("Category 1", videoUrls1));
-        listCategories.add(new Category("Category 2", videoUrls2)); **/
+        listCategories.add(new Category("Category 2", videoUrls2));
     }
 }

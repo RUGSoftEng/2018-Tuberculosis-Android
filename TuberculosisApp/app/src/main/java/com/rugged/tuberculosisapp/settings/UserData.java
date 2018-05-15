@@ -22,6 +22,13 @@ public class UserData extends Application {
         identification = new Identification();
     }
 
+    // Test function
+    public static void clearPrefs() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
+
     public static Identification getIdentification() {
         return identification;
     }

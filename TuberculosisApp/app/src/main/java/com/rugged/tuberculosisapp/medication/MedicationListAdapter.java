@@ -87,7 +87,7 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
 
                 // Check if date is before today or today, if so color medication according to their isTaken state
                 if (date.before(today) || date.equals(today)) {
-                    boolean isTaken = medication.getTaken();
+                    boolean isTaken = medication.isTaken();
                     if (isTaken) {
                         medicationName.setTextColor(mContext.getResources().getColor(android.R.color.holo_green_dark));
                     } else {

@@ -34,7 +34,7 @@ public class Medication {
         return dose;
     }
 
-    public boolean getTaken() {
+    public boolean isTaken() {
         return isTaken;
     }
 

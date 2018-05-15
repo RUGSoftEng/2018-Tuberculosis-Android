@@ -44,6 +44,7 @@
         android:layout_height="25dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
+        android:checked="false"
         android:text="Pill taken"
         app:layout_constraintBaseline_toBaselineOf="@+id/timeButton"
         app:layout_constraintEnd_toEndOf="parent"

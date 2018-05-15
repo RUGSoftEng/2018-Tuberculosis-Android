@@ -26,6 +26,8 @@ import com.rugged.tuberculosisapp.settings.UserData;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -109,6 +111,12 @@ public class ViewDayFragment extends DialogFragment {
 
     public void setMedicationList(ArrayList<Medication> medicationList) {
         this.medicationList = medicationList;
+        Collections.sort(this.medicationList, new Comparator<Medication>() {
+            @Override
+            public int compare(Medication o1, Medication o2) {
+                return o1.getTime().compareTo(o2.getTime());
+            }
+        });
     }
 
     private void saveNewMedicineStates() {
@@ -121,7 +129,7 @@ public class ViewDayFragment extends DialogFragment {
             Date time = medication.getTime();
             String name = medication.getName();
             int dose = medication.getDose();
-            Boolean isTaken = medication.getTaken();
+            Boolean isTaken = medication.isTaken();
             CalendarJSONHolder bodyObject = new CalendarJSONHolder(name, time, dose, isTaken, date);
 
             newJsonData.add(bodyObject);

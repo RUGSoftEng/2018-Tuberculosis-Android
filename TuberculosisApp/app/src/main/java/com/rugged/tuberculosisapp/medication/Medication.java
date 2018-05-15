@@ -51,7 +51,7 @@ public class Medication {
     @Override
     public boolean equals(Object o) {
         Medication m = (Medication) o;
-        if(this.name.equals(m.getName()) && this.time.toString().equals(m.getTime().toString()) && this.dose == m.getDose()) return true;
+        if(this.name.equals(m.getName())) return true;
         return false;
     }
 }

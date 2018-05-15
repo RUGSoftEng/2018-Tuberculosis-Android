@@ -22,6 +22,7 @@ import com.rugged.tuberculosisapp.network.ServerAPI;
 import com.rugged.tuberculosisapp.settings.LanguageHelper;
 import com.rugged.tuberculosisapp.settings.UserData;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,6 +33,7 @@ import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class TabMedication extends Fragment {
@@ -41,6 +43,8 @@ public class TabMedication extends Fragment {
     private ListView medicationListView;
 
     private List<Medication> medicationList;
+
+    private List<Integer> days;
 
     private Calendar currentDate = Calendar.getInstance();
 
@@ -59,7 +63,7 @@ public class TabMedication extends Fragment {
 
 
 
-        final MedicationListAdapter adapter = new MedicationListAdapter(this.getContext(), R.layout.medication_row, medicationList);
+        final MedicationListAdapter adapter = new MedicationListAdapter(this.getContext(), R.layout.medication_row, medicationList, days);
 
         medicationListView.setAdapter(adapter);
 
@@ -93,23 +97,64 @@ public class TabMedication extends Fragment {
 
     private void prepareListData() {
 
-//        if (MainActivity.ENABLE_API) {
-//
-//            Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
-//            ServerAPI serverAPI = retrofit.create(ServerAPI.class);
-//
-//            Calendar cal = (Calendar) currentDate.clone();
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-01", mLocale);
-//            String fromDate = sdf.format(cal.getTime());
-//            cal.add(Calendar.WEEK_OF_MONTH, 1);
-//            String toDate = sdf.format(cal.getTime());
-//
-//            final Call<List<CalendarJSONHolder>> call = serverAPI.getCalendarData(UserData.getIdentification().getId(),
-//                    fromDate, toDate, UserData.getIdentification().getToken());
+        if (MainActivity.ENABLE_API) {
+
+            medicationList = new ArrayList<>();
+            days = new ArrayList<>();
+
+            Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
+            ServerAPI serverAPI = retrofit.create(ServerAPI.class);
+
+            Calendar cal = (Calendar) currentDate.clone();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", mLocale);
+            String fromDate = sdf.format(cal.getTime());
+            System.out.println(fromDate);
+            cal.add(Calendar.WEEK_OF_MONTH, 1);
+            String toDate = sdf.format(cal.getTime());
+            System.out.println(toDate);
+            final Call<List<CalendarJSONHolder>> call = serverAPI.getCalendarData(UserData.getIdentification().getId(),
+                    fromDate, toDate, UserData.getIdentification().getToken());
+
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Response<List<CalendarJSONHolder>> response = call.execute();
+
+                        // Successful API call
+                        if (response.code() == 200) {
+                            try {
+                                for (CalendarJSONHolder jsonResponse : response.body()) {
+
+                                    Medication medication = jsonResponse.toMedication();
+
+                                    DateFormat format = new SimpleDateFormat("yyyy-MM-dd", mLocale);
+                                    days.add(format.parse(jsonResponse.getDate()).getDay());
+
+                                    if(!medicationList.contains(medication)) medicationList.add(medication);
+                                }
+                            } catch (Exception e) {
+                                // TODO: advanced exception handling, catch specific exceptions: nullPointer, parse etc.
+                                e.printStackTrace();
+                            }
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            t.start();
+            try {
+                // Wait for the thread to finish
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
 
 
-      //  } else {
+         } else {
             try {
                 medicationList = new ArrayList<>();
                 DateFormat df = new SimpleDateFormat("HH:mm", new Locale(LanguageHelper.getCurrentLocale()));
@@ -127,7 +172,7 @@ public class TabMedication extends Fragment {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-    //    }
+        }
 
     }
 

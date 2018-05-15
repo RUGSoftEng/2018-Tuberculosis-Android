@@ -207,7 +207,7 @@ public class CalendarView extends LinearLayout {
                 dateTemplate.setMonth(date.getMonth());
                 dateTemplate.setDate(date.getDate());
                 ArrayList<Medication> meds = mEvents.get(dateTemplate);
-                if (!meds.isEmpty()) {
+                if (meds != null) {
                     //Makes sure meds are sorted on time when passing it to the ReminderSetter
                     Collections.sort(meds, new Comparator<Medication>() {
                         @Override
@@ -217,7 +217,8 @@ public class CalendarView extends LinearLayout {
                     });
                     //TODO having the date time fields in meds hold the date will remove the need to pass currentDate and do some computations
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                        rs.setReminders(date, meds);
+                        if(rs != null) rs.setReminders(date, meds);
+
                     }
                 }
             } catch (ParseException e) {
@@ -249,6 +250,8 @@ public class CalendarView extends LinearLayout {
                     if (response.code() == 200) {
                         try {
                             for (CalendarJSONHolder jsonResponse : response.body()) {
+
+
 
                                 DateFormat format = new SimpleDateFormat("yyyy-MM-dd", mLocale);
                                 Date date = format.parse(jsonResponse.getDate());

@@ -4,6 +4,7 @@ import com.rugged.tuberculosisapp.calendar.CalendarJSONHolder;
 import com.rugged.tuberculosisapp.signin.Account;
 import com.rugged.tuberculosisapp.signin.Identification;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -41,16 +42,16 @@ public interface ServerAPI {
     );
     @Headers("Content-Type: application/json")
     @GET("general/videos/topics")
-    Call<ResponseBody> retrieveCategories(
+    Call<ArrayList<String>> retrieveCategories(
             @Header("access_token") String access_token,
-            @Body List<CalendarJSONHolder> JSONData
+            @Body ArrayList<String> JSONData
     );
     @Headers("Content-Type: application/json")
     @GET("general/videos/topics/{topic}")
-    Call<ResponseBody> retrieveVideoByCategory(
-            @Path("id") String video_topic,
+    Call<ArrayList<String>> retrieveVideoByCategory(
+            @Path("topic") String video_topic,
             @Header("access_token") String access_token,
-            @Body List<CalendarJSONHolder> JSONData
+            @Body ArrayList<String> JSONData
     );
 
 }

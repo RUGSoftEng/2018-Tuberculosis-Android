@@ -121,6 +121,10 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
 
                 if(today.getDay() == day) {
                     if(medication.isTaken()) takenImage.setImageResource(R.drawable.ic_check);
+                    takenImage.setTag("R.drawable.ic_check");
+                } else {
+                    takenImage.setImageResource(R.drawable.ic_line);
+                    takenImage.setTag("R.drawable.ic_line");
                 }
             }
             if(medication.getName().equals("Highly experimental pills")) {

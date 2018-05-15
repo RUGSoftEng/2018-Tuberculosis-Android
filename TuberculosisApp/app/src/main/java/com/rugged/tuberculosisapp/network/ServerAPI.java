@@ -1,6 +1,7 @@
 package com.rugged.tuberculosisapp.network;
 
 import com.rugged.tuberculosisapp.calendar.CalendarJSONHolder;
+import com.rugged.tuberculosisapp.notes.QuestionToPhysician;
 import com.rugged.tuberculosisapp.signin.Account;
 import com.rugged.tuberculosisapp.signin.Identification;
 
@@ -14,6 +15,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -52,6 +54,14 @@ public interface ServerAPI {
             @Path("topic") String video_topic,
             @Header("access_token") String access_token,
             @Body ArrayList<String> JSONData
+    );
+
+    @Headers("Content-Type: application/json")
+    @PUT("accounts/patients/{id}/notes")
+    Call<ResponseBody> askPhysician(
+            @Path("id") int patient_id,
+            @Header("access_token") String access_token,
+            @Body QuestionToPhysician note
     );
 
 }

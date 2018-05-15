@@ -53,4 +53,7 @@
     <string name="token_label">Volledige toegang tot een TuBuddy patientenaccount</string>
     <string name="data_updated">%1$s is bijgewerkt.</string>
     <string name="save_error">%1$s kon niet worden bijgewerkt!</string>
+    <string name="question_empty">Vul een vraag in.</string>
+    <string name="question_successful">Uw vraag is succesvol verzonden!</string>
+    <string name="question_failed">Kan uw vraag niet verzenden, probeer het later opnieuw.</string>
 </resources>

@@ -2,6 +2,7 @@ package com.rugged.tuberculosisapp.calendar;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
@@ -210,7 +211,9 @@ public class CalendarView extends LinearLayout {
                     }
                 });
                 //TODO having the date time fields in meds hold the date will remove the need to pass currentDate and do some computations
-                rs.setReminders(currentDate, meds);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    rs.setReminders(currentDate, meds);
+                }
             }
         }
     }

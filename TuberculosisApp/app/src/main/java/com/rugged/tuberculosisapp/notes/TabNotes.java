@@ -6,30 +6,25 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rugged.tuberculosisapp.R;
-import com.rugged.tuberculosisapp.information.Category;
 import com.rugged.tuberculosisapp.network.RetrofitClientInstance;
 import com.rugged.tuberculosisapp.network.ServerAPI;
 import com.rugged.tuberculosisapp.settings.UserData;
-import com.rugged.tuberculosisapp.signin.Identification;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+
+import static com.rugged.tuberculosisapp.MainActivity.ENABLE_API;
 
 public class TabNotes extends Fragment {
 
@@ -57,6 +52,8 @@ public class TabNotes extends Fragment {
             public void onClick(View v) {
                 if (textQuestion.getText().toString().length() > 0) { // check if there actually is a question
                     sendQuestion(textQuestion.getText().toString(), textQuestion);
+                } else {
+                    Toast.makeText(getActivity(), R.string.question_empty, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -65,43 +62,47 @@ public class TabNotes extends Fragment {
     }
 
     private void sendQuestion(String question, final EditText editText) {
-        Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
-        ServerAPI serverAPI = retrofit.create(ServerAPI.class);
+        if (ENABLE_API) {
+            Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
+            ServerAPI serverAPI = retrofit.create(ServerAPI.class);
 
-        final Call<ResponseBody> call = serverAPI.askPhysician(UserData.getIdentification().getId(),
-                UserData.getIdentification().getToken(), new QuestionToPhysician(question));
+            final Call<ResponseBody> call = serverAPI.askPhysician(UserData.getIdentification().getId(),
+                    UserData.getIdentification().getToken(), new QuestionToPhysician(question));
 
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Response<ResponseBody> response = call.execute();
-                    if (response.code() == 201 || response.code() == 405) { // 201 means successfully created TODO: remove 405 when we are allowed to put notes
-                        editText.setText("");
-                        getActivity().runOnUiThread(new Runnable() { // To display a toast in a thread you need this
-                            public void run() {
-                                Toast.makeText(getActivity(), "Question is sent successfully!", Toast.LENGTH_SHORT).show();// TODO change to string value
-                            }
-                        });
-                    } else {
-                        getActivity().runOnUiThread(new Runnable() {
-                            public void run() {
-                                Toast.makeText(getActivity(), "Failed to sent your question, try again later.", Toast.LENGTH_SHORT).show();// TODO change to string value
-                            }
-                        });
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Response<ResponseBody> response = call.execute();
+                        if (response.code() == 201 || response.code() == 405) { // 201 means successfully created TODO: remove 405 when we are allowed to put notes
+                            editText.setText("");
+                            getActivity().runOnUiThread(new Runnable() { // To display a toast in a thread you need this
+                                public void run() {
+                                    Toast.makeText(getActivity(), R.string.question_successful, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else {
+                            getActivity().runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(getActivity(), R.string.question_failed, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    } catch (IOException e) {
+                        // TODO add more advanced exception handling
+                        e.printStackTrace();
                     }
-                } catch (IOException e) {
-                    // TODO add more advanced exception handling
-                    e.printStackTrace();
                 }
-            }
-        });
+            });
 
-        t.start();
-        try {
-            t.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            t.start();
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(getActivity(), "API is disabled", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -150,16 +150,12 @@ public class TabNotes extends Fragment {
 
                     if (elementIdx == questionIdx) { // Clicking the same question
                         question.setTypeface(null, Typeface.NORMAL);
-                        entries.removeViewAt(elementIdx+1);
+                        entries.removeViewAt(elementIdx+1); // remove answer
                         questionIdx = NO_LAST_QUESTION;
                     } else if (questionIdx == NO_LAST_QUESTION) { // No question has been selected previously
                         question.setTypeface(null, Typeface.BOLD);
 
-                        final TextView answer = new TextView(getActivity());
-                        answer.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                        answer.setText(currentEntry.getAnswer());
-                        answer.setTextColor(Color.rgb(80,80,80));
-                        entries.addView(answer, elementIdx+1);
+                        addAnswerToQuestion(currentEntry, elementIdx);
 
                         questionIdx = elementIdx;
                     } else { // Clicking on a different question
@@ -168,16 +164,12 @@ public class TabNotes extends Fragment {
                         TextView previousQuestionText = (TextView) entries.getChildAt(questionIdx);
                         previousQuestionText.setTypeface(null, Typeface.NORMAL);
 
-                        entries.removeViewAt(questionIdx+1);
+                        entries.removeViewAt(questionIdx+1); // remove answer
                         if (questionIdx < elementIdx) {
                             elementIdx--;
                         }
 
-                        final TextView answer = new TextView(getActivity());
-                        answer.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                        answer.setText(currentEntry.getAnswer());
-                        answer.setTextColor(Color.rgb(80,80,80));
-                        entries.addView(answer, elementIdx+1);
+                        addAnswerToQuestion(currentEntry, elementIdx);
 
                         questionIdx = elementIdx;
                     }
@@ -186,4 +178,13 @@ public class TabNotes extends Fragment {
             entries.addView(question);
         }
     }
+
+    private void addAnswerToQuestion(FAQEntry currentEntry, int elementIdx) {
+        final TextView answer = new TextView(getActivity());
+        answer.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        answer.setText(currentEntry.getAnswer());
+        answer.setTextColor(Color.rgb(80,80,80));
+        entries.addView(answer, elementIdx+1); // add answer below question
+    }
+
 }

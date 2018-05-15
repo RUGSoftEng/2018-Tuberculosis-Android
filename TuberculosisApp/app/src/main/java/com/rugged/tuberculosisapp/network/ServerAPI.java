@@ -39,5 +39,18 @@ public interface ServerAPI {
             @Header("access_token") String access_token,
             @Body List<CalendarJSONHolder> JSONData
     );
+    @Headers("Content-Type: application/json")
+    @GET("general/videos/topics")
+    Call<ResponseBody> retrieveCategories(
+            @Header("access_token") String access_token,
+            @Body List<CalendarJSONHolder> JSONData
+    );
+    @Headers("Content-Type: application/json")
+    @GET("general/videos/topics/{topic}")
+    Call<ResponseBody> retrieveVideoByCategory(
+            @Path("id") String video_topic,
+            @Header("access_token") String access_token,
+            @Body List<CalendarJSONHolder> JSONData
+    );
 
 }

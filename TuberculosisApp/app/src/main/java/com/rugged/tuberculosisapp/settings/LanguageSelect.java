@@ -21,7 +21,6 @@ public class LanguageSelect extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Update language
-        LanguageHelper.changeLocale(getResources(), UserData.getLocaleString());
 
         super.onCreate(savedInstanceState);
         if (UserData.isFirstLaunch()) {

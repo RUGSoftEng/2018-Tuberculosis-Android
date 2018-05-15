@@ -207,7 +207,7 @@ public class CalendarView extends LinearLayout {
                 dateTemplate.setMonth(date.getMonth());
                 dateTemplate.setDate(date.getDate());
                 ArrayList<Medication> meds = mEvents.get(dateTemplate);
-                if (meds != null) {
+                if (!meds.isEmpty()) {
                     //Makes sure meds are sorted on time when passing it to the ReminderSetter
                     Collections.sort(meds, new Comparator<Medication>() {
                         @Override

@@ -43,7 +43,7 @@ public class TabInformation extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_tab_information, container, false);
-
+        Toast.makeText(getContext(), "Loading in videos", Toast.LENGTH_SHORT).show();
         // Get list view
         listView = view.findViewById(R.id.categoryList);
 

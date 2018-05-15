@@ -9,9 +9,9 @@
         android:id="@+id/pillImage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginRight="32dp"
-        android:layout_weight=".15"
+        android:layout_weight=".13"
         android:adjustViewBounds="true"
         android:contentDescription="Pill Icon"
         app:srcCompat="@drawable/ic_pill" />
@@ -27,7 +27,7 @@
         android:layout_weight=".5"
         android:text="@string/medication_name_placeholder"
         android:textColor="@android:color/black"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <ImageView
         android:id="@+id/takenImage"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:layout_weight=".15"
+        android:layout_weight=".12"
         android:adjustViewBounds="true"
         android:contentDescription="Taken Icon"
         app:srcCompat="@drawable/ic_cross" />
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="32dp"
-        android:layout_weight=".15"
+        android:layout_weight=".12"
         android:adjustViewBounds="true"
         android:contentDescription="Info Icon"
         app:srcCompat="@drawable/ic_information" />

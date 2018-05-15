@@ -123,8 +123,12 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
                     if(medication.isTaken()) takenImage.setImageResource(R.drawable.ic_check);
                 }
             }
+            if(medication.getName().equals("Highly experimental pills")) {
+                medicationName.setText("Experimental pills");
+            } else {
+                medicationName.setText(medication.getName());
 
-            medicationName.setText(medication.getName());
+            }
 
         }
 

@@ -108,6 +108,7 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
                 medicationTime.setText(df.format(medication.getTime()));
                 medicationDose.setText(convertView.getResources().getQuantityString(R.plurals.medication_dose, medication.getDose(), medication.getDose()));
             }
+
             medicationName.setText(medication.getName());
 
         }

@@ -7,20 +7,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+
 import android.widget.ImageView;
+
 import android.widget.ListView;
+
 import android.widget.Toast;
 
+import com.rugged.tuberculosisapp.MainActivity;
 import com.rugged.tuberculosisapp.R;
+import com.rugged.tuberculosisapp.calendar.CalendarJSONHolder;
+import com.rugged.tuberculosisapp.network.RetrofitClientInstance;
+import com.rugged.tuberculosisapp.network.ServerAPI;
 import com.rugged.tuberculosisapp.settings.LanguageHelper;
+import com.rugged.tuberculosisapp.settings.UserData;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Retrofit;
 
 public class TabMedication extends Fragment {
 
@@ -29,6 +41,10 @@ public class TabMedication extends Fragment {
     private ListView medicationListView;
 
     private List<Medication> medicationList;
+
+    private Calendar currentDate = Calendar.getInstance();
+
+    private Locale mLocale = new Locale(LanguageHelper.getCurrentLocale());
 
     @Nullable
     @Override
@@ -76,19 +92,43 @@ public class TabMedication extends Fragment {
     }
 
     private void prepareListData() {
-        try {
-            medicationList = new ArrayList<>();
-            DateFormat df = new SimpleDateFormat("HH:mm", new Locale(LanguageHelper.getCurrentLocale()));
 
-            Date time1 = df.parse("08:00");
-            Date time2 = df.parse("16:30");
-            medicationList.add(new Medication("Rifampicin", time1, 1));
-            medicationList.add(new Medication("Isoniazid", time1, 2));
-            medicationList.add(new Medication("Pyrazinamide", time1, 1));
-            medicationList.add(new Medication("Ethambutol", time2, 2));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+//        if (MainActivity.ENABLE_API) {
+//
+//            Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
+//            ServerAPI serverAPI = retrofit.create(ServerAPI.class);
+//
+//            Calendar cal = (Calendar) currentDate.clone();
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-01", mLocale);
+//            String fromDate = sdf.format(cal.getTime());
+//            cal.add(Calendar.WEEK_OF_MONTH, 1);
+//            String toDate = sdf.format(cal.getTime());
+//
+//            final Call<List<CalendarJSONHolder>> call = serverAPI.getCalendarData(UserData.getIdentification().getId(),
+//                    fromDate, toDate, UserData.getIdentification().getToken());
+
+
+
+      //  } else {
+            try {
+                medicationList = new ArrayList<>();
+                DateFormat df = new SimpleDateFormat("HH:mm", new Locale(LanguageHelper.getCurrentLocale()));
+
+                Date time1 = df.parse("08:00");
+                Date time2 = df.parse("16:30");
+
+                Medication m1 = new Medication("Ethambutol", time2, 2);
+                Medication m2 = new Medication("Ethambutol", time2, 2);
+
+                medicationList.add(new Medication("Rifampicin", time1, 1));
+                medicationList.add(new Medication("Isoniazid", time1, 2));
+                medicationList.add(new Medication("Pyrazinamide", time1, 1));
+                medicationList.add(new Medication("Ethambutol", time2, 2));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+    //    }
+
     }
 
 }

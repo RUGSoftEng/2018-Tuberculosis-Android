@@ -48,4 +48,12 @@ public class Medication {
         return "Name: " + name + ", Time: " + time.toString() + ", Dose: " + dose + ", isTaken: " + isTaken;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        Medication m = (Medication) o;
+        if(this.name.equals(m.getName()) && this.time.toString().equals(m.getTime().toString()) && this.dose == m.getDose()) return true;
+        return false;
+    }
 }
+
+

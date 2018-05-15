@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -50,7 +51,8 @@ public class ReminderHandler extends BroadcastReceiver {
                 .setContentTitle(context.getString(R.string.notification_title))
                 .setContentText(notificationText)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setVibrate(new long[0])
+                .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);

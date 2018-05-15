@@ -54,7 +54,7 @@ public class TabCalendar extends Fragment {
             DateFormat df = new SimpleDateFormat("HH:mm", new Locale(LanguageHelper.getCurrentLocale()));
 
             Date time1 = df.parse("08:00");
-            Date time2 = df.parse("16:30");
+            Date time2 = df.parse("20:01");
             Date time3 = df.parse("17:30");
 
             medicationList.add(new Medication("Rifampicin", time1, 1, true));

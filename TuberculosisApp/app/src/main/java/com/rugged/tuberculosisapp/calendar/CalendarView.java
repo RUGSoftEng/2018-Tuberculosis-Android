@@ -22,6 +22,7 @@ import com.rugged.tuberculosisapp.settings.UserData;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -198,22 +199,29 @@ public class CalendarView extends LinearLayout {
 
         // Create reminders for the current date
         if (mEvents != null) {
-            //TODO get medication ArrayList of current day instead
-            Calendar cal = new GregorianCalendar(2018, 4, 15);
-            Date currentDate = new Date(cal.getTimeInMillis());
-            ArrayList<Medication> meds = mEvents.get(currentDate);
-            if (meds != null) {
-                //Makes sure meds are sorted on time when passing it to the ReminderSetter
-                Collections.sort(meds, new Comparator<Medication>() {
-                    @Override
-                    public int compare(Medication o1, Medication o2) {
-                        return o1.getTime().compareTo(o2.getTime());
+            Date date = new Date();
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd", mLocale);
+            try {
+                Date dateTemplate = format.parse("1970-01-01");
+                dateTemplate.setYear(date.getYear());
+                dateTemplate.setMonth(date.getMonth());
+                dateTemplate.setDate(date.getDate());
+                ArrayList<Medication> meds = mEvents.get(dateTemplate);
+                if (meds != null) {
+                    //Makes sure meds are sorted on time when passing it to the ReminderSetter
+                    Collections.sort(meds, new Comparator<Medication>() {
+                        @Override
+                        public int compare(Medication o1, Medication o2) {
+                            return o1.getTime().compareTo(o2.getTime());
+                        }
+                    });
+                    //TODO having the date time fields in meds hold the date will remove the need to pass currentDate and do some computations
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        rs.setReminders(date, meds);
                     }
-                });
-                //TODO having the date time fields in meds hold the date will remove the need to pass currentDate and do some computations
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    rs.setReminders(currentDate, meds);
                 }
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
         }
     }

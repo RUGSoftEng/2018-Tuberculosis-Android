@@ -77,11 +77,10 @@ public class TabInformation extends Fragment {
     private void prepareListData() {
         listCategories = new ArrayList<>();
        final ArrayList<String> titles = new ArrayList<>();
-       /**
         Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
         ServerAPI serverAPI = retrofit.create(ServerAPI.class);
 
-        final Call<ArrayList<String>> call = serverAPI.retrieveCategories(UserData.getIdentification().getToken(),titles); // here the method is the one you created in the ServerAPI interface
+        final Call<ArrayList<String>> call = serverAPI.retrieveCategories(UserData.getIdentification().getToken()); // here the method is the one you created in the ServerAPI interface
          Thread t = new Thread(new Runnable() {
 
         @Override
@@ -113,9 +112,9 @@ public class TabInformation extends Fragment {
             e.printStackTrace();
 
         }
-        for(String title: titles) {
+      for( final String title: titles) {
             final ArrayList<String> videos = new ArrayList<>();
-            final Call<ArrayList<String>> callVideo = serverAPI.retrieveVideoByCategory(title,UserData.getIdentification().getToken(),videos );
+            final Call<List<JSONVideoHolder>> callVideo = serverAPI.retrieveVideoByCategory(title,UserData.getIdentification().getToken());
             Thread s = new Thread(new Runnable() {
 
                 @Override
@@ -124,11 +123,14 @@ public class TabInformation extends Fragment {
 
 
                     try {
-                        Response<ArrayList<String>> response = callVideo.execute();
+                        Response<List<JSONVideoHolder>> response = callVideo.execute();
                         if (response.code() == 200) { // choose right code for successful API call (200 in this case)
                             if (response.body() != null) {
-                                listCategories.add(new Category("Category 1",response.body()));
-
+                                ArrayList<String> videos = new ArrayList<>();
+                                for(JSONVideoHolder cVideo : response.body()){
+                                    videos.add(cVideo.getVideoUrl());
+                                }
+                                listCategories.add(new Category(title,videos));
                             }
                         }
                     } catch (IOException e) {
@@ -149,7 +151,6 @@ public class TabInformation extends Fragment {
 
             }
         }
-**/
 
         // Add data headers to children in list view
         // TODO: API call to get categories

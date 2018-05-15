@@ -90,11 +90,11 @@ public class QuizActivity extends AppCompatActivity {
     public void retrieveQuizList(){
         quizList = new ArrayList<Quiz>();
         ArrayList<String> option = new ArrayList<String>();
-        option.add("Answer 1");
+        option.add("4");
         ArrayList<String> options = new ArrayList<String>();
         options.add("Answer 1");
         options.add("Answer 2");
-        quizList.add(new Quiz("qUESTION 1?",option,"Answer 2"));
+        quizList.add(new Quiz("2 + 2 = ?",option,"Answer 2"));
         options.add("Answer 3");
         quizList.add(new Quiz("Question 2",options,"Answer 1"));
 

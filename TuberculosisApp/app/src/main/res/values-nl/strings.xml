@@ -56,4 +56,14 @@
     <string name="question_empty">Vul een vraag in.</string>
     <string name="question_successful">Uw vraag is succesvol verzonden!</string>
     <string name="question_failed">Kan uw vraag niet verzenden, probeer het later opnieuw.</string>
+    <string name="question_number_1">Wat is tuberculose?</string>
+    <string name="question_number_2">Hoe krijgt iemand tuberculose?</string>
+    <string name="question_number_3">Wat is latente tuberculose?</string>
+    <string name="question_number_4">Wat is het verschil tussen actieve tuberculose en latente tuberculose?</string>
+    <string name="question_number_5">Kan ik andere mensen besmetten wanneer ik onder behandeling ben?</string>
+    <string name="answer_number_1">Tuberculose is een ziekte die veroorzaakt wordt door een bacterie genaamd Mycobacterium tuberculosis. Deze bacterie kan longproblemen veroorzaken zoals een droge hoest, maar tuberculose kan zich ook op andere manieren uiten.</string>
+    <string name="answer_number_2">Tuberculose verspreidt zich door de lucht. U zou het kunnen krijgen doordat iemand met tuberculose hoest of praat. De bacteriën zitten in kleine druppeltjes in de lucht die u uitademd, deze duppeltjes kunt u zo inademen.</string>
+    <string name="answer_number_3">Latente tuberculose is een specifieke vorm van tuberculose waarbij de persoon zich niet ziek voelt en hij of zij ook niet besmettelijk is. Mensen krijgen latente tuberculose wanneer zij de bacterie inademen maar het immuunsysteem (het systeem van uw lichaam dat voorkomt dat u ziek wordt) de bacteriën kan inbouwen door middel van een soort muur. Hierdoor kunnen de bacteriën niet naar andere plekken in uw lichaam of vermenigvuldigen. De bacteriën zijn slapend. Latente tuberculose kan zich in sommige mensen toch ontwikkelen tot actieve tuberculose worden. Wanneer dit gebeurd ervaart men ook symptomen.</string>
+    <string name="answer_number_4">"Voor actieve tuberculose geldt dat een persoon zich vaak ziek voelt. Bij latente tuberculose voelt de persoon zich vaak niet ziek.  Symptomen die ervaart worden bij actieve tuberculose zijn: Droge hoest voor langer dan 3 weken, nachtzweten, pijn op de borst, slijm of bloed ophoesten, zwakte, vermoeidheid, gewichtsverlies, rillingen, verminderde eetlust en koorts. Iemand met latente tuberculose ervaart geen symptomen. Daarnaast is een persoon met actieve tuberculose besmettelijk en is er altijd een behandeling nodig. Bij latente tuberculose is de persoon niet besmettelijk en er is slechts in bepaalde gevallen een behandeling nodig. "</string>
+    <string name="answer_number_5">U kunt geen andere mensen besmetten wanneer de sputum testen negatief zijn voor tuberculose. Dit is meestal het geval wanneer u een drietal weken bezig bent met de behandeling. De beste manier om erachter te komen of dit ook voor u het geval is, is om het aan de arts te vragen.</string>
 </resources>

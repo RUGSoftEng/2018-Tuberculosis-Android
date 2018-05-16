@@ -34,7 +34,7 @@ public class Medication {
         return dose;
     }
 
-    public boolean getTaken() {
+    public boolean isTaken() {
         return isTaken;
     }
 
@@ -48,4 +48,12 @@ public class Medication {
         return "Name: " + name + ", Time: " + time.toString() + ", Dose: " + dose + ", isTaken: " + isTaken;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        Medication m = (Medication) o;
+        if(this.name.equals(m.getName())) return true;
+        return false;
+    }
 }
+
+

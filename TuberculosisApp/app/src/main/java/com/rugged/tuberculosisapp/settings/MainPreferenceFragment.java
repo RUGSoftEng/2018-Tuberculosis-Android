@@ -90,8 +90,7 @@ public class MainPreferenceFragment extends PreferenceFragment {
                     preference.setSummary(R.string.pref_notification_silent);
 
                 } else {
-                    Ringtone ringtone = RingtoneManager.getRingtone(
-                            preference.getContext(), Uri.parse(stringValue));
+                    Ringtone ringtone = RingtoneManager.getRingtone(preference.getContext(), Uri.parse(stringValue));
 
                     if (ringtone == null) {
                         // Clear the summary if there was a lookup error.

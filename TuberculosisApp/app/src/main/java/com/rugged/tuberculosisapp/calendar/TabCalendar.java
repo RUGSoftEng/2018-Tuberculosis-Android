@@ -54,7 +54,8 @@ public class TabCalendar extends Fragment {
             DateFormat df = new SimpleDateFormat("HH:mm", new Locale(LanguageHelper.getCurrentLocale()));
 
             Date time1 = df.parse("08:00");
-            Date time2 = df.parse("16:30");
+            Date time2 = df.parse("21:33");
+            Date time3 = df.parse("17:30");
 
             medicationList.add(new Medication("Rifampicin", time1, 1, true));
 
@@ -65,7 +66,7 @@ public class TabCalendar extends Fragment {
 
             medicationList3.add(new Medication("Rifampicin", time1, 1, true));
             medicationList3.add(new Medication("Ethambutol", time2, 2, false));
-
+            medicationList3.add(new Medication("Isoniazid", time3, 2, false));
 
             Calendar cal = new GregorianCalendar(2018, 3, 9);
             events.put(new Date(cal.getTimeInMillis()), medicationList);
@@ -73,7 +74,7 @@ public class TabCalendar extends Fragment {
             events.put(new Date(cal.getTimeInMillis()), medicationList2);
             cal.set(2018, 2, 23);
             events.put(new Date(cal.getTimeInMillis()), medicationList3);
-            cal.set(2018, 4, 13);
+            cal.set(2018, 4, 15);
             events.put(new Date(cal.getTimeInMillis()), medicationList3);
         } catch (ParseException e) {
             e.printStackTrace();

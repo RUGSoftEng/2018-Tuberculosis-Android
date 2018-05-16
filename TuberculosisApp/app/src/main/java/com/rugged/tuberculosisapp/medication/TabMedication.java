@@ -129,9 +129,12 @@ public class TabMedication extends Fragment {
                                     Medication medication = jsonResponse.toMedication();
 
                                     DateFormat format = new SimpleDateFormat("yyyy-MM-dd", mLocale);
-                                    days.add(format.parse(jsonResponse.getDate()).getDay());
 
-                                    if(!medicationList.contains(medication)) medicationList.add(medication);
+
+                                    if(!medicationList.contains(medication)) {
+                                        medicationList.add(medication);
+                                        days.add(format.parse(jsonResponse.getDate()).getDay());
+                                    }
                                 }
                             } catch (Exception e) {
                                 // TODO: advanced exception handling, catch specific exceptions: nullPointer, parse etc.

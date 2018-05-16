@@ -120,8 +120,11 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
                 ImageView takenImage = convertView.findViewById(R.id.takenImage);
 
                 if(today.getDay() == day) {
-                    if(medication.isTaken()) takenImage.setImageResource(R.drawable.ic_check);
-                    takenImage.setTag("R.drawable.ic_check");
+                    if(medication.isTaken()) {
+                        takenImage.setImageResource(R.drawable.ic_check) ;
+                        takenImage.setTag("R.drawable.ic_check");
+                    }
+
                 } else {
                     takenImage.setImageResource(R.drawable.ic_line);
                     takenImage.setTag("R.drawable.ic_line");

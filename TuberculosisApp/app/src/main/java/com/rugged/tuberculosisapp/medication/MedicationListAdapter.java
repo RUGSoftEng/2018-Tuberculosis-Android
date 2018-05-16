@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rugged.tuberculosisapp.R;
@@ -17,6 +18,7 @@ import com.rugged.tuberculosisapp.settings.LanguageHelper;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -27,17 +29,19 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
     private Context mContext;
     private int mResourceId;
     private final List<Medication> mMedication;
+    private final List<Integer> days;
     private Date date;
     public SparseBooleanArray mCheckedStates;
 
     // User has x days to change the taken state of medicines before it is locked
     private static final int DAYS_UNTIL_CHECKBOX_IS_LOCKED = 1;
 
-    public MedicationListAdapter(Context context, int resourceId, List<Medication> medication) {
+    public MedicationListAdapter(Context context, int resourceId, List<Medication> medication, List<Integer> days) {
         super(context, resourceId, medication);
         this.mContext = context;
         this.mResourceId = resourceId;
         this.mMedication = medication;
+        this.days = days;
     }
 
     public MedicationListAdapter(Context context, int resourceId, List<Medication> medication, Date date) {
@@ -47,6 +51,7 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
         this.mMedication = medication;
         this.date = date;
         this.mCheckedStates = new SparseBooleanArray();
+        this.days = new ArrayList<>();
     }
 
 
@@ -69,6 +74,7 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         Medication medication = getItem(position);
+
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(mResourceId, parent, false);
@@ -107,8 +113,26 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
                 DateFormat df = new SimpleDateFormat("HH:mm", new Locale(LanguageHelper.getCurrentLocale()));
                 medicationTime.setText(df.format(medication.getTime()));
                 medicationDose.setText(convertView.getResources().getQuantityString(R.plurals.medication_dose, medication.getDose(), medication.getDose()));
+            } else {
+                int day = days.get(position);
+
+                Date today = new Date();
+                ImageView takenImage = convertView.findViewById(R.id.takenImage);
+
+                if(today.getDay() == day) {
+                    if(medication.isTaken()) takenImage.setImageResource(R.drawable.ic_check);
+                    takenImage.setTag("R.drawable.ic_check");
+                } else {
+                    takenImage.setImageResource(R.drawable.ic_line);
+                    takenImage.setTag("R.drawable.ic_line");
+                }
             }
-            medicationName.setText(medication.getName());
+            if(medication.getName().equals("Highly experimental pills")) {
+                medicationName.setText("Experimental pills");
+            } else {
+                medicationName.setText(medication.getName());
+
+            }
 
         }
 

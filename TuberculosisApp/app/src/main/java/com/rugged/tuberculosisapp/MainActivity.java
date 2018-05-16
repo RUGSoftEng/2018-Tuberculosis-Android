@@ -145,8 +145,8 @@ public class MainActivity extends AppCompatActivity {
             AccountManager am = AccountManager.get(this);
             Account account = am.getAccounts()[0];
             am.invalidateAuthToken(account.type, UserData.getIdentification().getToken());
-            // TODO: Do we want to remove the account as well? If so uncomment..
-            //am.removeAccount(account, null, null);
+            // TODO: Do we want to remove the account as well? If so uncomment.. !!Change check in langSelect if commented!!
+            am.removeAccount(account, null, null);
 
             Intent intent = new Intent(this, SignInActivity.class);
             startActivity(intent);

@@ -34,6 +34,7 @@ public class TabNotes extends Fragment {
     public static final String TITLE = "TabNotes";
     private static final int NO_LAST_QUESTION = -1;
     private int questionIdx = NO_LAST_QUESTION;
+    private boolean sent = false;
 
     private LinearLayout entries;
 
@@ -74,7 +75,7 @@ public class TabNotes extends Fragment {
         questionIdx = NO_LAST_QUESTION;
     }
 
-    private void sendQuestion(String question, final EditText editText) {
+    private void sendQuestion(final String question, final EditText editText) {
         if (ENABLE_API) {
             Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
             ServerAPI serverAPI = retrofit.create(ServerAPI.class);
@@ -91,18 +92,19 @@ public class TabNotes extends Fragment {
                                 " token = " + UserData.getIdentification().getToken());
                         System.out.println("response from server = " + response.code());
                         if (response.code() == 201) { // 201 means successfully created
-                            editText.setText("");
                             getActivity().runOnUiThread(new Runnable() { // To display a toast in a thread you need this
                                 public void run() {
                                     Toast.makeText(getActivity(), R.string.question_successful, Toast.LENGTH_SHORT).show();
                                 }
                             });
+                            sent = true;
                         } else {
                             getActivity().runOnUiThread(new Runnable() {
                                 public void run() {
                                     Toast.makeText(getActivity(), R.string.question_failed, Toast.LENGTH_SHORT).show();
                                 }
                             });
+                            sent = false;
                         }
                     } catch (IOException e) {
                         // TODO add more advanced exception handling
@@ -117,6 +119,7 @@ public class TabNotes extends Fragment {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            if(sent) editText.setText("");
         } else {
             Toast.makeText(getActivity(), "API is disabled", Toast.LENGTH_SHORT).show();
         }

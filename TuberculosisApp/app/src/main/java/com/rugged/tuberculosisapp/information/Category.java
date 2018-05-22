@@ -6,10 +6,18 @@ public class Category {
 
     private String title = "Category Title";
     private ArrayList<String> videoUrls;
+    private int color = android.R.color.holo_red_dark;
 
+    // TODO: Remove when colors in database
     Category(String title, ArrayList<String> videoUrls) {
         this.title = title;
         this.videoUrls = videoUrls;
+    }
+
+    Category(String title, ArrayList<String> videoUrls, int color) {
+        this.title = title;
+        this.videoUrls = videoUrls;
+        this.color = color;
     }
 
     public String getTitle() {
@@ -18,5 +26,9 @@ public class Category {
 
     public ArrayList<String> getVideoUrls() {
         return videoUrls;
+    }
+
+    public int getColor() {
+        return color;
     }
 }

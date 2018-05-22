@@ -6,7 +6,7 @@ public class Category {
 
     private String title = "Category Title";
     private ArrayList<String> videoUrls;
-    private int color = android.R.color.holo_red_dark;
+    private int color = android.R.color.white;
 
     // TODO: Remove when colors in database
     Category(String title, ArrayList<String> videoUrls) {

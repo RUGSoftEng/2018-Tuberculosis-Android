@@ -57,7 +57,7 @@ public class ViewDayFragment extends DialogFragment {
         ListView medicationListView = view.findViewById(R.id.medicationListDialog);
         Button dismissButton = view.findViewById(R.id.buttonDismiss);
         final Button saveButton = view.findViewById(R.id.buttonSave);
-        spinner = view.findViewById(R.id.progressBar);
+        spinner = view.findViewById(R.id.progressBarViewDay);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy", new Locale(LanguageHelper.getCurrentLocale()));
         String dateFormatted = sdf.format(date);

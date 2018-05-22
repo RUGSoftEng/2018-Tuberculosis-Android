@@ -75,7 +75,7 @@
                 android:value=".MainActivity" />
         </activity>
 
-        <receiver android:name=".reminders.ReminderHandler"></receiver>
+        <receiver android:name=".reminders.ReminderHandler" />
 
         <service
             android:name=".signin.AuthenticatorService"
@@ -84,8 +84,16 @@
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
-            <meta-data android:name="android.accounts.AccountAuthenticator"
+
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
                 android:resource="@xml/authenticator" />
+        </service>
+        <service
+            android:name=".reminders.ReminderService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE">
         </service>
     </application>
 

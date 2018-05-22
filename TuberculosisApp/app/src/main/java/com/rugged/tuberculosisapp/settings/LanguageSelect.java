@@ -17,6 +17,7 @@ import android.view.View;
 
 import com.rugged.tuberculosisapp.MainActivity;
 import com.rugged.tuberculosisapp.R;
+import com.rugged.tuberculosisapp.reminders.Util;
 import com.rugged.tuberculosisapp.signin.SignInActivity;
 import com.rugged.tuberculosisapp.signin.TabSignIn;
 
@@ -66,6 +67,10 @@ public class LanguageSelect extends AppCompatActivity {
     }
 
     private void checkAccount() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            Util.scheduleJob(this);
+        }
+
         AccountManager mAccountManager = AccountManager.get(this);
         Account accounts[] = mAccountManager.getAccountsByType(ACCOUNT_TYPE);
         if (accounts.length == 0 || !ENABLE_API) {

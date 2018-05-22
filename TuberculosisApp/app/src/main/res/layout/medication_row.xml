@@ -14,7 +14,7 @@
         android:layout_weight=".13"
         android:adjustViewBounds="true"
         android:contentDescription="Pill Icon"
-        app:srcCompat="@drawable/ic_pill" />
+        app:srcCompat="@drawable/ic_medication" />
 
 
 

@@ -43,7 +43,7 @@ public class TabInformation extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_tab_information, container, false);
-        Toast.makeText(getContext(), "Loading in videos", Toast.LENGTH_SHORT).show();
+
         // Get list view
         listView = view.findViewById(R.id.categoryList);
 
@@ -71,57 +71,49 @@ public class TabInformation extends Fragment {
         return view;
     }
 
-    /*
+    /**
         Prepare the list data
      */
     private void prepareListData() {
         listCategories = new ArrayList<>();
-       final ArrayList<String> titles = new ArrayList<>();
+        final ArrayList<String> titles = new ArrayList<>();
         Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
         ServerAPI serverAPI = retrofit.create(ServerAPI.class);
 
-        final Call<ArrayList<String>> call = serverAPI.retrieveCategories(UserData.getIdentification().getToken()); // here the method is the one you created in the ServerAPI interface
-         Thread t = new Thread(new Runnable() {
-
-        @Override
-
-        public void run() {
-
-
-            try {
-                Response<ArrayList<String>> response = call.execute();
-                if (response.code() == 200) { // choose right code for successful API call (200 in this case)
-                    if (response.body() != null) {
-                        titles.addAll(response.body());
+        // Here the method is the one you created in the ServerAPI interface
+        final Call<ArrayList<String>> call = serverAPI.retrieveCategories(UserData.getIdentification().getToken());
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Response<ArrayList<String>> response = call.execute();
+                    if (response.code() == 200) { // choose right code for successful API call (200 in this case)
+                        if (response.body() != null) {
+                            titles.addAll(response.body());
+                        }
                     }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-
             }
-        }
-
-        });t.start();
+        });
+        t.start();
 
         try {
-
             t.join();
-
         } catch (InterruptedException e) {
-
             e.printStackTrace();
-
         }
-      for( final String title: titles) {
+
+        for (final String title : titles) {
             final ArrayList<String> videos = new ArrayList<>();
-            final Call<List<JSONVideoHolder>> callVideo = serverAPI.retrieveVideoByCategory(title,UserData.getIdentification().getToken());
+            final Call<List<JSONVideoHolder>> callVideo = serverAPI.retrieveVideoByCategory(title, UserData.getIdentification().getToken());
+
             Thread s = new Thread(new Runnable() {
 
                 @Override
 
                 public void run() {
-
-
                     try {
                         Response<List<JSONVideoHolder>> response = callVideo.execute();
                         if (response.code() == 200) { // choose right code for successful API call (200 in this case)
@@ -132,31 +124,26 @@ public class TabInformation extends Fragment {
                                     temp = temp.replace("https://www.youtube.com/watch?v=","");
                                     videos.add(temp);
                                 }
-                                listCategories.add(new Category(title,videos));
+                                listCategories.add(new Category(title, videos));
                             }
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
-
                     }
                 }
 
-            });s.start();
+            });
+            s.start();
 
             try {
-
                 s.join();
-
             } catch (InterruptedException e) {
-
                 e.printStackTrace();
-
             }
         }
 
         // Add data headers to children in list view
-       ArrayList<String>  videoUrls2 = new ArrayList<>();
-
+        ArrayList<String>  videoUrls2 = new ArrayList<>();
 
         videoUrls2.add("IGZLkRN76Dc");
         videoUrls2.add("yR51KVF4OX0");

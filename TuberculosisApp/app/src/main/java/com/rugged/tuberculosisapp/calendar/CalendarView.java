@@ -250,9 +250,6 @@ public class CalendarView extends LinearLayout {
                     if (response.code() == 200) {
                         try {
                             for (CalendarJSONHolder jsonResponse : response.body()) {
-
-
-
                                 DateFormat format = new SimpleDateFormat("yyyy-MM-dd", mLocale);
                                 Date date = format.parse(jsonResponse.getDate());
 

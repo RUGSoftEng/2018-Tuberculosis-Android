@@ -75,20 +75,30 @@ public class TabInformation extends Fragment {
      */
     private void prepareListData() {
         listCategories = new ArrayList<>();
-       ArrayList<String>  videoUrls2 = new ArrayList<>();
+       ArrayList<String>  Tubercul = new ArrayList<>();
+        ArrayList<String> Treatment  = new ArrayList<>();
+        ArrayList<String>  Preve = new ArrayList<>();
+        ArrayList<String>  Oth = new ArrayList<>();
 
 
-        videoUrls2.add("fXiXGRlvH70");
-        videoUrls2.add("_GCGhSnmtyg");
-        videoUrls2.add("XJUGtouYizM");
-        videoUrls2.add("y4YobMWMoyU");
-        videoUrls2.add("29rigqhJgRk");
-        videoUrls2.add("aq9Nuq2fDwY");
-        videoUrls2.add("n7blVDVDAaU");
-        videoUrls2.add("hP7R3f5YzVg");
-        videoUrls2.add("KTbgaQvIUwI");
-        videoUrls2.add("o3RxQZCNFk0");
+        Tubercul.add("fXiXGRlvH70");
+        Tubercul.add("_GCGhSnmtyg");
+        Tubercul.add("XJUGtouYizM");
 
-        listCategories.add(new Category("Tuberculosis", videoUrls2));
+        Treatment.add("y4YobMWMoyU");
+        Treatment.add("29rigqhJgRk");
+        Treatment.add("aq9Nuq2fDwY");
+
+        Preve.add("n7blVDVDAaU");
+        Preve.add("hP7R3f5YzVg");
+        Preve.add("KTbgaQvIUwI");
+
+        Oth.add("o3RxQZCNFk0");
+
+        listCategories.add(new Category("Tuberculosis", Tubercul));
+        listCategories.add(new Category("Treatment", Treatment));
+        listCategories.add(new Category("Prevention", Preve));
+        listCategories.add(new Category("Other", Oth));
+
     }
 }

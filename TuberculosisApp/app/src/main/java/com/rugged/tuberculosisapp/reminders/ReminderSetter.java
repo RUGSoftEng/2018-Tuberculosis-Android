@@ -1,6 +1,5 @@
 package com.rugged.tuberculosisapp.reminders;
 
-import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -11,7 +10,6 @@ import android.support.annotation.RequiresApi;
 import com.rugged.tuberculosisapp.medication.Medication;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import static android.content.Context.ALARM_SERVICE;

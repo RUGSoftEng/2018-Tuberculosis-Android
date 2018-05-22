@@ -1,8 +1,10 @@
 package com.rugged.tuberculosisapp.information;
 
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,10 +47,18 @@ public class CategoryListAdapter extends ArrayAdapter<Category> {
         }
 
         TextView categoryTitle = (TextView) convertView.findViewById(R.id.categoryTitle);
+        GradientDrawable bgDrawable = new GradientDrawable();
+        bgDrawable.setStroke(dpToPixels(2, mContext), mContext.getResources().getColor(android.R.color.black));
+        bgDrawable.setCornerRadius(dpToPixels(4, mContext));
 
         if (category != null) {
             categoryTitle.setText(category.getTitle());
+
+            // Change category color
+            bgDrawable.setColor(mContext.getResources().getColor(category.getColor()));
         }
+
+        categoryTitle.setBackgroundDrawable(bgDrawable);
 
         return convertView;
     }
@@ -61,5 +71,10 @@ public class CategoryListAdapter extends ArrayAdapter<Category> {
     @Override
     public boolean hasStableIds() {
         return true;
+    }
+
+    private static int dpToPixels(int dp, Context context){
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        return dp * (metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 }

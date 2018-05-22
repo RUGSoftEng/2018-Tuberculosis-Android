@@ -173,10 +173,7 @@ public class CalendarView extends LinearLayout {
         // Fill cells
         while (cells.size() < numberOfCells) {
             // Set everything less significant than day to 0 in order to get right keys for hash map..
-            calendar.set(Calendar.HOUR_OF_DAY, 0);
-            calendar.set(Calendar.MINUTE, 0);
-            calendar.set(Calendar.SECOND, 0);
-            calendar.set(Calendar.MILLISECOND, 0);
+            clearInsignificant(calendar);
 
             cells.add(calendar.getTime());
             calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -199,30 +196,25 @@ public class CalendarView extends LinearLayout {
 
         // Create reminders for the current date
         if (mEvents != null) {
-            Date date = new Date();
-            DateFormat format = new SimpleDateFormat("yyyy-MM-dd", mLocale);
-            try {
-                Date dateTemplate = format.parse("1970-01-01");
-                dateTemplate.setYear(date.getYear());
-                dateTemplate.setMonth(date.getMonth());
-                dateTemplate.setDate(date.getDate());
-                ArrayList<Medication> meds = mEvents.get(dateTemplate);
-                if (meds != null) {
-                    //Makes sure meds are sorted on time when passing it to the ReminderSetter
-                    Collections.sort(meds, new Comparator<Medication>() {
-                        @Override
-                        public int compare(Medication o1, Medication o2) {
-                            return o1.getTime().compareTo(o2.getTime());
-                        }
-                    });
-                    //TODO having the date time fields in meds hold the date will remove the need to pass currentDate and do some computations
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                        if(rs != null) rs.setReminders(date, meds);
+            Date today = new Date();
+            Calendar cal = (Calendar) currentDate.clone();
+            cal.setTime(today);
+            clearInsignificant(cal);
+            today = cal.getTime();
+            ArrayList<Medication> meds = mEvents.get(today);
 
+            if (meds != null) {
+                //Makes sure meds are sorted on time when passing it to the ReminderSetter
+                Collections.sort(meds, new Comparator<Medication>() {
+                    @Override
+                    public int compare(Medication o1, Medication o2) {
+                        return o1.getTime().compareTo(o2.getTime());
                     }
+                });
+                //TODO having the date time fields in meds hold the date will remove the need to pass currentDate and do some computations
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    if (rs != null) rs.setReminders(today, meds);
                 }
-            } catch (ParseException e) {
-                e.printStackTrace();
             }
         }
     }
@@ -250,9 +242,6 @@ public class CalendarView extends LinearLayout {
                     if (response.code() == 200) {
                         try {
                             for (CalendarJSONHolder jsonResponse : response.body()) {
-
-
-
                                 DateFormat format = new SimpleDateFormat("yyyy-MM-dd", mLocale);
                                 Date date = format.parse(jsonResponse.getDate());
 
@@ -285,6 +274,13 @@ public class CalendarView extends LinearLayout {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    private void clearInsignificant(Calendar calendar) {
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
     }
 
     public void setActivity(Activity activity) {

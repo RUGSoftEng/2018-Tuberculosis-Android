@@ -46,7 +46,7 @@ public class ReminderHandler extends BroadcastReceiver {
         String notificationText = context.getString(R.string.notification_text) + ": " + medName;
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, "reminders")
-                .setSmallIcon(R.drawable.ic_pill)
+                .setSmallIcon(R.drawable.ic_medication)
                 .setLargeIcon(icon)
                 .setContentTitle(context.getString(R.string.notification_title))
                 .setContentText(notificationText)

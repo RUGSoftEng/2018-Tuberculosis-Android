@@ -13,13 +13,11 @@ import com.rugged.tuberculosisapp.signin.Identification;
 public class UserData extends Application {
 
     private static SharedPreferences sharedPreferences;
-    private static Identification identification;
 
     @Override
     public void onCreate() {
         super.onCreate();
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        identification = new Identification();
     }
 
     // Test function
@@ -30,6 +28,9 @@ public class UserData extends Application {
     }
 
     public static Identification getIdentification() {
+        Identification identification = new Identification();
+        identification.setId(sharedPreferences.getInt("patientId", -1));
+        identification.setToken(sharedPreferences.getString("access-token", null));
         return identification;
     }
 
@@ -41,8 +42,11 @@ public class UserData extends Application {
         return sharedPreferences.getBoolean("firstLaunch", true);
     }
 
-    public static void setIdentification(Identification newIdentification) {
-        identification = newIdentification;
+    public static void setIdentification(Identification identification) {
+        SharedPreferences.Editor preferenceEditor = sharedPreferences.edit();
+        preferenceEditor.putInt("patientId", identification.getId());
+        preferenceEditor.putString("access-token", identification.getToken());
+        preferenceEditor.apply();
     }
 
     public static void setLocale(String locale) {

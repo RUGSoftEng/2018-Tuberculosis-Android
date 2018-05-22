@@ -75,9 +75,16 @@ public class QuizActivity extends AppCompatActivity {
         ArrayList<String> options = new ArrayList<String>();
         options.add("It destroys all the bacteria");
         options.add("It moves the bacteria to a different place");
-        quizList.add(new Quiz("Tuberculosis is caused by:",option,"A bacteria"));
         options.add("It builds a wall around the bacteria");
-        quizList.add(new Quiz("What does your body to protect you from the TB?",options,"It builds a wall around the bacteria"));
+        ArrayList<String> optionss = new ArrayList<String>();
+        optionss.add("Via blood");
+        optionss.add("Via food");
+        optionss.add("Via air");
+        optionss.add("By shaking hands");
+        quizList.add(new Quiz("Tuberculosis is caused by:",option,"A bacteria"));
+        quizList.add(new Quiz("What does your body do to protect you from the TB?",options,"It builds a wall around the bacteria"));
+        quizList.add(new Quiz("How does the bacteria enter your body:",optionss,"Via air"));
+
 
     }
 }

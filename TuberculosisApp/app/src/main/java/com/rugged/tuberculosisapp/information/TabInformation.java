@@ -78,8 +78,17 @@ public class TabInformation extends Fragment {
        ArrayList<String>  videoUrls2 = new ArrayList<>();
 
 
-        videoUrls2.add("IGZLkRN76Dc");
-        videoUrls2.add("yR51KVF4OX0");
+        videoUrls2.add("fXiXGRlvH70");
+        videoUrls2.add("_GCGhSnmtyg");
+        videoUrls2.add("XJUGtouYizM");
+        videoUrls2.add("y4YobMWMoyU");
+        videoUrls2.add("29rigqhJgRk");
+        videoUrls2.add("aq9Nuq2fDwY");
+        videoUrls2.add("n7blVDVDAaU");
+        videoUrls2.add("hP7R3f5YzVg");
+        videoUrls2.add("KTbgaQvIUwI");
+        videoUrls2.add("o3RxQZCNFk0");
+
         listCategories.add(new Category("Tuberculosis", videoUrls2));
     }
 }

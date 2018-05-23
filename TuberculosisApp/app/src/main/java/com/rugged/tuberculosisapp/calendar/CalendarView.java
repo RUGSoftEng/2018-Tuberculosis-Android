@@ -25,14 +25,12 @@ import com.rugged.tuberculosisapp.settings.UserData;
 
 import java.io.IOException;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -64,6 +62,9 @@ public class CalendarView extends LinearLayout {
     private Locale mLocale = new Locale(LanguageHelper.getCurrentLocale());
 
     private ReminderSetter rs;
+
+    private static int[] location = new int[2];
+
 
     public CalendarView(Context context) {
         super(context);
@@ -302,8 +303,24 @@ public class CalendarView extends LinearLayout {
     }
 
     @Override
+    public void onWindowFocusChanged(boolean hasWindowFocus) {
+        super.onWindowFocusChanged(hasWindowFocus);
+        getLocationOnScreen(location);
+    }
+
+    public boolean isPointInsideCalendar(float x, float y){
+        int viewX = location[0];
+        int viewY = location[1];
+
+        System.out.println(viewX + ", " + viewY);
+        System.out.println("Touch at: " + x + ", " + y);
+        return ((x > viewX && x < (viewX + getWidth())) && (y > viewY && y < (viewY + getHeight())));
+    }
+
+    @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         super.dispatchTouchEvent(event);
+        //System.out.println(event.getAction());
         return gestureDetector.onTouchEvent(event);
     }
 

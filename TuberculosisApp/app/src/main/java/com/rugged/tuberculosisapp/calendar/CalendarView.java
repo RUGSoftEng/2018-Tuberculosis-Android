@@ -3,6 +3,7 @@ package com.rugged.tuberculosisapp.calendar;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -312,8 +313,6 @@ public class CalendarView extends LinearLayout {
         int viewX = location[0];
         int viewY = location[1];
 
-        System.out.println(viewX + ", " + viewY);
-        System.out.println("Touch at: " + x + ", " + y);
         return ((x > viewX && x < (viewX + getWidth())) && (y > viewY && y < (viewY + getHeight())));
     }
 
@@ -346,14 +345,6 @@ public class CalendarView extends LinearLayout {
                         } else {
                             // Swipe right
                             onPreviousMonth();
-                        }
-                        return true;
-                    }
-                } else {
-                    if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
-                        if (diffY > 0) {
-                            // Swipe down, refresh calendar
-                            updateCalendar();
                         }
                         return true;
                     }

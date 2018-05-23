@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.rugged.tuberculosisapp.MainActivity;
@@ -53,6 +56,10 @@ public class CalendarView extends LinearLayout {
     private ImageView btnNext;
     private TextView txtDate;
     private GridView grid;
+    private ProgressBar spinner;
+
+    // Gesture detector for swiping through months
+    public static GestureDetector gestureDetector;
 
     private Locale mLocale = new Locale(LanguageHelper.getCurrentLocale());
 
@@ -84,6 +91,8 @@ public class CalendarView extends LinearLayout {
         assignUiElements();
         assignClickHandlers();
 
+        gestureDetector = new GestureDetector(context, new GestureListener());
+
         updateCalendar();
     }
     private void assignUiElements() {
@@ -93,6 +102,8 @@ public class CalendarView extends LinearLayout {
         btnNext = (ImageView) findViewById(R.id.calendar_next_button);
         txtDate = (TextView) findViewById(R.id.calendar_date_display);
         grid = (GridView) findViewById(R.id.calendar_grid);
+
+        spinner = findViewById(R.id.progressBarCalendar);
     }
 
     private void onNextMonth() {
@@ -145,6 +156,7 @@ public class CalendarView extends LinearLayout {
      * Display dates correctly in grid
      */
     public void updateCalendar() {
+        spinner.setVisibility(View.VISIBLE);
         if (MainActivity.ENABLE_API) {
             mEvents.clear();
             getDatesFromAPI();
@@ -217,6 +229,8 @@ public class CalendarView extends LinearLayout {
                 }
             }
         }
+
+        spinner.setVisibility(View.INVISIBLE);
     }
 
     private void getDatesFromAPI() {
@@ -285,6 +299,55 @@ public class CalendarView extends LinearLayout {
 
     public void setActivity(Activity activity) {
         mActivity = activity;
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        super.dispatchTouchEvent(event);
+        return gestureDetector.onTouchEvent(event);
+    }
+
+    private class GestureListener extends GestureDetector.SimpleOnGestureListener {
+        private static final int SWIPE_THRESHOLD = 100;
+        private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return true;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            try {
+                float diffX = e2.getX() - e1.getX();
+                float diffY = e2.getY() - e1.getY();
+                if (Math.abs(diffX) > Math.abs(diffY)) {
+                    if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                        if (diffX < 0) {
+                            // Swipe left
+                            onNextMonth();
+                        } else {
+                            // Swipe right
+                            onPreviousMonth();
+                        }
+                        return true;
+                    }
+                } else {
+                    if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                        if (diffY > 0) {
+                            // Swipe down, refresh calendar
+                            updateCalendar();
+                        }
+                        return true;
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return false;
+        }
+
     }
 
 }

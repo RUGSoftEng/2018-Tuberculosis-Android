@@ -23,6 +23,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.rugged.tuberculosisapp.achievements.ActivityAchievements;
+import com.rugged.tuberculosisapp.calendar.CalendarView;
 import com.rugged.tuberculosisapp.information.TabInformation;
 import com.rugged.tuberculosisapp.calendar.TabCalendar;
 import com.rugged.tuberculosisapp.medication.TabMedication;
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+
+    private CalendarView cv;
 
     public static final int NEW_SETTING = 1;
     public static final int NEW_LANGUAGE = 2;
@@ -176,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             View v = getCurrentFocus();
-            if ( v instanceof EditText) {
+            if (v instanceof EditText) {
                 Rect outRect = new Rect();
                 v.getGlobalVisibleRect(outRect);
                 if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
@@ -185,12 +188,32 @@ public class MainActivity extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
             }
+        } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+            if (cv == null) {
+                cv = findViewById(R.id.calendarView);
+            }
+
+            if (isPointInsideView(event.getRawX(), event.getRawY(), cv)) {
+                cv.dispatchTouchEvent(event);
+                return false;
+            }
         }
-        return super.dispatchTouchEvent( event );
+
+        return super.dispatchTouchEvent(event);
+    }
+
+    private static boolean isPointInsideView(float x, float y, View view){
+        int location[] = new int[2];
+        view.getLocationOnScreen(location);
+        int viewX = location[0];
+        int viewY = location[1];
+
+        return ((x > viewX && x < (viewX + view.getWidth())) && (y > viewY && y < (viewY + view.getHeight())));
     }
 
     @Override
     public void onBackPressed() {
         // Do nothing
     }
+
 }

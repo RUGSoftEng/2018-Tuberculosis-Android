@@ -319,7 +319,6 @@ public class CalendarView extends LinearLayout {
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         super.dispatchTouchEvent(event);
-        //System.out.println(event.getAction());
         return gestureDetector.onTouchEvent(event);
     }
 

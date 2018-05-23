@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <com.rugged.tuberculosisapp.calendar.CustomSwipeToRefresh
         android:id="@+id/swiperefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -131,7 +131,7 @@
                 android:numColumns="7"/>
         </LinearLayout>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </com.rugged.tuberculosisapp.calendar.CustomSwipeToRefresh>
 
     <ProgressBar
         android:id="@+id/progressBarCalendar"

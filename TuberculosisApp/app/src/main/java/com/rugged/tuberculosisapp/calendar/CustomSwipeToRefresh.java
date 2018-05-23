@@ -20,7 +20,6 @@ public class CustomSwipeToRefresh extends SwipeRefreshLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mPrevX = MotionEvent.obtain(event).getX();

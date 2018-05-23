@@ -59,10 +59,6 @@ public class TabMedication extends Fragment {
 
         medicationListView = view.findViewById(R.id.medicationList);
 
-
-
-
-
         final MedicationListAdapter adapter = new MedicationListAdapter(this.getContext(), R.layout.medication_row, medicationList, days);
 
         medicationListView.setAdapter(adapter);
@@ -108,10 +104,9 @@ public class TabMedication extends Fragment {
             Calendar cal = (Calendar) currentDate.clone();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", mLocale);
             String fromDate = sdf.format(cal.getTime());
-            System.out.println(fromDate);
+
             cal.add(Calendar.WEEK_OF_MONTH, 1);
             String toDate = sdf.format(cal.getTime());
-            System.out.println(toDate);
             final Call<List<CalendarJSONHolder>> call = serverAPI.getCalendarData(UserData.getIdentification().getId(),
                     fromDate, toDate, UserData.getIdentification().getToken());
 

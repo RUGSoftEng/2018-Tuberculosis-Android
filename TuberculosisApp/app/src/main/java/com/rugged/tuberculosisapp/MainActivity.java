@@ -194,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (cv.isPointInsideCalendar(event.getRawX(), event.getRawY())) {
+                // TODO App crashes sometimes when clicking on a question in the notes tab, code works for all fragment tabs maybe?
                 cv.dispatchTouchEvent(event);
                 return false;
             }

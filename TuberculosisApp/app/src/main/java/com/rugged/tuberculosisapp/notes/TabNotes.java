@@ -35,6 +35,7 @@ public class TabNotes extends Fragment {
     private static final int NO_LAST_QUESTION = -1;
     private int questionIdx = NO_LAST_QUESTION;
     private boolean sent = false;
+    private ArrayList<FAQEntry> FAQEntries;
 
     private LinearLayout entries;
 
@@ -48,8 +49,8 @@ public class TabNotes extends Fragment {
         entries = view.findViewById(R.id.FAQEntries);
 
         // Prepare categories
-        ArrayList<FAQEntry> FAQEntries = new ArrayList<>();
-        retrieveFAQEnries(FAQEntries);
+        FAQEntries = new ArrayList<>();
+        retrieveFAQEnries();
         prepareListData(FAQEntries);
 
         Button submitQuestion = view.findViewById(R.id.submitQuestionButton);
@@ -88,22 +89,11 @@ public class TabNotes extends Fragment {
                 public void run() {
                     try {
                         Response<ResponseBody> response = call.execute();
-                        System.out.println("id = " + UserData.getIdentification().getId() +
-                                " token = " + UserData.getIdentification().getToken());
-                        System.out.println("response from server = " + response.code());
                         if (response.code() == 201) { // 201 means successfully created
-                            getActivity().runOnUiThread(new Runnable() { // To display a toast in a thread you need this
-                                public void run() {
-                                    Toast.makeText(getActivity(), R.string.question_successful, Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            threadedToast(R.string.question_successful);
                             sent = true;
                         } else {
-                            getActivity().runOnUiThread(new Runnable() {
-                                public void run() {
-                                    Toast.makeText(getActivity(), R.string.question_failed, Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            threadedToast(R.string.question_successful);
                             sent = false;
                         }
                     } catch (IOException e) {
@@ -125,12 +115,45 @@ public class TabNotes extends Fragment {
         }
     }
 
-    private void retrieveFAQEnries(ArrayList<FAQEntry> FAQEntries) { // TODO get entries from API call
-        FAQEntries.add(new FAQEntry(getText(R.string.question_number_1).toString(), getText(R.string.answer_number_1).toString()));
-        FAQEntries.add(new FAQEntry(getText(R.string.question_number_2).toString(), getText(R.string.answer_number_2).toString()));
-        FAQEntries.add(new FAQEntry(getText(R.string.question_number_3).toString(), getText(R.string.answer_number_3).toString()));
-        FAQEntries.add(new FAQEntry(getText(R.string.question_number_4).toString(), getText(R.string.answer_number_4).toString()));
-        FAQEntries.add(new FAQEntry(getText(R.string.question_number_5).toString(), getText(R.string.answer_number_5).toString()));
+    private void threadedToast(int textToToast) {
+        final int text = textToToast;
+        getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    private void retrieveFAQEnries() {
+        Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
+        ServerAPI serverAPI = retrofit.create(ServerAPI.class);
+
+        final Call<ArrayList<FAQEntry>> call = serverAPI.retrieveFAQ();
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Response<ArrayList<FAQEntry>> response = call.execute();
+                    if (response.code() == 200) { // 200 means successfully retrieved
+                        FAQEntries = response.body();
+                    } else {
+                        threadedToast(R.string.retrieving_faq_failed);
+                    }
+                } catch (IOException e) {
+                    // TODO add more advanced exception handling
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void prepareListData(ArrayList<FAQEntry> FAQEntries) {

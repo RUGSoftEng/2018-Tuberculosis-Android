@@ -43,16 +43,15 @@ public interface ServerAPI {
             @Header("access_token") String access_token,
             @Body List<CalendarJSONHolder> JSONData
     );
+
     @Headers("Content-Type: application/json")
     @GET("general/videos/topics")
-    Call<ArrayList<String>> retrieveCategories(
-            @Header("access_token") String access_token
-    );
+    Call<ArrayList<String>> retrieveCategories();
+    
     @Headers("Content-Type: application/json")
     @GET("general/videos/topics/{topic}")
     Call<List<JSONVideoHolder>> retrieveVideoByCategory(
-            @Path("topic") String video_topic,
-            @Header("access_token") String access_token
+            @Path("topic") String video_topic
     );
 
     @Headers("Content-Type: application/json")

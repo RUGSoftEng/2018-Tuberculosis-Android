@@ -81,7 +81,7 @@ public class TabInformation extends Fragment {
         ServerAPI serverAPI = retrofit.create(ServerAPI.class);
 
         // Here the method is the one you created in the ServerAPI interface
-        final Call<ArrayList<String>> call = serverAPI.retrieveCategories(UserData.getIdentification().getToken());
+        final Call<ArrayList<String>> call = serverAPI.retrieveCategories();
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -106,8 +106,7 @@ public class TabInformation extends Fragment {
         }
 
         for (final String title : titles) {
-            final ArrayList<String> videos = new ArrayList<>();
-            final Call<List<JSONVideoHolder>> callVideo = serverAPI.retrieveVideoByCategory(title, UserData.getIdentification().getToken());
+            final Call<List<JSONVideoHolder>> callVideo = serverAPI.retrieveVideoByCategory(title);
 
             Thread s = new Thread(new Runnable() {
 
@@ -121,7 +120,8 @@ public class TabInformation extends Fragment {
                                 ArrayList<String> videos = new ArrayList<>();
                                 for(JSONVideoHolder cVideo : response.body()){
                                     String temp = cVideo.getReference();
-                                    temp = temp.replace("https://www.youtube.com/watch?v=","");
+                                    // TODO: find a better way to get the ID of a video, or have it stored in one way in the database
+                                    //temp = temp.replace("https://www.youtube.com/watch?v=",""); // Could go wrong, atm we have the video urls stored in two different ways in the database
                                     videos.add(temp);
                                 }
                                 listCategories.add(new Category(title, videos));

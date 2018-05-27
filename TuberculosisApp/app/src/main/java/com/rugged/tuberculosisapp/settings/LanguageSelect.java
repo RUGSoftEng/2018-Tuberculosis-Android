@@ -20,8 +20,6 @@ import com.rugged.tuberculosisapp.R;
 import com.rugged.tuberculosisapp.reminders.Util;
 import com.rugged.tuberculosisapp.signin.SignInActivity;
 import com.rugged.tuberculosisapp.signin.TabSignIn;
-
-import static com.rugged.tuberculosisapp.MainActivity.ENABLE_API;
 import static com.rugged.tuberculosisapp.signin.TabSignIn.ACCOUNT_TYPE;
 
 public class LanguageSelect extends AppCompatActivity {
@@ -73,10 +71,10 @@ public class LanguageSelect extends AppCompatActivity {
 
         AccountManager mAccountManager = AccountManager.get(this);
         Account accounts[] = mAccountManager.getAccountsByType(ACCOUNT_TYPE);
-        if (accounts.length == 0 || !ENABLE_API) {
+        if (accounts.length == 0) {
             Intent intent = new Intent(this, SignInActivity.class);
             startActivity(intent);
-        } else if (ENABLE_API) {
+        } else {
             final AccountManagerFuture<Bundle> future = mAccountManager.getAuthToken(accounts[0], TabSignIn.TOKEN_TYPE,
                     null, this, null, null);
 

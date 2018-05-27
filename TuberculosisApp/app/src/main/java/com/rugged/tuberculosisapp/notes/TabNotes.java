@@ -27,8 +27,6 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-import static com.rugged.tuberculosisapp.MainActivity.ENABLE_API;
-
 public class TabNotes extends Fragment {
 
     public static final String TITLE = "TabNotes";
@@ -77,42 +75,38 @@ public class TabNotes extends Fragment {
     }
 
     private void sendQuestion(final String question, final EditText editText) {
-        if (ENABLE_API) {
-            Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
-            ServerAPI serverAPI = retrofit.create(ServerAPI.class);
+        Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
+        ServerAPI serverAPI = retrofit.create(ServerAPI.class);
 
-            final Call<ResponseBody> call = serverAPI.askPhysician(UserData.getIdentification().getId(),
-                    UserData.getIdentification().getToken(), new QuestionToPhysician(question));
+        final Call<ResponseBody> call = serverAPI.askPhysician(UserData.getIdentification().getId(),
+                UserData.getIdentification().getToken(), new QuestionToPhysician(question));
 
-            Thread t = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Response<ResponseBody> response = call.execute();
-                        if (response.code() == 201) { // 201 means successfully created
-                            threadedToast(R.string.question_successful);
-                            sent = true;
-                        } else {
-                            threadedToast(R.string.question_successful);
-                            sent = false;
-                        }
-                    } catch (IOException e) {
-                        // TODO add more advanced exception handling
-                        e.printStackTrace();
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Response<ResponseBody> response = call.execute();
+                    if (response.code() == 201) { // 201 means successfully created
+                        threadedToast(R.string.question_successful);
+                        sent = true;
+                    } else {
+                        threadedToast(R.string.question_successful);
+                        sent = false;
                     }
+                } catch (IOException e) {
+                    // TODO add more advanced exception handling
+                    e.printStackTrace();
                 }
-            });
-
-            t.start();
-            try {
-                t.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
-            if(sent) editText.setText("");
-        } else {
-            Toast.makeText(getActivity(), "API is disabled", Toast.LENGTH_SHORT).show();
+        });
+
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        if(sent) editText.setText("");
     }
 
     private void threadedToast(int textToToast) {

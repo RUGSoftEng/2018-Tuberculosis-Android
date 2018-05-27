@@ -159,10 +159,8 @@ public class CalendarView extends LinearLayout {
      */
     public void updateCalendar() {
         spinner.setVisibility(View.VISIBLE);
-        if (MainActivity.ENABLE_API) {
-            mEvents.clear();
-            getDatesFromAPI();
-        }
+        mEvents.clear();
+        getDatesFromAPI();
         updateCalendar(null);
     }
 

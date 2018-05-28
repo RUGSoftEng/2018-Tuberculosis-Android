@@ -32,7 +32,6 @@ import com.rugged.tuberculosisapp.reminders.ReminderTestActivity;
 import com.rugged.tuberculosisapp.settings.LanguageHelper;
 import com.rugged.tuberculosisapp.settings.SettingsActivity;
 import com.rugged.tuberculosisapp.settings.UserData;
-import com.rugged.tuberculosisapp.signin.Identification;
 import com.rugged.tuberculosisapp.signin.SignInActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -53,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
 
     private CalendarView cv;
+
+    private int currentTab;
 
     public static final int NEW_SETTING = 1;
     public static final int NEW_LANGUAGE = 2;
@@ -82,7 +83,13 @@ public class MainActivity extends AppCompatActivity {
         //tabLayout.setupWithViewPager(mViewPager);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager) {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                super.onTabSelected(tab);
+                currentTab = tab.getPosition();
+            }
+        });
 
         setupNotificationChannels();
     }
@@ -185,13 +192,12 @@ public class MainActivity extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
             }
-        } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+        } else if (event.getAction() == MotionEvent.ACTION_MOVE && currentTab == 0) {
             if (cv == null) {
                 cv = findViewById(R.id.calendarView);
             }
 
             if (cv.isPointInsideCalendar(event.getRawX(), event.getRawY())) {
-                // TODO App crashes sometimes when clicking on a question in the notes tab, code works for all fragment tabs maybe?
                 cv.dispatchTouchEvent(event);
                 return false;
             }

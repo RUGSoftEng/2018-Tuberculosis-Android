@@ -20,6 +20,8 @@ import com.rugged.tuberculosisapp.signin.Identification;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -111,18 +113,21 @@ public class TabInformation extends Fragment {
             Thread s = new Thread(new Runnable() {
 
                 @Override
-
                 public void run() {
                     try {
                         Response<List<JSONVideoHolder>> response = callVideo.execute();
                         if (response.code() == 200) { // choose right code for successful API call (200 in this case)
                             if (response.body() != null) {
                                 ArrayList<String> videos = new ArrayList<>();
-                                for(JSONVideoHolder cVideo : response.body()){
-                                    String temp = cVideo.getReference();
-                                    // TODO: find a better way to get the ID of a video, or have it stored in one way in the database
-                                    //temp = temp.replace("https://www.youtube.com/watch?v=",""); // Could go wrong, atm we have the video urls stored in two different ways in the database
-                                    videos.add(temp);
+                                for (JSONVideoHolder jsonResponse : response.body()){
+                                    String temp = jsonResponse.getVideo().getReference();
+                                    String pattern = "(?<=watch\\?v=|/videos/|embed/|youtu.be/|/v/|/e/|watch\\?v%3D|watch\\?feature=player_embedded&v=|%2Fvideos%2F|embed%\u200C\u200B2F|youtu.be%2F|%2Fv%2F)[^#&?\\n]*";
+                                    Pattern compiledPattern = Pattern.compile(pattern);
+                                    Matcher matcher = compiledPattern.matcher(temp);
+                                    if (matcher.find()) {
+                                        temp = matcher.group();
+                                        videos.add(temp);
+                                    }
                                 }
                                 listCategories.add(new Category(title, videos));
                             }
@@ -141,12 +146,6 @@ public class TabInformation extends Fragment {
                 e.printStackTrace();
             }
         }
-
-        // Add data headers to children in list view
-        ArrayList<String>  videoUrls2 = new ArrayList<>();
-
-        videoUrls2.add("IGZLkRN76Dc");
-        videoUrls2.add("yR51KVF4OX0");
-        listCategories.add(new Category("Tuberculosis", videoUrls2));
     }
+
 }

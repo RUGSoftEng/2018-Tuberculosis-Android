@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context="com.rugged.tuberculosisapp.calendar.TabCalendar">
 
     <TextView
@@ -36,7 +36,7 @@
     <com.rugged.tuberculosisapp.calendar.CalendarView
         android:id="@+id/calendarView"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
@@ -47,6 +47,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarDivider"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0">
+    </com.rugged.tuberculosisapp.calendar.CalendarView>
 
 </android.support.constraint.ConstraintLayout>

@@ -1,5 +1,7 @@
 package com.rugged.tuberculosisapp;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -21,12 +23,16 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.rugged.tuberculosisapp.achievements.ActivityAchievements;
+import com.rugged.tuberculosisapp.calendar.CalendarView;
 import com.rugged.tuberculosisapp.information.TabInformation;
 import com.rugged.tuberculosisapp.calendar.TabCalendar;
 import com.rugged.tuberculosisapp.medication.TabMedication;
 import com.rugged.tuberculosisapp.notes.TabNotes;
 import com.rugged.tuberculosisapp.reminders.ReminderTestActivity;
+import com.rugged.tuberculosisapp.settings.LanguageHelper;
 import com.rugged.tuberculosisapp.settings.SettingsActivity;
+import com.rugged.tuberculosisapp.settings.UserData;
+import com.rugged.tuberculosisapp.signin.SignInActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,11 +51,20 @@ public class MainActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+    private CalendarView cv;
+
+    private int currentTab;
+
     public static final int NEW_SETTING = 1;
     public static final int NEW_LANGUAGE = 2;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        // Update language
+        if (UserData.getLocaleString() != null) {
+            LanguageHelper.changeLocale(getResources(), UserData.getLocaleString());
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -68,7 +83,13 @@ public class MainActivity extends AppCompatActivity {
         //tabLayout.setupWithViewPager(mViewPager);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager) {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                super.onTabSelected(tab);
+                currentTab = tab.getPosition();
+            }
+        });
 
         setupNotificationChannels();
     }
@@ -128,7 +149,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_sign_out) {
-            //TODO: Sign out option
+            AccountManager am = AccountManager.get(this);
+            Account account = am.getAccounts()[0];
+            am.invalidateAuthToken(account.type, UserData.getIdentification().getToken());
+            // TODO: Do we want to remove the account as well? If so uncomment.. !!Change check in langSelect if commented!!
+            am.removeAccount(account, null, null);
+
+            Intent intent = new Intent(this, SignInActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -150,11 +179,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @Override
+    @Override // To clear focus from EditText when tapping outside of the EditText
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             View v = getCurrentFocus();
-            if ( v instanceof EditText) {
+            if (v instanceof EditText) {
                 Rect outRect = new Rect();
                 v.getGlobalVisibleRect(outRect);
                 if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
@@ -163,8 +192,23 @@ public class MainActivity extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
             }
+        } else if (event.getAction() == MotionEvent.ACTION_MOVE && currentTab == 0) {
+            if (cv == null) {
+                cv = findViewById(R.id.calendarView);
+            }
+
+            if (cv.isPointInsideCalendar(event.getRawX(), event.getRawY())) {
+                cv.dispatchTouchEvent(event);
+                return false;
+            }
         }
-        return super.dispatchTouchEvent( event );
+
+        return super.dispatchTouchEvent(event);
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Do nothing
     }
 
 }

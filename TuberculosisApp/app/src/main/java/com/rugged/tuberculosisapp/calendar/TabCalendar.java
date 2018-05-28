@@ -3,67 +3,51 @@ package com.rugged.tuberculosisapp.calendar;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.rugged.tuberculosisapp.R;
-import com.rugged.tuberculosisapp.medication.Medication;
-import com.rugged.tuberculosisapp.medication.Time;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-
-public class TabCalendar extends Fragment {
+public class TabCalendar extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     public static final String TITLE = "TabCalendar";
-    private static HashMap<Date, ArrayList<Medication>> events;
+
+    private CalendarView cv;
+    private SwipeRefreshLayout refreshLayout;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        System.out.println("RESUME");
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tab_calendar, container, false);
 
-        // Initialize medication on different days
-        initializeMedication();
-
-        CalendarView cv = view.findViewById(R.id.calendarView);
+        cv = view.findViewById(R.id.calendarView);
         cv.setActivity(getActivity());
-        cv.updateCalendar(events);
+
+        cv.updateCalendar();
 
         return view;
     }
 
-    private void initializeMedication() {
-        events = new HashMap<>();
-        ArrayList<Medication> medicationList = new ArrayList<>();
-        ArrayList<Medication> medicationList2 = new ArrayList<>();
-        Time time1 = new Time(8, 0);
-        Time time2 = new Time(16, 30);
-        medicationList.add(new Medication("Rifampicin", time1, 1, true));
-        medicationList.add(new Medication("Isoniazid", time1, 2, false));
-        medicationList.add(new Medication("Pyrazinamide", time1, 1, false));
-        medicationList.add(new Medication("Ethambutol", time2, 2, false));
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        refreshLayout = view.findViewById(R.id.swiperefresh);
+        refreshLayout.setOnRefreshListener(this);
+        System.out.println("View is created");
+    }
 
-        medicationList2.add(new Medication("Rifampicin", time1, 1, true));
-
-
-        Calendar cal = new GregorianCalendar(2018, 3, 9);
-        events.put(new Date(cal.getTimeInMillis()), medicationList);
-        cal.set(2018, 4, 1);
-        events.put(new Date(cal.getTimeInMillis()), medicationList);
-        cal.set(2018, 3, 22);
-        events.put(new Date(cal.getTimeInMillis()), medicationList);
-
-        cal.set(2018, 3, 21);
-        events.put(new Date(cal.getTimeInMillis()), medicationList2);
-        cal.set(2018, 2, 14);
-        events.put(new Date(cal.getTimeInMillis()), medicationList2);
-        cal.set(2018, 2, 15);
-        events.put(new Date(cal.getTimeInMillis()), medicationList2);
+    @Override
+    public void onRefresh() {
+        cv.updateCalendar();
+        refreshLayout.setRefreshing(false);
     }
 
 }

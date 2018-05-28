@@ -4,7 +4,9 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -49,7 +51,7 @@ public class CalendarAdapter extends ArrayAdapter<Date> {
 
         // Inflate item if it does not exist yet
         if (view == null) {
-            view = inflater.inflate(R.layout.control_calendar_day, parent, false);
+            view = inflater.inflate(R.layout.control_calendar_day, null, false);
         }
 
         // Get dayNumber text and pill indicator image view
@@ -63,11 +65,22 @@ public class CalendarAdapter extends ArrayAdapter<Date> {
 
         if (month != today.getMonth() || year != today.getYear()) {
             // If this day is outside current month, grey it out
-            textDayNumber.setTextColor(mContext.getResources().getColor(android.R.color.darker_gray));
+            textDayNumber.setTextColor(Color.rgb(100, 100, 100));
         } else if (day == today.getDate()) {
-            // If it is today, set it to blue/bold
+            // If it is today, add a blue circle with white text
+            if (eventDays.get(date) != null) {
+                ImageView todayMarker = view.findViewById(R.id.todayMarker);
+                todayMarker.setBackgroundResource(R.drawable.today_circle);
+                DisplayMetrics metrics = mContext.getResources().getDisplayMetrics();
+                float px = 34 * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+                takenOverlay.getLayoutParams().width = (int) px;
+                takenOverlay.setAlpha((float)0.8);
+                takenOverlay.requestLayout();
+            } else {
+                textDayNumber.setBackgroundResource(R.drawable.today_circle);
+            }
             textDayNumber.setTypeface(null, Typeface.BOLD);
-            textDayNumber.setTextColor(mContext.getResources().getColor(android.R.color.holo_blue_bright));
+            textDayNumber.setTextColor(mContext.getResources().getColor(android.R.color.white));
         }
 
         // If this day has an event, specify event image
@@ -76,15 +89,20 @@ public class CalendarAdapter extends ArrayAdapter<Date> {
             if (eventDays.get(date) != null) {
                 // Mark this day for event
                 pillIndicator.setImageResource(R.drawable.ic_medication);
-                if (month < today.getMonth() || (month == today.getMonth() && day < today.getDate())) {
+                if (year < today.getYear() || month < today.getMonth() || (month == today.getMonth() && day <= today.getDate())) {
                     // Set green check mark here
-                    //TODO: takenOverlay.setImageResource(R.drawable.ic_check);
-                    textDayNumber.setTextColor(view.getResources().getColor(android.R.color.holo_green_dark));
+                    takenOverlay.setImageResource(R.drawable.ic_check);
+                    //textDayNumber.setTextColor(view.getResources().getColor(android.R.color.holo_green_dark));
                     for (Medication medication : eventDays.get(date)) {
-                        if (!medication.getTaken()) {
+                        if (!medication.isTaken()) {
                             // Not taken, add red cross
-                            //TODO: takenOverlay.setImageResource(R.drawable.ic_cross);
-                            textDayNumber.setTextColor(view.getResources().getColor(android.R.color.holo_red_dark));
+                            if (year != today.getYear() || month != today.getMonth() || day != today.getDate()) {
+                                takenOverlay.setImageResource(R.drawable.ic_cross);
+                                takenOverlay.setAlpha((float)0.45);
+                            } else {
+                                takenOverlay.setImageResource(0);
+                            }
+                            //textDayNumber.setTextColor(view.getResources().getColor(android.R.color.holo_red_dark));
                             break;
                         }
                     }
@@ -97,4 +115,5 @@ public class CalendarAdapter extends ArrayAdapter<Date> {
 
         return view;
     }
+
 }

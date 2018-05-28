@@ -39,7 +39,7 @@
     <string name="friday">Fr</string>
     <string name="saturday">Sa</string>
     <string name="sunday">So</string>
-    <string name="action_sign_out">Abmelden</string>
+    <string name="action_sign_out">Ausloggen</string>
     <string name="action_test_reminder">Test Erinnerung</string>
     <string name="pref_alarm_sound">Alarmton</string>
     <string name="pref_alarm_silent">Ton abspielen während Alarm</string>
@@ -48,4 +48,14 @@
     <string name="medication_date">Medikamente für %1$s</string>
     <string name="title_achievements">Errungenschaften</string>
     <string name="action_save">Speichern</string>
+    <string name="invalidLogIn">"Ungültiger Benutzername oder Passwort."</string>
+    <string name="account_type">TubuddyPatientAccount</string>
+    <string name="token_label">Vollständigen Zugriff auf ein TuBuddy Patientenkonto</string>
+    <string name="data_updated">%1$s wurden aktualisiert.</string>
+    <string name="save_error">%1$s könnten nicht gespeichert werden!</string>
+    <string name="question_empty">Bitte geben Sie eine Frage ein.</string>
+    <string name="question_successful">Ihre Frage ist erfolgreich gesendet!</string>
+    <string name="question_failed">Ihre Frage konnte nicht gesendet werden. Versuchen Sie es später erneut.</string>
+    <string name="no_internet">Es besteht keine aktive Internetverbindung</string>
+    <string name="retrieving_faq_failed">Die FAQ konnten nicht abgerufen werden.</string>
 </resources>

@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
@@ -19,34 +21,38 @@ public class ReminderHandler extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        boolean switchValue = intent.getBooleanExtra(ReminderTestActivity.EXTRA_SWITCH, false);
-        int reminderType = intent.getIntExtra(ReminderTestActivity.EXTRA_TYPE, 0);
+        Bundle extras = intent.getExtras();
+        boolean switchValue = extras.getBoolean("EXTRA_SWITCH", false);
+        int reminderType = extras.getInt("EXTRA_TYPE");
+        String medName = extras.getString("EXTRA_MED");
 
-        if (switchValue) {
+        if (!switchValue) {
             if (reminderType == NOTIFICATION) {
-                showNotification(context);
+                showNotification(context, medName);
             }
             if (reminderType == ALARM) {
-                Intent i = new Intent(context, AlarmActivity.class);
-                context.startActivity(i);
+                showAlarm(context, medName);
             }
         }
     }
 
-    public void showNotification(Context context) {
+    public void showNotification(Context context, String medName) {
         Intent intent = new Intent(context, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_red_pill);
 
+        String notificationText = context.getString(R.string.notification_text) + ": " + medName;
+
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, "reminders")
-                .setSmallIcon(R.drawable.ic_pill)
+                .setSmallIcon(R.drawable.ic_medication)
                 .setLargeIcon(icon)
                 .setContentTitle(context.getString(R.string.notification_title))
-                .setContentText(context.getString(R.string.notification_text))
+                .setContentText(notificationText)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setVibrate(new long[0])
+                .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
@@ -54,5 +60,11 @@ public class ReminderHandler extends BroadcastReceiver {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         // notificationId is a unique int for each notification that you must define
         notificationManager.notify(1, mBuilder.build());
+    }
+
+    public void showAlarm(Context context, String medName) {
+        Intent i = new Intent(context, AlarmActivity.class);
+        i.putExtra("EXTRA_MED", medName);
+        context.startActivity(i);
     }
 }

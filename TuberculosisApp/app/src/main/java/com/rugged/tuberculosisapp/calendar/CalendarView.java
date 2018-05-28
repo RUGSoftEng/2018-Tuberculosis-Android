@@ -3,7 +3,6 @@ package com.rugged.tuberculosisapp.calendar;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -15,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.rugged.tuberculosisapp.MainActivity;
 import com.rugged.tuberculosisapp.R;
 import com.rugged.tuberculosisapp.medication.Medication;
 import com.rugged.tuberculosisapp.network.RetrofitClientInstance;
@@ -271,7 +269,6 @@ public class CalendarView extends LinearLayout {
                                 mEvents.put(date, medicationList);
                             }
                         } catch (Exception e) {
-                            // TODO: advanced exception handling, catch specific exceptions: nullPointer, parse etc.
                             e.printStackTrace();
                         }
                     }

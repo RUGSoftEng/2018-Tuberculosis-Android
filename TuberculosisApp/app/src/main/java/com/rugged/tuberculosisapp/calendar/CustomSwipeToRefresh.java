@@ -12,9 +12,13 @@ public class CustomSwipeToRefresh extends SwipeRefreshLayout {
     private float mPrevX;
     private boolean mDeclined;
 
+    public CustomSwipeToRefresh(Context context) {
+        super(context);
+        mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
+    }
+
     public CustomSwipeToRefresh(Context context, AttributeSet attrs) {
         super(context, attrs);
-
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
     }
 
@@ -38,4 +42,5 @@ public class CustomSwipeToRefresh extends SwipeRefreshLayout {
 
         return super.onInterceptTouchEvent(event);
     }
+
 }

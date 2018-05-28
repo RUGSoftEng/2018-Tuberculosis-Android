@@ -22,8 +22,6 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Locale;
 
-import static com.rugged.tuberculosisapp.MainActivity.ENABLE_API;
-
 public class TabCalendar extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     public static final String TITLE = "TabCalendar";
@@ -43,12 +41,7 @@ public class TabCalendar extends Fragment implements SwipeRefreshLayout.OnRefres
         refreshLayout = view.findViewById(R.id.swiperefresh);
         refreshLayout.setOnRefreshListener(this);
 
-        if (ENABLE_API) {
-            cv.updateCalendar();
-        } else {
-            initializeMedication();
-            cv.updateCalendar(events);
-        }
+        cv.updateCalendar();
 
         return view;
     }

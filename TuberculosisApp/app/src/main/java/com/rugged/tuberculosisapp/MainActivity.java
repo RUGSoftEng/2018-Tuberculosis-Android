@@ -57,9 +57,6 @@ public class MainActivity extends AppCompatActivity {
     public static final int NEW_SETTING = 1;
     public static final int NEW_LANGUAGE = 2;
 
-    // Boolean to enable API calls
-    public static final boolean ENABLE_API = true;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // Update language
@@ -194,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (cv.isPointInsideCalendar(event.getRawX(), event.getRawY())) {
+                // TODO App crashes sometimes when clicking on a question in the notes tab, code works for all fragment tabs maybe?
                 cv.dispatchTouchEvent(event);
                 return false;
             }

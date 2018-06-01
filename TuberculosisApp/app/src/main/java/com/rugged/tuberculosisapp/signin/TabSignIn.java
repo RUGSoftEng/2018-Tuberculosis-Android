@@ -25,13 +25,9 @@ import com.rugged.tuberculosisapp.settings.UserData;
 
 import java.io.IOException;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-
-import static com.rugged.tuberculosisapp.MainActivity.ENABLE_API;
 
 
 public class TabSignIn extends Fragment {
@@ -47,16 +43,6 @@ public class TabSignIn extends Fragment {
     private static Account mAccount;
 
     private AccountManager mAccountManager;
-
-    private static final Account[] DUMMY_ACCOUNTS = new Account[] { // TODO remove when authentication goes through server
-        new Account("admin", "admin"),
-        new Account("marco", "marco"),
-        new Account("niek", "niek"),
-        new Account("pj", "pj"),
-        new Account("robert", "robert"),
-        new Account("roel", "roel"),
-        new Account("", "")
-    };
 
     @Nullable
     @Override
@@ -95,49 +81,38 @@ public class TabSignIn extends Fragment {
     }
 
     private boolean authenticate(Account account) {
-        if (ENABLE_API) {
-            canSignIn = false;
+        canSignIn = false;
 
-            Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
-            ServerAPI serverAPI = retrofit.create(ServerAPI.class);
+        Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
+        ServerAPI serverAPI = retrofit.create(ServerAPI.class);
 
-            final Call<Identification> call = serverAPI.login(account);
+        final Call<Identification> call = serverAPI.login(account);
 
-            Thread t = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Response <Identification> response = call.execute();
-                        if (response.code() == 200) { // 200 means the login was successful
-                            UserData.setIdentification(response.body());
-                            createAccount(response.body().getId(), response.body().getToken());
-                            canSignIn = true;
-                        }
-                    } catch (IOException e) {
-                        // TODO add more advanced exception handling
-                        e.printStackTrace();
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Response <Identification> response = call.execute();
+                    if (response.code() == 200) { // 200 means the login was successful
+                        UserData.setIdentification(response.body());
+                        createAccount(response.body().getId(), response.body().getToken());
+                        canSignIn = true;
                     }
-                }
-            });
-
-            t.start();
-            try { // This is done to make sure that the function waits with returning until the API call is finished
-                t.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            return canSignIn;
-
-        } else {
-            for (int i = 0; i < DUMMY_ACCOUNTS.length; i++) {
-                if (account.getUsername().equals(DUMMY_ACCOUNTS[i].getUsername())
-                        && account.getPassword().equals(DUMMY_ACCOUNTS[i].getPassword())) {
-                    return true;
+                } catch (IOException e) {
+                    // TODO add more advanced exception handling
+                    e.printStackTrace();
                 }
             }
-            return false;
+        });
+
+        t.start();
+        try { // This is done to make sure that the function waits with returning until the API call is finished
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+
+        return canSignIn;
     }
 
     private void createAccount(int patientId, String authToken) {

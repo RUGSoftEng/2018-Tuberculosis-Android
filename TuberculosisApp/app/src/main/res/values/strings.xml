@@ -110,18 +110,10 @@
     <!-- TODO: maybe make these strings quantitative -->
     <string name="data_updated">%1$s has been updated.</string>
     <string name="save_error">%1$s could not be saved!</string>
+    <!-- -->
     <string name="question_empty">Please enter a question.</string>
     <string name="question_successful">Question is sent successfully!</string>
     <string name="question_failed">Failed to send your question, try again later.</string>
-    <string name="question_number_1">What is tuberculosis?</string>
-    <string name="question_number_2">How do you get tuberculosis?</string>
-    <string name="question_number_3">What is latent tuberculosis?</string>
-    <string name="question_number_4">What is the difference between active tuberculosis and latent tuberculosis?</string>
-    <string name="question_number_5">Can I still infect someone else when I started treatment?</string>
-    <string name="answer_number_1">Tuberculosis is a disease, caused by the bacterium called Mycobacterium tuberculosis. It can cause lung problems, like a dry cough, but it can also manifest with other symptoms.</string>
-    <string name="answer_number_2">Tuberculosis is spread via the air. You can get it for example. when someone coughs or talks to you. The bacteria are present in small droplets in the air and you could inhale those droplets.</string>
-    <string name="answer_number_3">This is a form of tuberculosis but the person does not feel sick and is not contagious. People have latent tuberculosis when they inhale the bacterium but the immune system (the system of your body that makes sure you do not get sick) is strong enough to build a wall around the bacteria so it cannot go to other places in the body or multiply.The bacteria are dormant, which means that the bacteria act like they are asleep. In some cases, latent tuberculosis can become active tuberculosis. When this happens,  people experience symptoms.</string>
-    <string name="answer_number_4">When a person has active tuberculosis the person feels sick and he or she can experience the following symptoms: a dry cough for longer than 3 weeks, night sweats, pain in the chest, coughing up blood or sputum, weakness, fatigue, weight loss, chills, no appetite or fever. With latent tuberculosis, the person does not experience symptoms and he or she does not feel sick. Furthermore, he or she will not be contagious and only needs treatment in certain circumstances. With active tuberculosis, a person is contagious and he or she always needs treatment.</string>
-    <string name="answer_number_5">You cannot infect anyone when your sputum tests are negative for tuberculosis. This is generally the case, when you have been taking your medicines for three weeks. The best way to know if this applies to you, is to ask your doctor.</string>
-    <!-- -->
+    <string name="no_internet">There is no active internet connection.</string>
+    <string name="retrieving_faq_failed">Failed to retrieve the FAQ.</string>
 </resources>

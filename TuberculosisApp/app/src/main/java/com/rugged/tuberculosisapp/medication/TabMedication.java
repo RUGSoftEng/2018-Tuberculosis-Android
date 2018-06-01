@@ -59,10 +59,6 @@ public class TabMedication extends Fragment {
 
         medicationListView = view.findViewById(R.id.medicationList);
 
-
-
-
-
         final MedicationListAdapter adapter = new MedicationListAdapter(this.getContext(), R.layout.medication_row, medicationList, days);
 
         medicationListView.setAdapter(adapter);
@@ -97,84 +93,59 @@ public class TabMedication extends Fragment {
 
     private void prepareListData() {
 
-        if (MainActivity.ENABLE_API) {
+        medicationList = new ArrayList<>();
+        days = new ArrayList<>();
 
-            medicationList = new ArrayList<>();
-            days = new ArrayList<>();
+        Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
+        ServerAPI serverAPI = retrofit.create(ServerAPI.class);
 
-            Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
-            ServerAPI serverAPI = retrofit.create(ServerAPI.class);
+        Calendar cal = (Calendar) currentDate.clone();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", mLocale);
+        String fromDate = sdf.format(cal.getTime());
 
-            Calendar cal = (Calendar) currentDate.clone();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", mLocale);
-            String fromDate = sdf.format(cal.getTime());
-            System.out.println(fromDate);
-            cal.add(Calendar.WEEK_OF_MONTH, 1);
-            String toDate = sdf.format(cal.getTime());
-            System.out.println(toDate);
-            final Call<List<CalendarJSONHolder>> call = serverAPI.getCalendarData(UserData.getIdentification().getId(),
-                    fromDate, toDate, UserData.getIdentification().getToken());
+        cal.add(Calendar.WEEK_OF_MONTH, 1);
+        String toDate = sdf.format(cal.getTime());
+        final Call<List<CalendarJSONHolder>> call = serverAPI.getCalendarData(UserData.getIdentification().getId(),
+                fromDate, toDate, UserData.getIdentification().getToken());
 
-            Thread t = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Response<List<CalendarJSONHolder>> response = call.execute();
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Response<List<CalendarJSONHolder>> response = call.execute();
 
-                        // Successful API call
-                        if (response.code() == 200) {
-                            try {
-                                for (CalendarJSONHolder jsonResponse : response.body()) {
+                    // Successful API call
+                    if (response.code() == 200) {
+                        try {
+                            for (CalendarJSONHolder jsonResponse : response.body()) {
 
-                                    Medication medication = jsonResponse.toMedication();
+                                Medication medication = jsonResponse.toMedication();
 
-                                    DateFormat format = new SimpleDateFormat("yyyy-MM-dd", mLocale);
+                                DateFormat format = new SimpleDateFormat("yyyy-MM-dd", mLocale);
 
 
-                                    if(!medicationList.contains(medication)) {
-                                        medicationList.add(medication);
-                                        days.add(format.parse(jsonResponse.getDate()).getDay());
-                                    }
+                                if(!medicationList.contains(medication)) {
+                                    medicationList.add(medication);
+                                    days.add(format.parse(jsonResponse.getDate()).getDay());
                                 }
-                            } catch (Exception e) {
-                                // TODO: advanced exception handling, catch specific exceptions: nullPointer, parse etc.
-                                e.printStackTrace();
                             }
+                        } catch (Exception e) {
+                            // TODO: advanced exception handling, catch specific exceptions: nullPointer, parse etc.
+                            e.printStackTrace();
                         }
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            });
-
-            t.start();
-            try {
-                // Wait for the thread to finish
-                t.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
+        });
 
-
-
-         } else {
-            try {
-                medicationList = new ArrayList<>();
-                DateFormat df = new SimpleDateFormat("HH:mm", new Locale(LanguageHelper.getCurrentLocale()));
-
-                Date time1 = df.parse("08:00");
-                Date time2 = df.parse("16:30");
-
-                Medication m1 = new Medication("Ethambutol", time2, 2);
-                Medication m2 = new Medication("Ethambutol", time2, 2);
-
-                medicationList.add(new Medication("Rifampicin", time1, 1));
-                medicationList.add(new Medication("Isoniazid", time1, 2));
-                medicationList.add(new Medication("Pyrazinamide", time1, 1));
-                medicationList.add(new Medication("Ethambutol", time2, 2));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+        t.start();
+        try {
+            // Wait for the thread to finish
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
     }

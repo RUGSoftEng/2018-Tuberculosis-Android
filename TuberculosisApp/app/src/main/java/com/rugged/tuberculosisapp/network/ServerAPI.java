@@ -2,6 +2,7 @@ package com.rugged.tuberculosisapp.network;
 
 import com.rugged.tuberculosisapp.calendar.CalendarJSONHolder;
 import com.rugged.tuberculosisapp.information.JSONVideoHolder;
+import com.rugged.tuberculosisapp.notes.FAQEntry;
 import com.rugged.tuberculosisapp.notes.QuestionToPhysician;
 import com.rugged.tuberculosisapp.signin.Account;
 import com.rugged.tuberculosisapp.signin.Identification;
@@ -43,16 +44,15 @@ public interface ServerAPI {
             @Header("access_token") String access_token,
             @Body List<CalendarJSONHolder> JSONData
     );
+
     @Headers("Content-Type: application/json")
     @GET("general/videos/topics")
-    Call<ArrayList<String>> retrieveCategories(
-            @Header("access_token") String access_token
-    );
+    Call<ArrayList<String>> retrieveCategories();
+
     @Headers("Content-Type: application/json")
     @GET("general/videos/topics/{topic}")
     Call<List<JSONVideoHolder>> retrieveVideoByCategory(
-            @Path("topic") String video_topic,
-            @Header("access_token") String access_token
+            @Path("topic") String video_topic
     );
 
     @Headers("Content-Type: application/json")
@@ -62,5 +62,8 @@ public interface ServerAPI {
             @Header("access_token") String access_token,
             @Body QuestionToPhysician note
     );
+
+    @GET("general/faq")
+    Call<ArrayList<FAQEntry>> retrieveFAQ();
 
 }

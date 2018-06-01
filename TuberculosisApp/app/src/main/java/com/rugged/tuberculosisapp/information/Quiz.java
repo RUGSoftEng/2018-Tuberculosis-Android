@@ -6,8 +6,8 @@ public class Quiz {
     private String question;
     private ArrayList<String> options;
     private String answer;
-    public Quiz(String question, ArrayList<String> options, String answer){
-        super();
+
+    public Quiz (String question, ArrayList<String> options, String answer){
         this.question = question;
         this.answer = answer;
         this.options = options;

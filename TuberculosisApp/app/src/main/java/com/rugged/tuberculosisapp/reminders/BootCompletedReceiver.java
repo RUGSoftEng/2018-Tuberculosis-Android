@@ -13,7 +13,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             // Delay is the initial delay here
             Util.scheduleJob(context, 0);
         } else {
-            Util.setAlarm(context);
+            Util.scheduleAlarm(context);
         }
     }
 

@@ -69,7 +69,7 @@ public class LanguageSelect extends AppCompatActivity {
             // Delay is the initial delay here
             Util.scheduleJob(this, 0);
         } else {
-            Util.setAlarm(this);
+            Util.scheduleAlarm(this);
         }
 
         AccountManager mAccountManager = AccountManager.get(this);

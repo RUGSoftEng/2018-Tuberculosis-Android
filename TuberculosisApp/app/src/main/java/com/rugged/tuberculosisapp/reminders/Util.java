@@ -28,7 +28,7 @@ public class Util {
         jobScheduler.schedule(builder.build());
     }
 
-    public static void setAlarm(Context context) {
+    public static void scheduleAlarm(Context context) {
         Intent alarmIntent = new Intent(context, ReminderUpdateReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
         AlarmManager manager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);

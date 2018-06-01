@@ -66,7 +66,7 @@ public class LanguageSelect extends AppCompatActivity {
 
     private void checkAccount() {
         if (Build.VERSION.SDK_INT >= 23) {
-            Util.scheduleJob(this);
+            Util.scheduleJob(this, 2000);
         }
 
         AccountManager mAccountManager = AccountManager.get(this);

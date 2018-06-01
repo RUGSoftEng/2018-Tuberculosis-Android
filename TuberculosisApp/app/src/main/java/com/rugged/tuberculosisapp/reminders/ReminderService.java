@@ -27,10 +27,15 @@ import retrofit2.Retrofit;
 @RequiresApi(api = Build.VERSION_CODES.M)
 public class ReminderService extends JobService {
 
+    private ReminderSetter rs;
+
+    //Delay between calls in milliseconds
+    private static final int DELAY_BETWEEN_CALLS = 15 * 60 * 1000;
+
     @Override
     public boolean onStartJob(JobParameters jobParameters) {
         updateReminders();
-        Util.scheduleJob(getApplicationContext());
+        Util.scheduleJob(getApplicationContext(), DELAY_BETWEEN_CALLS);
         return true;
     }
 
@@ -42,7 +47,10 @@ public class ReminderService extends JobService {
     private void updateReminders() {
         final Locale mLocale = new Locale(LanguageHelper.getCurrentLocale());
         final ArrayList<Medication> medicationList = new ArrayList<>();
-        final ReminderSetter rs = new ReminderSetter(getApplicationContext());
+
+        if (rs == null) {
+            rs = new ReminderSetter(getApplicationContext());
+        }
 
         Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
         ServerAPI serverAPI = retrofit.create(ServerAPI.class);

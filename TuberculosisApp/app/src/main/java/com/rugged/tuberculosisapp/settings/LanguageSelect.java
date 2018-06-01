@@ -66,7 +66,10 @@ public class LanguageSelect extends AppCompatActivity {
 
     private void checkAccount() {
         if (Build.VERSION.SDK_INT >= 23) {
-            Util.scheduleJob(this, 2000);
+            // Delay is the initial delay here
+            Util.scheduleJob(this, 0);
+        } else {
+            Util.setAlarm(this);
         }
 
         AccountManager mAccountManager = AccountManager.get(this);

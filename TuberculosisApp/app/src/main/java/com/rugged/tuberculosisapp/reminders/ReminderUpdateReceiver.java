@@ -1,9 +1,9 @@
 package com.rugged.tuberculosisapp.reminders;
 
-import android.app.job.JobParameters;
-import android.app.job.JobService;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.widget.Toast;
 
 import com.rugged.tuberculosisapp.calendar.CalendarJSONHolder;
 import com.rugged.tuberculosisapp.medication.Medication;
@@ -24,31 +24,21 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-import static com.rugged.tuberculosisapp.reminders.Util.DELAY_BETWEEN_CALLS;
-
-@RequiresApi(api = Build.VERSION_CODES.M)
-public class ReminderService extends JobService {
+public class ReminderUpdateReceiver extends BroadcastReceiver {
 
     private ReminderSetter rs;
 
     @Override
-    public boolean onStartJob(JobParameters jobParameters) {
-        updateReminders();
-        Util.scheduleJob(getApplicationContext(), DELAY_BETWEEN_CALLS);
-        return true;
+    public void onReceive(Context context, Intent intent) {
+        updateReminders(context);
     }
 
-    @Override
-    public boolean onStopJob(JobParameters jobParameters) {
-        return true;
-    }
-
-    private void updateReminders() {
+    private void updateReminders(Context context) {
         final Locale mLocale = new Locale(LanguageHelper.getCurrentLocale());
         final ArrayList<Medication> medicationList = new ArrayList<>();
 
         if (rs == null) {
-            rs = new ReminderSetter(getApplicationContext());
+            rs = new ReminderSetter(context);
         }
 
         Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();

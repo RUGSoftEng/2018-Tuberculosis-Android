@@ -88,6 +88,8 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".reminders.ReminderUpdateReceiver" />
+
         <service
             android:name=".signin.AuthenticatorService"
             android:enabled="true"

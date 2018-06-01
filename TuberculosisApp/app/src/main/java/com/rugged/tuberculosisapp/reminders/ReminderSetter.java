@@ -59,7 +59,7 @@ public class ReminderSetter {
             date.setMinutes(med.getTime().getMinutes());
             date.setSeconds(0);
             long timeDiff = date.getTime() - current.getTime();
-
+            
             if (!med.isTaken() && timeDiff >= 0) {
                 setReminder(date, NOTIFICATION, med.getName(), requestCode);
                 long timeForAlarm = date.getTime() + MINUTE_IN_MILLISECONDS*2;

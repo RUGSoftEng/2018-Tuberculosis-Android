@@ -95,4 +95,6 @@
     <string name="question_failed">Failed to send your question, try again later.</string>
     <string name="no_internet">There is no active internet connection.</string>
     <string name="retrieving_faq_failed">Failed to retrieve the FAQ.</string>
+    <string name="change_language">Change language</string>
+    <string name="close_app">Close TuBuddy</string>
 </resources>

@@ -58,10 +58,8 @@ public class CategoryListAdapter extends ArrayAdapter<Category> {
             categoryTitle.setText(category.getTitle());
 
             // Change category color
+            // TODO: add category colors to DB
             bgDrawable.setColor(mContext.getResources().getColor(category.getColor()));
-            // TODO: remove temporary color randomizer (it's for demo purposes)
-            Random rand = new Random();
-            bgDrawable.setColor(Color.argb(255, rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
         }
 
         categoryTitle.setBackgroundDrawable(bgDrawable);

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Build;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 
@@ -162,6 +163,14 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, SignInActivity.class);
             startActivity(intent);
             finish();
+        }
+
+        if (id == R.id.close_app) {
+            if (Build.VERSION.SDK_INT >= 21) {
+                moveTaskToBack(true);
+            } else {
+                ActivityCompat.finishAffinity(this);
+            }
         }
 
         return super.onOptionsItemSelected(item);

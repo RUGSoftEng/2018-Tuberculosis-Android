@@ -2,6 +2,8 @@ package com.rugged.tuberculosisapp.settings;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 
 import com.rugged.tuberculosisapp.signin.Identification;
@@ -42,10 +44,25 @@ public class UserData extends Application {
         return sharedPreferences.getBoolean("firstLaunch", true);
     }
 
+    public static Uri getAlarmSound() {
+        String alarm = sharedPreferences.getString("alarm", null);
+        if (alarm != null) {
+            return Uri.parse(alarm);
+        } else {
+            return RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        }
+    }
+
     public static void setIdentification(Identification identification) {
         SharedPreferences.Editor preferenceEditor = sharedPreferences.edit();
         preferenceEditor.putInt("patientId", identification.getId());
         preferenceEditor.putString("access-token", identification.getToken());
+        preferenceEditor.apply();
+    }
+
+    public static void setAlarmSound(Uri alarmUri) {
+        SharedPreferences.Editor preferenceEditor = sharedPreferences.edit();
+        preferenceEditor.putString("alarm", alarmUri.toString());
         preferenceEditor.apply();
     }
 

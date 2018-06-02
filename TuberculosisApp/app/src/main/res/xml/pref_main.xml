@@ -15,19 +15,21 @@
 
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="@string/pref_notification_silent"
-            android:title="@string/pref_notification_silent" />
+            android:key="@string/pref_key_notification_silent"
+            android:title="@string/pref_title_notification_silent" />
         <RingtonePreference
-            android:key="@string/pref_notification_sound"
             android:ringtoneType="notification"
-            android:title="@string/pref_notification_sound" />
+            android:showSilent="false"
+            android:key="@string/pref_key_notification_sound"
+            android:title="@string/pref_title_notification_sound" />
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="@string/pref_alarm_silent"
-            android:title="@string/pref_alarm_silent" />
+            android:key="@string/pref_key_alarm_silent"
+            android:title="@string/pref_title_alarm_silent" />
         <RingtonePreference
-            android:key="@string/pref_alarm_sound"
             android:ringtoneType="alarm"
-            android:title="@string/pref_alarm_sound" />
+            android:showSilent="false"
+            android:key="@string/pref_key_alarm_sound"
+            android:title="@string/pref_title_alarm_sound" />
     </PreferenceCategory>
 </PreferenceScreen>

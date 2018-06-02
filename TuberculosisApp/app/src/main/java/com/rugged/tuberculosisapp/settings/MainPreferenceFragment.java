@@ -4,12 +4,14 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.rugged.tuberculosisapp.MainActivity;
 import com.rugged.tuberculosisapp.R;
@@ -27,15 +29,32 @@ public class MainPreferenceFragment extends PreferenceFragment {
 
         // Language preference change listener
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_language)));
+
+        // Notification preference change listeners
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_notification_silent)));
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_notification_sound)));
+
+        // Alarm preference change listeners
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_alarm_silent)));
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_alarm_sound)));
     }
 
     private void bindPreferenceSummaryToValue(Preference preference) {
         preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
 
-        sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
-                PreferenceManager
-                        .getDefaultSharedPreferences(preference.getContext())
-                        .getString(preference.getKey(), ""));
+        String key = preference.getKey();
+        if (key.equals(getString(R.string.pref_key_alarm_silent)) || key.equals(getString(R.string.pref_key_notification_silent))) {
+            sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
+                    PreferenceManager
+                            .getDefaultSharedPreferences(preference.getContext())
+                            .getBoolean(preference.getKey(), false));
+        } else {
+            sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
+                    PreferenceManager
+                            .getDefaultSharedPreferences(preference.getContext())
+                            .getString(preference.getKey(), ""));
+        }
+
     }
 
     /**
@@ -81,26 +100,35 @@ public class MainPreferenceFragment extends PreferenceFragment {
                         flag = true;
                     }
                 }
+            } else if (preference instanceof CheckBoxPreference) {
+                CheckBoxPreference checkBoxPreference = (CheckBoxPreference) preference;
+                String key = checkBoxPreference.getKey();
+                Toast toast = Toast.makeText(preference.getContext(), key + " ; " + getString(R.string.pref_key_alarm_silent), Toast.LENGTH_SHORT);
+                toast.show();
+                if (key.equals(getString(R.string.pref_key_notification_silent))) {
+                    UserData.setNotificationSilent(!checkBoxPreference.isChecked());
+                } else if (key.equals(getString(R.string.pref_key_alarm_silent))) {
+                    UserData.setAlarmSilent(!checkBoxPreference.isChecked());
+                }
 
             } else if (preference instanceof RingtonePreference) {
-                // For ringtone preferences, look up the correct display value
-                // using RingtoneManager.
-                if (TextUtils.isEmpty(stringValue)) {
-                    // Empty values correspond to 'silent' (no ringtone).
-                    preference.setSummary(R.string.pref_notification_silent);
+                RingtonePreference ringtonePreference = (RingtonePreference) preference;
 
+                // For ringtone preferences, look up the correct display value using RingtoneManager.
+                Ringtone ringtone = RingtoneManager.getRingtone(preference.getContext(), Uri.parse(stringValue));
+                if (ringtone == null) {
+                    Toast toast = Toast.makeText(preference.getContext(), getString(R.string.pref_sound_lookup_error), Toast.LENGTH_SHORT);
+                    toast.show();
                 } else {
-                    Ringtone ringtone = RingtoneManager.getRingtone(preference.getContext(), Uri.parse(stringValue));
-
-                    if (ringtone == null) {
-                        // Clear the summary if there was a lookup error.
-                        preference.setSummary(R.string.pref_notification_sound);
-                    } else {
-                        // Set the summary to reflect the new ringtone display
-                        // name.
-                        String name = ringtone.getTitle(preference.getContext());
-                        preference.setSummary(name);
+                    int type = ringtonePreference.getRingtoneType();
+                    if (type == RingtoneManager.TYPE_NOTIFICATION) {
+                        UserData.setNotificationSound(stringValue);
+                    } else if (type == RingtoneManager.TYPE_ALARM) {
+                        UserData.setAlarmSound(stringValue);
                     }
+                    // Set the summary to reflect the new ringtone display name.
+                    String name = ringtone.getTitle(preference.getContext());
+                    preference.setSummary(name);
                 }
 
             } else {

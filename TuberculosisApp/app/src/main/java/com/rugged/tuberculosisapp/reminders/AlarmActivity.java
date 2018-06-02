@@ -37,9 +37,11 @@ public class AlarmActivity extends AppCompatActivity {
         textView.setText(title);
 
         //Play sound during alarm
-        Uri alarmUri = UserData.getAlarmSound();
-        r = RingtoneManager.getRingtone(getApplicationContext(), alarmUri);
-        r.play();
+        if (!UserData.getAlarmSilent()) {
+            Uri alarmUri = Uri.parse(UserData.getAlarmSound());
+            r = RingtoneManager.getRingtone(getApplicationContext(), alarmUri);
+            r.play();
+        }
 
         //Vibrate during alarm
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);

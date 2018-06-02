@@ -31,30 +31,20 @@ public class MainPreferenceFragment extends PreferenceFragment {
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_language)));
 
         // Notification preference change listeners
-        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_notification_silent)));
+        findPreference(getString(R.string.pref_key_notification_silent)).setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_notification_sound)));
 
         // Alarm preference change listeners
-        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_alarm_silent)));
+        findPreference(getString(R.string.pref_key_alarm_silent)).setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_alarm_sound)));
     }
 
     private void bindPreferenceSummaryToValue(Preference preference) {
         preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
 
-        String key = preference.getKey();
-        if (key.equals(getString(R.string.pref_key_alarm_silent)) || key.equals(getString(R.string.pref_key_notification_silent))) {
-            sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
-                    PreferenceManager
-                            .getDefaultSharedPreferences(preference.getContext())
-                            .getBoolean(preference.getKey(), false));
-        } else {
-            sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
-                    PreferenceManager
-                            .getDefaultSharedPreferences(preference.getContext())
-                            .getString(preference.getKey(), ""));
-        }
-
+        sBindPreferenceSummaryToValueListener.onPreferenceChange(preference, PreferenceManager
+                .getDefaultSharedPreferences(preference.getContext())
+                .getString(preference.getKey(), ""));
     }
 
     /**

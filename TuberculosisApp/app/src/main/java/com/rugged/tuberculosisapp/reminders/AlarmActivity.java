@@ -37,9 +37,9 @@ public class AlarmActivity extends AppCompatActivity {
         textView.setText(title);
 
         //Play sound during alarm
+        Uri alarmUri = Uri.parse(UserData.getAlarmSound());
+        r = RingtoneManager.getRingtone(getApplicationContext(), alarmUri);
         if (!UserData.getAlarmSilent()) {
-            Uri alarmUri = Uri.parse(UserData.getAlarmSound());
-            r = RingtoneManager.getRingtone(getApplicationContext(), alarmUri);
             r.play();
         }
 

@@ -52,11 +52,13 @@ public class MainActivity extends AppCompatActivity {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    private ViewPager mViewPager;
+    private static ViewPager mViewPager;
 
     private CalendarView cv;
 
     private int currentTab;
+
+    public static boolean isActive;
 
     public static final int NEW_SETTING = 1;
     public static final int NEW_LANGUAGE = 2;
@@ -127,6 +129,15 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(mSectionsPagerAdapter);
     }
 
+    public void openAchievements(View view) {
+        Intent intent = new Intent(this, ActivityAchievements.class);
+        startActivity(intent);
+    }
+
+    public static void setTab(int index) {
+        mViewPager.setCurrentItem(index);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -187,11 +198,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void openAchievements(View view) {
-        Intent intent = new Intent(this, ActivityAchievements.class);
-        startActivity(intent);
-    }
-
     @Override // To clear focus from EditText when tapping outside of the EditText
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -224,4 +230,15 @@ public class MainActivity extends AppCompatActivity {
         // Do nothing
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        isActive = true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        isActive = false;
+    }
 }

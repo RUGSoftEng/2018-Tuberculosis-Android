@@ -13,7 +13,10 @@ import com.rugged.tuberculosisapp.MainActivity;
 import com.rugged.tuberculosisapp.R;
 
 public class AlarmActivity extends AppCompatActivity {
-    Ringtone r;
+
+    private Ringtone r;
+
+    private static final int TAB_CALENDAR_INDEX = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +44,13 @@ public class AlarmActivity extends AppCompatActivity {
     }
 
     public void toCalendar(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        if (MainActivity.isActive) {
+            MainActivity.setTab(TAB_CALENDAR_INDEX);
+        } else {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+
         close(view);
     }
 }

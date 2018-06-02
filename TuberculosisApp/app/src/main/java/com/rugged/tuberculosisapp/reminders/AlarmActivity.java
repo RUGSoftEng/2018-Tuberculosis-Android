@@ -67,7 +67,6 @@ public class AlarmActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
-
-        close(view);
+        dismiss(view);
     }
 }

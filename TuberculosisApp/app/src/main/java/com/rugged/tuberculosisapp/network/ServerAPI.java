@@ -47,12 +47,15 @@ public interface ServerAPI {
 
     @Headers("Content-Type: application/json")
     @GET("general/videos/topics")
-    Call<ArrayList<String>> retrieveCategories();
+    Call<ArrayList<String>> retrieveCategories(
+            @Query("language") String locale
+    );
 
     @Headers("Content-Type: application/json")
     @GET("general/videos/topics/{topic}")
     Call<List<JSONVideoHolder>> retrieveVideoByCategory(
-            @Path("topic") String video_topic
+            @Path("topic") String video_topic,
+            @Query("language") String locale
     );
 
     @Headers("Content-Type: application/json")
@@ -64,6 +67,8 @@ public interface ServerAPI {
     );
 
     @GET("general/faq")
-    Call<ArrayList<FAQEntry>> retrieveFAQ();
+    Call<ArrayList<FAQEntry>> retrieveFAQ(
+            @Query("language") String locale
+    );
 
 }

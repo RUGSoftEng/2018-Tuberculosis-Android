@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.rugged.tuberculosisapp.R;
 import com.rugged.tuberculosisapp.network.RetrofitClientInstance;
 import com.rugged.tuberculosisapp.network.ServerAPI;
+import com.rugged.tuberculosisapp.settings.LanguageHelper;
 import com.rugged.tuberculosisapp.settings.UserData;
 
 import java.io.IOException;
@@ -123,7 +124,7 @@ public class TabNotes extends Fragment {
         Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
         ServerAPI serverAPI = retrofit.create(ServerAPI.class);
 
-        final Call<ArrayList<FAQEntry>> call = serverAPI.retrieveFAQ();
+        final Call<ArrayList<FAQEntry>> call = serverAPI.retrieveFAQ(LanguageHelper.getCurrentLocale().toUpperCase());
 
         Thread t = new Thread(new Runnable() {
             @Override

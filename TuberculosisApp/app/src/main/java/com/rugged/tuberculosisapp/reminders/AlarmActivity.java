@@ -18,6 +18,8 @@ import com.rugged.tuberculosisapp.settings.UserData;
 public class AlarmActivity extends AppCompatActivity {
     private static Ringtone r;
 
+    private static final int TAB_CALENDAR_INDEX = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +61,13 @@ public class AlarmActivity extends AppCompatActivity {
     }
 
     public void toCalendar(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        dismiss(view);
+        if (MainActivity.isActive) {
+            MainActivity.setTab(TAB_CALENDAR_INDEX);
+        } else {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+
+        close(view);
     }
 }

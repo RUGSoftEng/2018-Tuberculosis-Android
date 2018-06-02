@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.rugged.tuberculosisapp.R;
 import com.rugged.tuberculosisapp.network.RetrofitClientInstance;
 import com.rugged.tuberculosisapp.network.ServerAPI;
+import com.rugged.tuberculosisapp.settings.LanguageHelper;
 import com.rugged.tuberculosisapp.settings.UserData;
 import com.rugged.tuberculosisapp.signin.Identification;
 
@@ -83,7 +84,7 @@ public class TabInformation extends Fragment {
         ServerAPI serverAPI = retrofit.create(ServerAPI.class);
 
         // Here the method is the one you created in the ServerAPI interface
-        final Call<ArrayList<String>> call = serverAPI.retrieveCategories();
+        final Call<ArrayList<String>> call = serverAPI.retrieveCategories(LanguageHelper.getCurrentLocale().toUpperCase());
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -108,7 +109,7 @@ public class TabInformation extends Fragment {
         }
 
         for (final String title : titles) {
-            final Call<List<JSONVideoHolder>> callVideo = serverAPI.retrieveVideoByCategory(title);
+            final Call<List<JSONVideoHolder>> callVideo = serverAPI.retrieveVideoByCategory(title, LanguageHelper.getCurrentLocale().toUpperCase());
 
             Thread s = new Thread(new Runnable() {
 

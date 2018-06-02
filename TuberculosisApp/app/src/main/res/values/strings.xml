@@ -44,9 +44,9 @@
     <string name="action_test_reminder">Test Reminders</string>
     <string name="action_sign_out">Log out</string>
     <string name="taken_text">Taken today: </string>
-    <string name= "answer_yes">YES</string>
-    <string name= "answer_no">NO</string>
-    <string name= "answer_not_needed">Not needed</string>
+    <string name="answer_yes">YES</string>
+    <string name="answer_no">NO</string>
+    <string name="answer_not_needed">Not needed</string>
 
     <string name="ask_physician">Question for Physician</string>
     <string name="frequently_asked_questions">Frequently Asked Questions</string>
@@ -95,4 +95,5 @@
     <string name="question_failed">Failed to send your question, try again later.</string>
     <string name="no_internet">There is no active internet connection.</string>
     <string name="retrieving_faq_failed">Failed to retrieve the FAQ.</string>
+    <string name="asked_questions">Asked Questions</string>
 </resources>

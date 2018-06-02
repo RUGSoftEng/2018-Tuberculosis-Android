@@ -56,4 +56,6 @@
     <string name="question_failed">Ihre Frage konnte nicht gesendet werden. Versuchen Sie es später erneut.</string>
     <string name="no_internet">Es besteht keine aktive Internetverbindung</string>
     <string name="retrieving_faq_failed">Die FAQ konnten nicht abgerufen werden.</string>
+    <string name="change_language">Sprache ändern</string>
+    <string name="close_app">TuBuddy schließen</string>
 </resources>

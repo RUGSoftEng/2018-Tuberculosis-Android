@@ -9,12 +9,17 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="109"
+        android:orderInCategory="110"
         android:title="@string/action_settings"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_sign_out"
-        android:orderInCategory="110"
+        android:orderInCategory="111"
         android:title= "@string/action_sign_out"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/close_app"
+        android:orderInCategory="112"
+        android:title="@string/close_app"
         app:showAsAction="never" />
 </menu>

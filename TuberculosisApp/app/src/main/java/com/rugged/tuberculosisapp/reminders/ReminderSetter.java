@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 
 import com.rugged.tuberculosisapp.medication.Medication;
 
@@ -42,7 +41,6 @@ public class ReminderSetter {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void setReminders(Date date, ArrayList<Medication> meds) {
         //TODO Find better way to have multiple alarms
         if (this.medicationList != null) {
@@ -59,7 +57,7 @@ public class ReminderSetter {
             date.setMinutes(med.getTime().getMinutes());
             date.setSeconds(0);
             long timeDiff = date.getTime() - current.getTime();
-            
+
             if (!med.isTaken() && timeDiff >= 0) {
                 setReminder(date, NOTIFICATION, med.getName(), requestCode);
                 long timeForAlarm = date.getTime() + MINUTE_IN_MILLISECONDS*2;
@@ -70,7 +68,6 @@ public class ReminderSetter {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void setReminder(Date date, int type, String medName, int requestCode) {
         Intent intent = new Intent(context, ReminderHandler.class);
 
@@ -87,7 +84,11 @@ public class ReminderSetter {
         AlarmManager alarmManager = (AlarmManager)context.getSystemService(ALARM_SERVICE);
         assert alarmManager != null;
 
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, date.getTime(), pendingIntent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, date.getTime(), pendingIntent);
+        } else {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, date.getTime(), pendingIntent);
+        }
     }
 
     public void cancelReminder(int type, String medName, int requestCode) {

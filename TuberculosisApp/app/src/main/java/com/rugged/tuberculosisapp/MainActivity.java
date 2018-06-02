@@ -34,6 +34,8 @@ import com.rugged.tuberculosisapp.settings.SettingsActivity;
 import com.rugged.tuberculosisapp.settings.UserData;
 import com.rugged.tuberculosisapp.signin.SignInActivity;
 
+import static com.rugged.tuberculosisapp.signin.TabSignIn.ACCOUNT_TYPE;
+
 public class MainActivity extends AppCompatActivity {
 
     /**
@@ -150,10 +152,12 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.action_sign_out) {
             AccountManager am = AccountManager.get(this);
-            Account account = am.getAccounts()[0];
-            am.invalidateAuthToken(account.type, UserData.getIdentification().getToken());
-            // TODO: Do we want to remove the account as well? If so uncomment.. !!Change check in langSelect if commented!!
-            am.removeAccount(account, null, null);
+            Account[] accounts = am.getAccounts();
+            for (Account account : accounts) {
+                if (account.type.equals(ACCOUNT_TYPE)) {
+                    am.removeAccount(account, null, null);
+                }
+            }
 
             Intent intent = new Intent(this, SignInActivity.class);
             startActivity(intent);

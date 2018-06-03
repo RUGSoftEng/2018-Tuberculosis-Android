@@ -1,7 +1,9 @@
 package com.rugged.tuberculosisapp.notes;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -9,6 +11,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rugged.tuberculosisapp.R;
@@ -17,6 +21,7 @@ import com.rugged.tuberculosisapp.network.ServerAPI;
 import com.rugged.tuberculosisapp.settings.UserData;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -26,11 +31,22 @@ import retrofit2.Retrofit;
 public class AskPhysician extends AppCompatActivity {
 
     private boolean sent = false;
+    private ArrayList<QuestionToPhysician> askedQuestions;
+
+    private LinearLayout questions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ask_physician);
+
+        // Get list view
+        questions = findViewById(R.id.askedQuestions);
+
+        // Prepare categories
+        askedQuestions = new ArrayList<>();
+        retrieveAskedQuestions();
+        prepareListData(askedQuestions);
 
         Button submitQuestion = findViewById(R.id.submitQuestionButton);
         final EditText textQuestion = findViewById(R.id.questionEditText);
@@ -45,6 +61,54 @@ public class AskPhysician extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void retrieveAskedQuestions() {
+        Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
+        ServerAPI serverAPI = retrofit.create(ServerAPI.class);
+
+        final Call<ArrayList<QuestionToPhysician>> call = serverAPI.retrieveAskedQuestions(UserData.getIdentification().getId(),
+                UserData.getIdentification().getToken());
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Response<ArrayList<QuestionToPhysician>> response = call.execute();
+                    if (response.code() == 200) { // 200 means successfully retrieved
+                        askedQuestions = response.body();
+                    } else {
+                        threadedToast(R.string.retrieving_faq_failed);
+                    }
+                } catch (IOException e) {
+                    // TODO add more advanced exception handling
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void prepareListData(ArrayList<QuestionToPhysician> askedQuestions) {
+        for (int i = 0; i < askedQuestions.size(); i++) {
+            final QuestionToPhysician currentQuestion = askedQuestions.get(i);
+
+            final TextView question = new TextView(this);
+            question.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            question.setText(currentQuestion.getQuestion());
+            question.setTextColor(Color.rgb(80,80,80));
+
+            if (i > 0) { // Add distance between questions
+                question.setPadding(0, 24, 0, 0);
+            }
+            questions.addView(question);
+        }
     }
 
     private void sendQuestion(final String question, final EditText editText) {

@@ -66,4 +66,10 @@ public interface ServerAPI {
     @GET("general/faq")
     Call<ArrayList<FAQEntry>> retrieveFAQ();
 
+    @GET("accounts/patients/{id}/notes")
+    Call<ArrayList<QuestionToPhysician>> retrieveAskedQuestions(
+            @Path("id") int patient_id,
+            @Header("access_token") String access_token
+    );
+
 }

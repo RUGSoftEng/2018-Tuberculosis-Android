@@ -11,7 +11,7 @@
         android:focusableInTouchMode="true">
 
         <TextView
-            android:id="@+id/titleQuestionsAsked"
+            android:id="@+id/titleAskedQuestions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
-            android:id="@+id/infoDividerFaq"
+            android:id="@+id/infoDividerAskedQuestions"
             style="@style/Divider"
             android:layout_width="match_parent"
             android:layout_marginEnd="16dp"
@@ -37,7 +37,7 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:id="@+id/FAQEntries"
+            android:id="@+id/askedQuestions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"

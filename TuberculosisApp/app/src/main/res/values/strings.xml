@@ -48,7 +48,7 @@
     <string name="answer_no">NO</string>
     <string name="answer_not_needed">Not needed</string>
 
-    <string name="ask_physician">Question for Physician</string>
+    <string name="ask_physician">Ask your Physician</string>
     <string name="frequently_asked_questions">Frequently Asked Questions</string>
     <string name="ask_physician_hint">Ask a question</string>
     <string name="action_submit">Submit</string>

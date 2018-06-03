@@ -9,7 +9,7 @@
     <string name="title_information">Informationen</string>
     <string name="title_medication">Medikamente</string>
     <string name="action_settings">Einstellungen</string>
-    <string name="ask_physician">Frage den Artz</string>
+    <string name="ask_physician">Frage den Arzt</string>
     <string name="frequently_asked_questions">Häufig gestellte Fragen</string>
     <string name="ask_physician_hint">Stelle eine Frage</string>
     <string name="action_submit">Absenden</string>

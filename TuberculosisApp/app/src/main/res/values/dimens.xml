@@ -8,5 +8,5 @@
     <item name="masked" type="id"/>
 
     <!-- width for editing question to physician icons -->
-    <dimen name="edit_icon_width">130dp</dimen>
+    <dimen name="edit_icon_width">125dp</dimen>
 </resources>

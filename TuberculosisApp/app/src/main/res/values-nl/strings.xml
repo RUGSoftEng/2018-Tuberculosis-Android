@@ -8,7 +8,7 @@
     <string name="pref_key_language">pref_key_language</string>
     <string name="pref_notification_sound">Kies meldingsgeluid</string>
     <string name="pref_notification_silent">Stil</string>
-    <string name="ask_physician">Vragen voor Arts</string>
+    <string name="ask_physician">Vraag het uw Arts</string>
     <string name="frequently_asked_questions">Veelgestelde Vragen</string>
     <string name="ask_physician_hint">Stel een vraag</string>
     <string name="action_submit">Verstuur</string>

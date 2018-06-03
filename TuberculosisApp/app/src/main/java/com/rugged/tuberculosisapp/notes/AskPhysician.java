@@ -1,10 +1,15 @@
 package com.rugged.tuberculosisapp.notes;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -99,7 +104,7 @@ public class AskPhysician extends AppCompatActivity {
 
     private void prepareListData(ArrayList<QuestionToPhysician> askedQuestions) {
         for (int i = 0; i < askedQuestions.size(); i++) {
-            QuestionToPhysician currentQuestion = askedQuestions.get(i);
+            final QuestionToPhysician currentQuestion = askedQuestions.get(i);
 
             LinearLayout.LayoutParams holderParam = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -129,13 +134,52 @@ public class AskPhysician extends AppCompatActivity {
             ImageButton edit = new ImageButton(this);
             edit.setImageResource(android.R.drawable.ic_menu_edit);
             edit.setLayoutParams(iconParam);
-            //edit.setOnClickListener(ClickListener);
+            edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(AskPhysician.this, "Edit", Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder alert = new AlertDialog.Builder(AskPhysician.this);
+
+                    final EditText edittext = new EditText(AskPhysician.this);
+                    alert.setTitle("Editing you Question");
+
+                    alert.setView(edittext);
+                    edittext.setText(currentQuestion.getQuestion());
+
+                    alert.setPositiveButton("Submit Changes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) { // TODO here we need a POST API call
+                            //What ever you want to do with the value
+                            //Editable YouEditTextValue = edittext.getText();
+                            //OR
+                            //String YouEditTextValue = edittext.getText().toString();
+
+                            /*
+                                POST call
+                                refreshAskedQuestions();
+                             */
+                        }
+                    });
+
+                    alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            dialog.cancel();
+                        }
+                    });
+
+                    alert.show();
+                }
+            });
             holder.addView(edit);
 
             ImageButton delete = new ImageButton(this);
             delete.setImageResource(android.R.drawable.ic_delete);
             delete.setLayoutParams(iconParam);
-            //edit.setOnClickListener(ClickListener); // Here we need a DELETE API call
+            delete.setOnClickListener(new View.OnClickListener() { // TODO Here we need a DELETE API call
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(AskPhysician.this, "Remove", Toast.LENGTH_SHORT).show();
+                }
+            });
             holder.addView(delete);
 
 

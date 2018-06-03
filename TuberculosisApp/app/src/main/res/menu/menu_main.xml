@@ -17,9 +17,4 @@
         android:orderInCategory="111"
         android:title= "@string/action_sign_out"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/close_app"
-        android:orderInCategory="112"
-        android:title="@string/close_app"
-        app:showAsAction="never" />
 </menu>

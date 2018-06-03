@@ -3,7 +3,6 @@ package com.rugged.tuberculosisapp.notes;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -11,6 +10,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +31,7 @@ import retrofit2.Retrofit;
 public class AskPhysician extends AppCompatActivity {
 
     private boolean sent = false;
+    private static int ID_OFFSET = 100;
     private ArrayList<QuestionToPhysician> askedQuestions;
 
     private LinearLayout questions;
@@ -56,6 +57,7 @@ public class AskPhysician extends AppCompatActivity {
             public void onClick(View v) {
                 if (textQuestion.getText().toString().length() > 0) { // check if there actually is a question
                     sendQuestion(textQuestion.getText().toString(), textQuestion);
+                    refreshAskedQuestions();
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.question_empty, Toast.LENGTH_SHORT).show();
                 }
@@ -97,17 +99,56 @@ public class AskPhysician extends AppCompatActivity {
 
     private void prepareListData(ArrayList<QuestionToPhysician> askedQuestions) {
         for (int i = 0; i < askedQuestions.size(); i++) {
-            final QuestionToPhysician currentQuestion = askedQuestions.get(i);
+            QuestionToPhysician currentQuestion = askedQuestions.get(i);
 
-            final TextView question = new TextView(this);
-            question.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            LinearLayout.LayoutParams holderParam = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            LinearLayout holder = new LinearLayout(this);
+            holder.setLayoutParams(holderParam);
+            holder.setOrientation(LinearLayout.HORIZONTAL);
+
+            //******************************fill holder********************************************
+
+            LinearLayout.LayoutParams questionParam = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            TextView question = new TextView(this);
+            question.setLayoutParams(questionParam);
             question.setText(currentQuestion.getQuestion());
             question.setTextColor(Color.rgb(80,80,80));
+            holder.addView(question);
+
+
+            LinearLayout.LayoutParams iconParam = new LinearLayout.LayoutParams(
+                    (int) getResources().getDimension(R.dimen.edit_icon_width),
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            ImageButton edit = new ImageButton(this);
+            edit.setImageResource(android.R.drawable.ic_menu_edit);
+            edit.setLayoutParams(iconParam);
+            //edit.setOnClickListener(ClickListener);
+            //edit.setTag(i);
+            //edit.setId(i);
+            holder.addView(edit);
+
+            ImageButton delete = new ImageButton(this);
+            delete.setImageResource(android.R.drawable.ic_delete);
+            delete.setLayoutParams(iconParam);
+            //edit.setOnClickListener(ClickListener);
+            //edit.setTag(i);
+            //edit.setId(i);
+            holder.addView(delete);
+
+
+            //******************************fill holder********************************************
 
             if (i > 0) { // Add distance between questions
-                question.setPadding(0, 24, 0, 0);
+                holder.setPadding(0, 24, 0, 0);
             }
-            questions.addView(question);
+            questions.addView(holder);
         }
     }
 
@@ -127,7 +168,7 @@ public class AskPhysician extends AppCompatActivity {
                         threadedToast(R.string.question_successful);
                         sent = true;
                     } else {
-                        threadedToast(R.string.question_successful);
+                        threadedToast(R.string.question_failed);
                         sent = false;
                     }
                 } catch (IOException e) {
@@ -170,5 +211,11 @@ public class AskPhysician extends AppCompatActivity {
             }
         }
         return super.dispatchTouchEvent( event );
+    }
+
+    private void refreshAskedQuestions() {
+        questions.removeAllViews();
+        retrieveAskedQuestions();
+        prepareListData(askedQuestions);
     }
 }

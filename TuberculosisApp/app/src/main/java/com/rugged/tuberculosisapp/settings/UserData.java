@@ -27,12 +27,6 @@ public class UserData extends Application {
         editor.apply();
     }
 
-    public static void restoreDefaults() {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.apply();
-    }
-
     public static Identification getIdentification() {
         Identification identification = new Identification();
         identification.setId(sharedPreferences.getInt("patientId", -1));
@@ -52,12 +46,20 @@ public class UserData extends Application {
         return sharedPreferences.getBoolean("notification_silent", false);
     }
 
+    public static Boolean getNotificationVibrate() {
+        return sharedPreferences.getBoolean("notification_vibrate", true);
+    }
+
     public static String getNotificationSound() {
         return sharedPreferences.getString("notification", null);
     }
 
     public static Boolean getAlarmSilent() {
         return sharedPreferences.getBoolean("alarm_silent", false);
+    }
+
+    public static Boolean getAlarmVibrate() {
+        return sharedPreferences.getBoolean("alarm_vibrate", true);
     }
 
     public static String getAlarmSound() {
@@ -89,6 +91,12 @@ public class UserData extends Application {
         preferenceEditor.apply();
     }
 
+    public static void setNotificationVibrate(Boolean bool) {
+        SharedPreferences.Editor preferenceEditor = sharedPreferences.edit();
+        preferenceEditor.putBoolean("notification_vibrate", bool);
+        preferenceEditor.apply();
+    }
+
     public static void setNotificationSound(String alarm) {
         SharedPreferences.Editor preferenceEditor = sharedPreferences.edit();
         preferenceEditor.putString("notification", alarm);
@@ -98,6 +106,12 @@ public class UserData extends Application {
     public static void setAlarmSilent(Boolean bool) {
         SharedPreferences.Editor preferenceEditor = sharedPreferences.edit();
         preferenceEditor.putBoolean("alarm_silent", bool);
+        preferenceEditor.apply();
+    }
+
+    public static void setAlarmVibrate(Boolean bool) {
+        SharedPreferences.Editor preferenceEditor = sharedPreferences.edit();
+        preferenceEditor.putBoolean("alarm_vibrate", bool);
         preferenceEditor.apply();
     }
 

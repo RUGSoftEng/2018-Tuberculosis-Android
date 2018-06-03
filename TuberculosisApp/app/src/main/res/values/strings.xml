@@ -31,13 +31,13 @@
 
     <!-- Reminder settings -->
     <string name="pref_sound_lookup_error">Error: could not find selected sound</string>
-    <string name="pref_title_notification_silent">Toggle notification sound</string>
+    <string name="pref_title_notification_silent">Enable notification sound</string>
     <string name="pref_key_notification_silent">pref_key_notification_silent</string>
-    <string name="pref_title_notification_vibrate">Toggle notification vibration</string>
+    <string name="pref_title_notification_vibrate">Enable notification vibration</string>
     <string name="pref_key_notification_vibrate">pref_key_notification_vibrate</string>
-    <string name="pref_title_alarm_silent">Toggle alarm sound</string>
+    <string name="pref_title_alarm_silent">Enable alarm sound</string>
     <string name="pref_key_alarm_silent">pref_key_alarm_silent</string>
-    <string name="pref_title_alarm_vibrate">Toggle alarm vibration</string>
+    <string name="pref_title_alarm_vibrate">Enable alarm vibration</string>
     <string name="pref_key_alarm_vibrate">pref_key_alarm_vibrate</string>
     <string name="pref_title_notification_sound">Notification sound</string>
     <string name="pref_key_notification_sound">pref_key_notification_sound</string>

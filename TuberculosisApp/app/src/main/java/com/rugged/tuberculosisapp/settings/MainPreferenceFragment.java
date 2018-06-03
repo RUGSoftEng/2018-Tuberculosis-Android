@@ -5,7 +5,6 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -33,10 +32,12 @@ public class MainPreferenceFragment extends PreferenceFragment {
 
         // Notification preference change listeners
         findPreference(getString(R.string.pref_key_notification_silent)).setOnPreferenceChangeListener(listener);
+        findPreference(getString(R.string.pref_key_notification_vibrate)).setOnPreferenceChangeListener(listener);
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_notification_sound)));
 
         // Alarm preference change listeners
         findPreference(getString(R.string.pref_key_alarm_silent)).setOnPreferenceChangeListener(listener);
+        findPreference(getString(R.string.pref_key_alarm_vibrate)).setOnPreferenceChangeListener(listener);
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_alarm_sound)));
 
         Preference remindersButton = findPreference(getString(R.string.pref_key_test_reminders));
@@ -45,15 +46,6 @@ public class MainPreferenceFragment extends PreferenceFragment {
             public boolean onPreferenceClick(Preference preference) {
                 Intent intent = new Intent(preference.getContext(), ReminderTestActivity.class);
                 startActivity(intent);
-                return true;
-            }
-        });
-
-        Preference defaultsButton = findPreference(getString(R.string.pref_key_restore_defaults));
-        defaultsButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                UserData.restoreDefaults();
                 return true;
             }
         });
@@ -117,6 +109,10 @@ public class MainPreferenceFragment extends PreferenceFragment {
                     UserData.setNotificationSilent(switchPreference.isChecked());
                 } else if (key.equals(getString(R.string.pref_key_alarm_silent))) {
                     UserData.setAlarmSilent(switchPreference.isChecked());
+                } else if (key.equals(getString(R.string.pref_key_alarm_vibrate))) {
+                    UserData.setAlarmVibrate(!switchPreference.isChecked());
+                } else if (key.equals(getString(R.string.pref_key_notification_vibrate))) {
+                    UserData.setNotificationVibrate(!switchPreference.isChecked());
                 }
 
             } else if (preference instanceof RingtonePreference) {

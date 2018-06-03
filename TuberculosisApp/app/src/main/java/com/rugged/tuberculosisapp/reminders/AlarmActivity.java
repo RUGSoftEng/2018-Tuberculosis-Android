@@ -20,6 +20,7 @@ import com.rugged.tuberculosisapp.settings.UserData;
 
 public class AlarmActivity extends AppCompatActivity {
     private static Ringtone alarm;
+    private static Vibrator vibrator;
 
     private static final int TAB_CALENDAR_INDEX = 0;
 
@@ -56,9 +57,9 @@ public class AlarmActivity extends AppCompatActivity {
         }
 
         //Vibrate during alarm
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        if (v != null) {
-            v.vibrate(400);
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        if (UserData.getAlarmVibrate() && vibrator != null) {
+            vibrator.vibrate(new long[] { 1000, 1000, 1000, 1000, 1000, 1000 }, 0);
         }
     }
 
@@ -66,11 +67,13 @@ public class AlarmActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         alarm.stop();
+        vibrator.cancel();
         finish();
     }
 
     public void dismiss(View view) {
         alarm.stop();
+        vibrator.cancel();
         finish();
     }
 

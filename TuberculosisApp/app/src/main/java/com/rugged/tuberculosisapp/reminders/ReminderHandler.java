@@ -1,5 +1,6 @@
 package com.rugged.tuberculosisapp.reminders;
 
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -50,8 +51,8 @@ public class ReminderHandler extends BroadcastReceiver {
                 .setLargeIcon(icon)
                 .setContentTitle(context.getString(R.string.notification_title))
                 .setContentText(notificationText)
+                .setSound(Uri.parse(UserData.getNotificationSound()))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
@@ -59,13 +60,14 @@ public class ReminderHandler extends BroadcastReceiver {
         if (!UserData.getNotificationSilent()) {
             builder.setSound(Uri.parse(UserData.getNotificationSound()));
         }
-        /*if (UserData.getNotificationVibrate()) {
-            builder.setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
-        }*/
 
+        if (UserData.getNotificationVibrate()) {
+            builder.setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
+        }
+
+        Notification notification = builder.build();
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-        // notificationId is a unique int for each notification that you must define
-        notificationManager.notify(1, builder.build());
+        notificationManager.notify(0, notification);
     }
 
     public void showAlarm(Context context, String medName) {

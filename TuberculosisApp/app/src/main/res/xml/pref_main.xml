@@ -10,9 +10,6 @@
             android:entryValues="@array/pref_language_values"
             android:key="@string/pref_key_language"
             android:title="@string/pref_title_language" />
-        <Preference
-            android:key="@string/pref_key_restore_defaults"
-            android:title="@string/pref_title_restore_defaults" />
     </PreferenceCategory>
     <PreferenceCategory android:title="Reminders">
 

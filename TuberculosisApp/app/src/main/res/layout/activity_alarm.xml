@@ -33,7 +33,8 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/toCalendarButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/toCalendarButton" />
+        app:layout_constraintStart_toEndOf="@+id/toCalendarButton"
+        android:layout_marginRight="8dp" />
 
     <TextView
         android:id="@+id/alarmTitle"

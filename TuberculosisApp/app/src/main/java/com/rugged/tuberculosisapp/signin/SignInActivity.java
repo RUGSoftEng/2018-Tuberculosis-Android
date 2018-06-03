@@ -88,14 +88,6 @@ public class SignInActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        if (id == R.id.close_app_signin) {
-            if (Build.VERSION.SDK_INT >= 21) {
-                moveTaskToBack(true);
-            } else {
-                ActivityCompat.finishAffinity(this);
-            }
-        }
-
         return super.onOptionsItemSelected(item);
     }
 

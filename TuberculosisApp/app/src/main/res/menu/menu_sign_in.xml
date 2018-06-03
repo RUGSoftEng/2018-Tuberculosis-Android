@@ -6,8 +6,4 @@
         android:id="@+id/change_language"
         android:title="@string/change_language"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/close_app_signin"
-        android:title="@string/close_app"
-        app:showAsAction="never" />
 </menu>

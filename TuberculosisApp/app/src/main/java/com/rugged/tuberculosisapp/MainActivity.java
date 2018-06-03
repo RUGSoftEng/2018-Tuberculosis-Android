@@ -176,14 +176,6 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
-        if (id == R.id.close_app) {
-            if (Build.VERSION.SDK_INT >= 21) {
-                moveTaskToBack(true);
-            } else {
-                ActivityCompat.finishAffinity(this);
-            }
-        }
-
         return super.onOptionsItemSelected(item);
     }
 

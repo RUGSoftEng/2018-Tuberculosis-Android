@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (cv.isPointInsideCalendar(event.getRawX(), event.getRawY())) {
-                cv.dispatchTouchEvent(event);
+                cv.onTouchEvent(event);
                 return false;
             }
         }

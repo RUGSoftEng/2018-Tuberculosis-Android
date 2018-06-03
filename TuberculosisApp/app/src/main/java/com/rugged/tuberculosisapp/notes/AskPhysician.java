@@ -113,7 +113,7 @@ public class AskPhysician extends AppCompatActivity {
 
             LinearLayout.LayoutParams questionParam = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
+                    LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
 
             TextView question = new TextView(this);
             question.setLayoutParams(questionParam);
@@ -124,22 +124,18 @@ public class AskPhysician extends AppCompatActivity {
 
             LinearLayout.LayoutParams iconParam = new LinearLayout.LayoutParams(
                     (int) getResources().getDimension(R.dimen.edit_icon_width),
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
+                    LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
 
             ImageButton edit = new ImageButton(this);
             edit.setImageResource(android.R.drawable.ic_menu_edit);
             edit.setLayoutParams(iconParam);
             //edit.setOnClickListener(ClickListener);
-            //edit.setTag(i);
-            //edit.setId(i);
             holder.addView(edit);
 
             ImageButton delete = new ImageButton(this);
             delete.setImageResource(android.R.drawable.ic_delete);
             delete.setLayoutParams(iconParam);
-            //edit.setOnClickListener(ClickListener);
-            //edit.setTag(i);
-            //edit.setId(i);
+            //edit.setOnClickListener(ClickListener); // Here we need a DELETE API call
             holder.addView(delete);
 
 

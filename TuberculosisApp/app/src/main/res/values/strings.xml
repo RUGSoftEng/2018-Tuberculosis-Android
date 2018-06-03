@@ -15,6 +15,8 @@
     <string name="pref_title_general">General</string>
     <string name="pref_title_language">Language</string>
     <string name="pref_key_language">pref_key_language</string>
+    <string name="pref_key_restore_defaults">pref_key_restore_defaults</string>
+    <string name="pref_title_restore_defaults">Restore defaults</string>
 
     <!-- Channel strings -->
     <string name="channel_reminders_name">Reminder</string>
@@ -27,17 +29,22 @@
     <string name="alarm_to_calendar">Go to calendar</string>
     <string name="alarm_dismiss">Dismiss</string>
 
-    <!-- Notification settings -->
+    <!-- Reminder settings -->
     <string name="pref_sound_lookup_error">Error: could not find selected sound</string>
-    <string name="pref_title_notification_silent">Play sound during notification</string>
+    <string name="pref_title_notification_silent">Toggle notification sound</string>
     <string name="pref_key_notification_silent">pref_key_notification_silent</string>
-    <string name="pref_title_alarm_silent">Play sound during alarm</string>
+    <string name="pref_title_notification_vibrate">Toggle notification vibration</string>
+    <string name="pref_key_notification_vibrate">pref_key_notification_vibrate</string>
+    <string name="pref_title_alarm_silent">Toggle alarm sound</string>
     <string name="pref_key_alarm_silent">pref_key_alarm_silent</string>
+    <string name="pref_title_alarm_vibrate">Toggle alarm vibration</string>
+    <string name="pref_key_alarm_vibrate">pref_key_alarm_vibrate</string>
     <string name="pref_title_notification_sound">Notification sound</string>
     <string name="pref_key_notification_sound">pref_key_notification_sound</string>
     <string name="pref_title_alarm_sound">Alarm sound</string>
     <string name="pref_key_alarm_sound">pref_key_alarm_sound</string>
-
+    <string name="pref_title_test_reminders">Test Reminders</string>
+    <string name="pref_key_test_reminders">pref_key_test_reminders</string>
 
     <!-- General strings -->
     <string name="app_name">TuBuddy</string>
@@ -47,6 +54,7 @@
     <string name="title_achievements">Achievements</string>
     <string name="action_settings">Settings</string>
     <string name="action_test_reminder">Test Reminders</string>
+    <string name="date_and_time">Date and Time</string>
     <string name="action_sign_out">Log out</string>
     <string name="taken_text">Taken today: </string>
     <string name= "answer_yes">YES</string>

@@ -157,11 +157,6 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, NEW_SETTING);
         }
 
-        if (id == R.id.action_test_reminder) {
-            Intent intent = new Intent(this, ReminderTestActivity.class);
-            startActivity(intent);
-        }
-
         if (id == R.id.action_sign_out) {
             AccountManager am = AccountManager.get(this);
             Account[] accounts = am.getAccounts();

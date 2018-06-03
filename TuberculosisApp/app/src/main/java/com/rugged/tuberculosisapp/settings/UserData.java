@@ -2,9 +2,6 @@ package com.rugged.tuberculosisapp.settings;
 
 import android.app.Application;
 import android.content.SharedPreferences;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.preference.PreferenceManager;
 
 import com.rugged.tuberculosisapp.signin.Identification;
@@ -25,6 +22,12 @@ public class UserData extends Application {
 
     // Test function
     public static void clearPrefs() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
+
+    public static void restoreDefaults() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();

@@ -2,9 +2,12 @@ package com.rugged.tuberculosisapp.reminders;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,7 +19,7 @@ import com.rugged.tuberculosisapp.R;
 import com.rugged.tuberculosisapp.settings.UserData;
 
 public class AlarmActivity extends AppCompatActivity {
-    private static Ringtone r;
+    private static Ringtone alarm;
 
     private static final int TAB_CALENDAR_INDEX = 0;
 
@@ -38,9 +41,18 @@ public class AlarmActivity extends AppCompatActivity {
 
         //Play sound during alarm
         Uri alarmUri = Uri.parse(UserData.getAlarmSound());
-        r = RingtoneManager.getRingtone(getApplicationContext(), alarmUri);
+        alarm = RingtoneManager.getRingtone(getApplicationContext(), alarmUri);
+        if (Build.VERSION.SDK_INT >= 21) {
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_ALARM)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                    .build();
+            alarm.setAudioAttributes(audioAttributes);
+        } else {
+            alarm.setStreamType(AudioManager.STREAM_ALARM);
+        }
         if (!UserData.getAlarmSilent()) {
-            r.play();
+            alarm.play();
         }
 
         //Vibrate during alarm
@@ -53,12 +65,12 @@ public class AlarmActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        r.stop();
+        alarm.stop();
         finish();
     }
 
     public void dismiss(View view) {
-        r.stop();
+        alarm.stop();
         finish();
     }
 

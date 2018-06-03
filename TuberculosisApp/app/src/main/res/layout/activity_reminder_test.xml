@@ -6,49 +6,83 @@
     android:layout_height="match_parent"
     tools:context="com.rugged.tuberculosisapp.reminders.ReminderTestActivity">
 
-    <Button
-        android:id="@+id/dateButton"
+    <TextView
+        android:id="@+id/DateAndTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:onClick="setDate"
-        android:text="01/04/2018"
+        android:layout_marginTop="8dp"
+        android:text="@string/date_and_time"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/timeButton"
+    <TextView
+        android:id="@+id/TestReminder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/action_test_reminder"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+    <View
+        android:id="@+id/divider2"
+        style="@style/Divider"
+        android:layout_width="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateButton" />
+
+    <Button
+        android:id="@+id/dateButton"
+        android:layout_width="99dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="setDate"
+        android:text="01/04/2018"
+        app:layout_constraintEnd_toStartOf="@+id/timeButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DateAndTime" />
+
+    <Button
+        android:id="@+id/timeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:onClick="setTime"
         android:text="15:42"
         app:layout_constraintBaseline_toBaselineOf="@+id/dateButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/dateButton" />
 
     <Button
         android:id="@+id/setAlarmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:onClick="setAlarm"
         android:text="Set Alarm"
-        app:layout_constraintStart_toStartOf="@+id/dateButton"
-        app:layout_constraintTop_toBottomOf="@+id/dateButton" />
-
-    <Switch
-        android:id="@+id/pillSwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
-        android:checked="false"
-        android:text="Pill taken"
-        app:layout_constraintBaseline_toBaselineOf="@+id/timeButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/timeButton" />
+        app:layout_constraintEnd_toStartOf="@+id/button5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TestReminder" />
 
     <Button
         android:id="@+id/button5"
@@ -58,6 +92,8 @@
         android:onClick="setNotification"
         android:text="Set Notification"
         app:layout_constraintBaseline_toBaselineOf="@+id/setAlarmButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/setAlarmButton" />
 
 </android.support.constraint.ConstraintLayout>

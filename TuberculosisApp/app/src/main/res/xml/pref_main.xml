@@ -10,26 +10,40 @@
             android:entryValues="@array/pref_language_values"
             android:key="@string/pref_key_language"
             android:title="@string/pref_title_language" />
+        <Preference
+            android:key="@string/pref_key_restore_defaults"
+            android:title="@string/pref_title_restore_defaults" />
     </PreferenceCategory>
     <PreferenceCategory android:title="Reminders">
 
-        <CheckBoxPreference
+        <SwitchPreference
             android:defaultValue="true"
             android:key="@string/pref_key_notification_silent"
             android:title="@string/pref_title_notification_silent" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/pref_key_notification_vibrate"
+            android:title="@string/pref_title_notification_vibrate" />
         <RingtonePreference
             android:ringtoneType="notification"
             android:showSilent="false"
             android:key="@string/pref_key_notification_sound"
             android:title="@string/pref_title_notification_sound" />
-        <CheckBoxPreference
+        <SwitchPreference
             android:defaultValue="true"
             android:key="@string/pref_key_alarm_silent"
             android:title="@string/pref_title_alarm_silent" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/pref_key_alarm_vibrate"
+            android:title="@string/pref_title_alarm_vibrate" />
         <RingtonePreference
             android:ringtoneType="alarm"
             android:showSilent="false"
             android:key="@string/pref_key_alarm_sound"
             android:title="@string/pref_title_alarm_sound" />
+        <Preference
+            android:title="@string/pref_title_test_reminders"
+            android:key="@string/pref_key_test_reminders" />
     </PreferenceCategory>
 </PreferenceScreen>

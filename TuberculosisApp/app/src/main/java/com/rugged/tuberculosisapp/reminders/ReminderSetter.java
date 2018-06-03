@@ -13,10 +13,6 @@ import java.util.Date;
 
 import static android.content.Context.ALARM_SERVICE;
 
-/**
- * Created by Niek on 15/05/2018.
- */
-
 public class ReminderSetter {
     private Context context;
 

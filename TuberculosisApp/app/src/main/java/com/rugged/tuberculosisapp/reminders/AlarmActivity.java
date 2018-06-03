@@ -1,9 +1,14 @@
 package com.rugged.tuberculosisapp.reminders;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,10 +16,11 @@ import android.widget.TextView;
 
 import com.rugged.tuberculosisapp.MainActivity;
 import com.rugged.tuberculosisapp.R;
+import com.rugged.tuberculosisapp.settings.UserData;
 
 public class AlarmActivity extends AppCompatActivity {
-
-    private Ringtone r;
+    private static Ringtone alarm;
+    private static Vibrator vibrator;
 
     private static final int TAB_CALENDAR_INDEX = 0;
 
@@ -22,24 +28,52 @@ public class AlarmActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
+
+        //Set the alarm title
         TextView textView = findViewById(R.id.alarmTitle);
-        String medName = getIntent().getExtras().getString("EXTRA_MED");
-        String title = textView.getText() + " " + medName + "!";
+        Bundle extras = getIntent().getExtras();
+        String title = textView.getText().toString();
+        if (extras != null) {
+            String medName = extras.getString("EXTRA_MED", "Unknown");
+            title = textView.getText() + ": " + medName;
+        }
+        title += "!";
         textView.setText(title);
-        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        this.r = RingtoneManager.getRingtone(getApplicationContext(), notification);
-        r.play();
+
+        //Play sound during alarm
+        Uri alarmUri = Uri.parse(UserData.getAlarmSound());
+        alarm = RingtoneManager.getRingtone(getApplicationContext(), alarmUri);
+        if (Build.VERSION.SDK_INT >= 21) {
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_ALARM)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                    .build();
+            alarm.setAudioAttributes(audioAttributes);
+        } else {
+            alarm.setStreamType(AudioManager.STREAM_ALARM);
+        }
+        if (!UserData.getAlarmSilent()) {
+            alarm.play();
+        }
+
+        //Vibrate during alarm
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        if (UserData.getAlarmVibrate() && vibrator != null) {
+            vibrator.vibrate(new long[] { 1000, 1000, 1000, 1000, 1000, 1000 }, 0);
+        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        r.stop();
+        alarm.stop();
+        vibrator.cancel();
         finish();
     }
 
-    public void close(View view) {
-        r.stop();
+    public void dismiss(View view) {
+        alarm.stop();
+        vibrator.cancel();
         finish();
     }
 
@@ -50,7 +84,6 @@ public class AlarmActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
-
-        close(view);
+        dismiss(view);
     }
 }

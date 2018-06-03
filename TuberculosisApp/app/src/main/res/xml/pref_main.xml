@@ -13,21 +13,34 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="Reminders">
 
-        <CheckBoxPreference
+        <SwitchPreference
             android:defaultValue="true"
-            android:key="@string/pref_notification_silent"
-            android:title="@string/pref_notification_silent" />
+            android:key="@string/pref_key_notification_silent"
+            android:title="@string/pref_title_notification_silent" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/pref_key_notification_vibrate"
+            android:title="@string/pref_title_notification_vibrate" />
         <RingtonePreference
-            android:key="@string/pref_notification_sound"
             android:ringtoneType="notification"
-            android:title="@string/pref_notification_sound" />
-        <CheckBoxPreference
+            android:showSilent="false"
+            android:key="@string/pref_key_notification_sound"
+            android:title="@string/pref_title_notification_sound" />
+        <SwitchPreference
             android:defaultValue="true"
-            android:key="@string/pref_alarm_silent"
-            android:title="@string/pref_alarm_silent" />
+            android:key="@string/pref_key_alarm_silent"
+            android:title="@string/pref_title_alarm_silent" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/pref_key_alarm_vibrate"
+            android:title="@string/pref_title_alarm_vibrate" />
         <RingtonePreference
-            android:key="@string/pref_alarm_sound"
             android:ringtoneType="alarm"
-            android:title="@string/pref_alarm_sound" />
+            android:showSilent="false"
+            android:key="@string/pref_key_alarm_sound"
+            android:title="@string/pref_title_alarm_sound" />
+        <Preference
+            android:title="@string/pref_title_test_reminders"
+            android:key="@string/pref_key_test_reminders" />
     </PreferenceCategory>
 </PreferenceScreen>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -11,6 +12,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.preference.SwitchPreference;
+import android.provider.Settings;
 import android.widget.Toast;
 
 import com.rugged.tuberculosisapp.MainActivity;
@@ -25,15 +27,37 @@ public class MainPreferenceFragment extends PreferenceFragment {
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.pref_main);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            addPreferencesFromResource(R.xml.pref_main_oreo);
+        } else {
+            addPreferencesFromResource(R.xml.pref_main);
+        }
 
         // Language preference change listener
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_language)));
 
         // Notification preference change listeners
-        findPreference(getString(R.string.pref_key_notification_silent)).setOnPreferenceChangeListener(listener);
-        findPreference(getString(R.string.pref_key_notification_vibrate)).setOnPreferenceChangeListener(listener);
-        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_notification_sound)));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Preference notificationButton = findPreference(getString(R.string.pref_key_edit_notification_settings));
+            notificationButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        Intent intent;
+                        intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+                        intent.putExtra(Settings.EXTRA_APP_PACKAGE, getContext().getPackageName());
+                        intent.putExtra(Settings.EXTRA_CHANNEL_ID, "reminders");
+                        startActivity(intent);
+                    }
+                    return true;
+                }
+            });
+
+        } else {
+            findPreference(getString(R.string.pref_key_notification_silent)).setOnPreferenceChangeListener(listener);
+            findPreference(getString(R.string.pref_key_notification_vibrate)).setOnPreferenceChangeListener(listener);
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_notification_sound)));
+        }
 
         // Alarm preference change listeners
         findPreference(getString(R.string.pref_key_alarm_silent)).setOnPreferenceChangeListener(listener);

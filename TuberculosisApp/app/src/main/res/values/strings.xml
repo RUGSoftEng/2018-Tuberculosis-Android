@@ -31,6 +31,8 @@
 
     <!-- Reminder settings -->
     <string name="pref_sound_lookup_error">Error: could not find selected sound</string>
+    <string name="pref_title_edit_notification_settings">Edit notification settings</string>
+    <string name="pref_key_edit_notification_settings">pref_key_edit_notification_settings</string>
     <string name="pref_title_notification_silent">Enable notification sound</string>
     <string name="pref_key_notification_silent">pref_key_notification_silent</string>
     <string name="pref_title_notification_vibrate">Enable notification vibration</string>

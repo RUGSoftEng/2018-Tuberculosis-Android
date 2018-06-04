@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
@@ -53,6 +54,7 @@ public class ReminderHandler extends BroadcastReceiver {
                 .setContentText(notificationText)
                 .setSound(Uri.parse(UserData.getNotificationSound()))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setChannelId("reminders")
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
@@ -71,8 +73,17 @@ public class ReminderHandler extends BroadcastReceiver {
     }
 
     public void showAlarm(Context context, String medName) {
+        PowerManager powerManager = (PowerManager)context.getSystemService(Context.POWER_SERVICE);
+        PowerManager.WakeLock wakeLock = null;
+        if (powerManager != null) {
+            wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "MEDICATION_ALARM");
+            wakeLock.acquire(10*60*1000L /*10 minutes*/);
+        }
         Intent i = new Intent(context, AlarmActivity.class);
         i.putExtra("EXTRA_MED", medName);
         context.startActivity(i);
+        if (powerManager != null) {
+            wakeLock.release();
+        }
     }
 }

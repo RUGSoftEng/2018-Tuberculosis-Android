@@ -4,19 +4,16 @@
     <string name="pref_title_general">Allgemein</string>
     <string name="pref_title_language">Sprache</string>
     <string name="pref_key_language">pref_key_language</string>
-    <string name="pref_notification_silent">Lautlos</string>
-    <string name="pref_notification_sound">Benachrichtigungston</string>
+    <string name="pref_title_notification_sound">Benachrichtigungston</string>
     <string name="title_information">Informationen</string>
     <string name="title_medication">Medikamente</string>
     <string name="action_settings">Einstellungen</string>
-    <string name="lorem_ipsum">Lorem ipsum dolor sit amet et delectus accomodare his comsul copiosae</string>
     <string name="ask_physician">Frage den Artz</string>
     <string name="frequently_asked_questions">Häufig gestellte Fragen</string>
     <string name="ask_physician_hint">Stelle eine Frage</string>
     <string name="action_submit">Absenden</string>
     <string name="quiz">Quiz</string>
     <string name="show_answers">Antworten aufzeigen</string>
-    <string name="lorem_ipsum_question">Lorem ipsum dolor sit amet et?</string>
     <plurals name="medication_dose">
         <item quantity="one">%1$d Pille</item>
         <item quantity="other">%1$d Pillen</item>
@@ -58,4 +55,6 @@
     <string name="question_failed">Ihre Frage konnte nicht gesendet werden. Versuchen Sie es später erneut.</string>
     <string name="no_internet">Es besteht keine aktive Internetverbindung</string>
     <string name="retrieving_faq_failed">Die FAQ konnten nicht abgerufen werden.</string>
+    <string name="change_language">Sprache ändern</string>
+    <string name="close_app">TuBuddy schließen</string>
 </resources>

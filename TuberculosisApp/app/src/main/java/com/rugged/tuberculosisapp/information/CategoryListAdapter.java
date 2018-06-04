@@ -1,6 +1,7 @@
 package com.rugged.tuberculosisapp.information;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,8 +14,10 @@ import android.widget.TextView;
 
 import com.rugged.tuberculosisapp.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class CategoryListAdapter extends ArrayAdapter<Category> {
 
@@ -55,6 +58,7 @@ public class CategoryListAdapter extends ArrayAdapter<Category> {
             categoryTitle.setText(category.getTitle());
 
             // Change category color
+            // TODO: add category colors to DB
             bgDrawable.setColor(mContext.getResources().getColor(category.getColor()));
         }
 

@@ -4,7 +4,6 @@ import android.accounts.AccountManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,7 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.rugged.tuberculosisapp.MainActivity;
@@ -41,8 +40,9 @@ public class TabSignIn extends Fragment {
     private boolean canSignIn = false;
 
     private static Account mAccount;
-
     private AccountManager mAccountManager;
+
+    private ProgressBar spinner;
 
     @Nullable
     @Override
@@ -53,25 +53,25 @@ public class TabSignIn extends Fragment {
         Button signInButton = view.findViewById(R.id.signInButton);
         final EditText textUsername = view.findViewById(R.id.textUsername);
         final EditText textPassword = view.findViewById(R.id.textPassword);
-        final LinearLayout invalidText = view.findViewById(R.id.invalidText);
-        invalidText.removeAllViews();
+        final TextView invalidText = view.findViewById(R.id.invalidText);
+        spinner = view.findViewById(R.id.progressBarSignIn);
+
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                spinner.setVisibility(View.VISIBLE);
+
                 String username = textUsername.getText().toString();
                 String password = textPassword.getText().toString();
                 mAccount = new Account(username, password);
-                invalidText.removeAllViews();
+                invalidText.setVisibility(View.GONE);
                 if (authenticate(mAccount)) {
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
                 } else {
-                    TextView invalid = new TextView(getActivity());
-                    invalid.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                    invalid.setText(getText(R.string.invalidLogIn));
-                    invalid.setTextColor(Color.RED);
-                    invalid.setGravity(Gravity.CENTER);
-                    invalidText.addView(invalid);
+                    invalidText.setVisibility(View.VISIBLE);
+                    invalidText.setTextColor(Color.RED);
+                    invalidText.setText(getResources().getString(R.string.invalidLogIn));
                     textUsername.setText("");
                     textPassword.setText("");
                 }
@@ -97,6 +97,13 @@ public class TabSignIn extends Fragment {
                         UserData.setIdentification(response.body());
                         createAccount(response.body().getId(), response.body().getToken());
                         canSignIn = true;
+                    } else {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                spinner.setVisibility(View.INVISIBLE);
+                            }
+                        });
                     }
                 } catch (IOException e) {
                     // TODO add more advanced exception handling

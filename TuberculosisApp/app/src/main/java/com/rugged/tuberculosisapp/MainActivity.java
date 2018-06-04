@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Build;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 
@@ -34,6 +35,8 @@ import com.rugged.tuberculosisapp.settings.SettingsActivity;
 import com.rugged.tuberculosisapp.settings.UserData;
 import com.rugged.tuberculosisapp.signin.SignInActivity;
 
+import static com.rugged.tuberculosisapp.signin.TabSignIn.ACCOUNT_TYPE;
+
 public class MainActivity extends AppCompatActivity {
 
     /**
@@ -49,11 +52,13 @@ public class MainActivity extends AppCompatActivity {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    private ViewPager mViewPager;
+    private static ViewPager mViewPager;
 
     private CalendarView cv;
 
     private int currentTab;
+
+    public static boolean isActive;
 
     public static final int NEW_SETTING = 1;
     public static final int NEW_LANGUAGE = 2;
@@ -124,6 +129,15 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(mSectionsPagerAdapter);
     }
 
+    public void openAchievements(View view) {
+        Intent intent = new Intent(this, ActivityAchievements.class);
+        startActivity(intent);
+    }
+
+    public static void setTab(int index) {
+        mViewPager.setCurrentItem(index);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -143,17 +157,14 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, NEW_SETTING);
         }
 
-        if (id == R.id.action_test_reminder) {
-            Intent intent = new Intent(this, ReminderTestActivity.class);
-            startActivity(intent);
-        }
-
         if (id == R.id.action_sign_out) {
             AccountManager am = AccountManager.get(this);
-            Account account = am.getAccounts()[0];
-            am.invalidateAuthToken(account.type, UserData.getIdentification().getToken());
-            // TODO: Do we want to remove the account as well? If so uncomment.. !!Change check in langSelect if commented!!
-            am.removeAccount(account, null, null);
+            Account[] accounts = am.getAccounts();
+            for (Account account : accounts) {
+                if (account.type.equals(ACCOUNT_TYPE)) {
+                    am.removeAccount(account, null, null);
+                }
+            }
 
             Intent intent = new Intent(this, SignInActivity.class);
             startActivity(intent);
@@ -172,11 +183,6 @@ public class MainActivity extends AppCompatActivity {
                 recreate();
             }
         }
-    }
-
-    public void openAchievements(View view) {
-        Intent intent = new Intent(this, ActivityAchievements.class);
-        startActivity(intent);
     }
 
     @Override // To clear focus from EditText when tapping outside of the EditText
@@ -198,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (cv.isPointInsideCalendar(event.getRawX(), event.getRawY())) {
-                cv.dispatchTouchEvent(event);
+                cv.onTouchEvent(event);
                 return false;
             }
         }
@@ -211,4 +217,15 @@ public class MainActivity extends AppCompatActivity {
         // Do nothing
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        isActive = true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        isActive = false;
+    }
 }

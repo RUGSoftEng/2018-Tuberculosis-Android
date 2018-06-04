@@ -18,7 +18,6 @@ import com.rugged.tuberculosisapp.R;
 import com.rugged.tuberculosisapp.medication.Medication;
 import com.rugged.tuberculosisapp.network.RetrofitClientInstance;
 import com.rugged.tuberculosisapp.network.ServerAPI;
-import com.rugged.tuberculosisapp.reminders.ReminderSetter;
 import com.rugged.tuberculosisapp.settings.LanguageHelper;
 import com.rugged.tuberculosisapp.settings.UserData;
 
@@ -60,26 +59,21 @@ public class CalendarView extends LinearLayout {
 
     private Locale mLocale = new Locale(LanguageHelper.getCurrentLocale());
 
-    private ReminderSetter rs;
-
     private static int[] location = new int[2];
 
 
     public CalendarView(Context context) {
         super(context);
-        this.rs = new ReminderSetter(super.getContext());
     }
 
     public CalendarView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initControl(context);
-        this.rs = new ReminderSetter(super.getContext());
     }
 
     public CalendarView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initControl(context);
-        this.rs = new ReminderSetter(super.getContext());
     }
 
     /**
@@ -204,30 +198,6 @@ public class CalendarView extends LinearLayout {
         titleMonth = titleMonth.substring(0, 1).toUpperCase() + titleMonth.substring(1);
         txtDate.setText(titleMonth);
 
-        // Create reminders for the current date
-        if (mEvents != null) {
-            Date today = new Date();
-            Calendar cal = (Calendar) currentDate.clone();
-            cal.setTime(today);
-            clearInsignificant(cal);
-            today = cal.getTime();
-            ArrayList<Medication> meds = mEvents.get(today);
-
-            if (meds != null) {
-                //Makes sure meds are sorted on time when passing it to the ReminderSetter
-                Collections.sort(meds, new Comparator<Medication>() {
-                    @Override
-                    public int compare(Medication o1, Medication o2) {
-                        return o1.getTime().compareTo(o2.getTime());
-                    }
-                });
-                //TODO having the date time fields in meds hold the date will remove the need to pass currentDate and do some computations
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    if (rs != null) rs.setReminders(today, meds);
-                }
-            }
-        }
-
         spinner.setVisibility(View.INVISIBLE);
     }
 
@@ -312,10 +282,17 @@ public class CalendarView extends LinearLayout {
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
-        super.dispatchTouchEvent(event);
-        return gestureDetector.onTouchEvent(event);
+    public boolean onTouchEvent(MotionEvent event) {
+        gestureDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
     }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        gestureDetector.onTouchEvent(event);
+        return super.dispatchTouchEvent(event);
+    }
+
 
     private class GestureListener extends GestureDetector.SimpleOnGestureListener {
         private static final int SWIPE_THRESHOLD = 100;

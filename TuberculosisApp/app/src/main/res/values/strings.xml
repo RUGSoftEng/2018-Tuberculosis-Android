@@ -99,4 +99,6 @@
     <string name="close_app">Close TuBuddy</string>
     <string name="positive_message">You\'ve taken all your medication for today, well done %1$s!</string>
     <string name="time_interval">%1$s - %2$s</string>
+    <string name="correct_answer">Correct answer!</string>
+    <string name="wrong_answer">Wrong answer.</string>
 </resources>

@@ -60,4 +60,6 @@
     <string name="close_app">TuBuddy sluiten</string>
     <string name="positive_message">U hebt al uw medication voor vandaag genomen, goed bezig %1$s!</string>
     <string name="time_interval">%1$s - %2$s</string>
+    <string name="correct_answer">Correct antwoord!</string>
+    <string name="wrong_answer">Fout antwoord.</string>
 </resources>

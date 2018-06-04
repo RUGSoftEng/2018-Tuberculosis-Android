@@ -60,4 +60,6 @@
     <string name="close_app">TuBuddy schließen</string>
     <string name="positive_message">Sie haben alle Ihre Medikamente genommen, gut gemacht %1$s!</string>
     <string name="time_interval">%1$s - %2$s</string>
+    <string name="correct_answer">Richtige Antwort!</string>
+    <string name="wrong_answer">Falsche Antwort.</string>
 </resources>

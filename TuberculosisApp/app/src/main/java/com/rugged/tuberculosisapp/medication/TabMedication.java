@@ -28,6 +28,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -135,12 +137,19 @@ public class TabMedication extends Fragment {
         });
 
         t.start();
+
         try {
             // Wait for the thread to finish
             t.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        Collections.sort(this.medicationList, new Comparator<Medication>() {
+            @Override
+            public int compare(Medication o1, Medication o2) {
+                return o1.getTimeIntervalEnd().compareTo(o2.getTimeIntervalEnd());
+            }
+        });
 
     }
 

@@ -29,19 +29,17 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
     private Context mContext;
     private int mResourceId;
     private final List<Medication> mMedication;
-    private final List<Integer> days;
     private Date date;
     public SparseBooleanArray mCheckedStates;
 
     // User has x days to change the taken state of medicines before it is locked
     private static final int DAYS_UNTIL_CHECKBOX_IS_LOCKED = 1;
 
-    public MedicationListAdapter(Context context, int resourceId, List<Medication> medication, List<Integer> days) {
+    public MedicationListAdapter(Context context, int resourceId, List<Medication> medication) {
         super(context, resourceId, medication);
         this.mContext = context;
         this.mResourceId = resourceId;
         this.mMedication = medication;
-        this.days = days;
     }
 
     public MedicationListAdapter(Context context, int resourceId, List<Medication> medication, Date date) {
@@ -51,7 +49,6 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
         this.mMedication = medication;
         this.date = date;
         this.mCheckedStates = new SparseBooleanArray();
-        this.days = new ArrayList<>();
     }
 
 
@@ -75,12 +72,16 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         Medication medication = getItem(position);
 
+        System.out.println(position + ":" +  medication.toString());
+
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(mResourceId, parent, false);
         }
 
         TextView medicationName = convertView.findViewById(R.id.medicationName);
+
+
 
         if (medication != null) {
             // If this adapter is used for the dialog color the text
@@ -114,15 +115,34 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
                 medicationTime.setText(mContext.getResources().getString(R.string.time_interval, df.format(medication.getTimeIntervalStart()), df.format(medication.getTimeIntervalEnd())));
                 medicationDose.setText(convertView.getResources().getQuantityString(R.plurals.medication_dose, medication.getDose(), medication.getDose()));
             } else {
-                int day = days.get(position);
+                int day = medication.getDay();
 
                 Date today = new Date();
                 ImageView takenImage = convertView.findViewById(R.id.takenImage);
-
                 if(today.getDay() == day) {
+
                     if(medication.isTaken()) {
                         takenImage.setImageResource(R.drawable.ic_check) ;
                         takenImage.setTag("R.drawable.ic_check");
+                    } else {
+
+                        Date startTime = medication.getTimeIntervalStart();
+                        Date preciseStartTime = new Date(today.getYear(), today.getMonth(), day, startTime.getHours(), startTime.getMinutes());
+                        if(today.after(preciseStartTime)) {
+                            takenImage.setImageResource(R.drawable.ic_exclam);
+                            takenImage.setTag("R.drawable.ic_exclam");
+                        } else {
+                            int differenceHours = startTime.getHours() - today.getHours();
+                            int differenceMinutes = startTime.getMinutes() - today.getMinutes();
+                            if(differenceMinutes < 0) {
+                                differenceHours--;
+                            }
+                            differenceMinutes+= 60;
+                            String difference = "Take in " + differenceHours + " hours and " + differenceMinutes + " minutes";
+                            takenImage.setImageResource(R.drawable.ic_later);
+                            takenImage.setTag(difference);
+                        }
+
                     }
 
                 } else {
@@ -130,12 +150,8 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
                     takenImage.setTag("nothing");
                 }
             }
-            if(medication.getName().equals("Highly experimental pills")) {
-                medicationName.setText("Experimental pills");
-            } else {
-                medicationName.setText(medication.getName());
+            medicationName.setText(medication.getName());
 
-            }
 
         }
 

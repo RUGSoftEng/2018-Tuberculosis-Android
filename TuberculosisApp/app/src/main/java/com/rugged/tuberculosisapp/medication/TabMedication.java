@@ -44,8 +44,6 @@ public class TabMedication extends Fragment {
 
     private List<Medication> medicationList;
 
-    private List<Integer> days;
-
     private Calendar currentDate = Calendar.getInstance();
 
     private Locale mLocale = new Locale(LanguageHelper.getCurrentLocale());
@@ -59,7 +57,7 @@ public class TabMedication extends Fragment {
 
         medicationListView = view.findViewById(R.id.medicationList);
 
-        final MedicationListAdapter adapter = new MedicationListAdapter(this.getContext(), R.layout.medication_row, medicationList, days);
+        final MedicationListAdapter adapter = new MedicationListAdapter(this.getContext(), R.layout.medication_row, medicationList);
 
         medicationListView.setAdapter(adapter);
 
@@ -67,15 +65,16 @@ public class TabMedication extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ImageView takenImage = view.findViewById(R.id.takenImage);
-                if (takenImage.getTag().equals("R.drawable.ic_exclam")) showToast(getString(R.string.taken_text) + " " + getString(R.string.answer_no), Toast.LENGTH_LONG);
-                if (takenImage.getTag().equals("R.drawable.ic_check")) showToast(getString(R.string.taken_text) + " " + getString(R.string.answer_yes), Toast.LENGTH_LONG);
-                if (takenImage.getTag().equals("nothing")) showToast(getString(R.string.taken_text) + " " + getString(R.string.answer_not_needed), Toast.LENGTH_LONG);
-              /*  if(medicationList != null) {
-                    ViewMedicationFragment viewMedicationFragment = new ViewMedicationFragment();
-                    Medication medication = adapter.getItem(i);
-                    viewMedicationFragment.setMedicationName(medication.getName());
-                    viewMedicationFragment.show(getActivity().getFragmentManager(), "ViewMedicationFragment");
-                }*/
+                if (takenImage.getTag().equals("R.drawable.ic_exclam")) {
+                    showToast(getString(R.string.taken_text) + " " + getString(R.string.answer_no), Toast.LENGTH_LONG);
+                } else if (takenImage.getTag().equals("R.drawable.ic_check")) {
+                    showToast(getString(R.string.taken_text) + " " + getString(R.string.answer_yes), Toast.LENGTH_LONG);
+                } else if (takenImage.getTag().equals("nothing")) {
+                    showToast(getString(R.string.taken_text) + " " + getString(R.string.answer_not_needed), Toast.LENGTH_LONG);
+                } else{
+                    String difference = (String) takenImage.getTag();
+                    showToast(difference, Toast.LENGTH_LONG);
+                }
             }
 
             private void showToast(final String text, final int duration) {
@@ -94,7 +93,6 @@ public class TabMedication extends Fragment {
     private void prepareListData() {
 
         medicationList = new ArrayList<>();
-        days = new ArrayList<>();
 
         Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
         ServerAPI serverAPI = retrofit.create(ServerAPI.class);
@@ -125,8 +123,8 @@ public class TabMedication extends Fragment {
 
 
                                 if(!medicationList.contains(medication)) {
+                                    medication.setDay(format.parse(jsonResponse.getDate()).getDay());
                                     medicationList.add(medication);
-                                    days.add(format.parse(jsonResponse.getDate()).getDay());
                                 }
                             }
                         } catch (Exception e) {

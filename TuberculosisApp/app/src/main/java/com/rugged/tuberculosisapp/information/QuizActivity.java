@@ -13,15 +13,17 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerFragment;
 import com.rugged.tuberculosisapp.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class QuizActivity extends AppCompatActivity {
     static final int nrOfQuestions = 4;
     boolean[] correct = new boolean[nrOfQuestions];
-    private static Urls videoUrl;
-    private List <Quiz> quizList;
+    private static String videoUrl;
+    private List<Quiz> quizList;
     private ListView listView;
 
     @Override
@@ -29,19 +31,27 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-
         // Get intent that started this activity
         Intent intent = getIntent();
-        // Set video url
-        videoUrl = (Urls) intent.getSerializableExtra(VideoGridActivity.VIDEO_URL_MESSAGE);
-        // Get the list of questions
-        quizList = videoUrl.getQuiz();
-        listView = findViewById(R.id.quizList);
-        QuizAdapter adapter = new QuizAdapter(this, R.layout.activity_quiz, quizList);
 
-        // Set list adapter
-        listView.setAdapter(adapter);
-        // TODO Get list from api
+        // Get the list of questions
+        listView = findViewById(R.id.quizList);
+        quizList = (ArrayList<Quiz>) intent.getSerializableExtra(VideoGridActivity.QUIZZES_MESSAGE);
+        if (quizList != null) {
+            for (Quiz quiz : quizList) {
+                ArrayList<String> answers = quiz.getAnswers();
+                quiz.setCorrectAnswer(answers.get(0));
+                Collections.shuffle(answers);
+            }
+
+            QuizAdapter adapter = new QuizAdapter(this, R.layout.activity_quiz, quizList);
+
+            // Set list adapter
+            listView.setAdapter(adapter);
+        }
+
+        // Set video url
+        videoUrl = intent.getStringExtra(VideoGridActivity.VIDEO_URL_MESSAGE);
 
         // Initialize youtube player fragment with the correct video url
         YouTubePlayerFragment youtubeFragment = (YouTubePlayerFragment)
@@ -53,7 +63,7 @@ public class QuizActivity extends AppCompatActivity {
                     public void onInitializationSuccess(YouTubePlayer.Provider provider,
                                                         YouTubePlayer youTubePlayer, boolean b) {
                         // Cue video (can also choose to instantly play it with .playVideo)
-                        youTubePlayer.cueVideo(videoUrl.getUrl());
+                        youTubePlayer.cueVideo(videoUrl);
                     }
                     @Override
                     public void onInitializationFailure(YouTubePlayer.Provider provider,

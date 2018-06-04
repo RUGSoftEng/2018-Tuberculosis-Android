@@ -12,12 +12,15 @@ import android.widget.TextView;
 import com.rugged.tuberculosisapp.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class VideoGridActivity extends AppCompatActivity {
 
     private GridView gridView;
     private VideoGridAdapter adapter;
+
     public static final String VIDEO_URL_MESSAGE = "com.rugged.tuberculosisapp.VIDEO_URL";
+    public static final String QUIZZES_MESSAGE = "com.rugged.tuberculosisapp.QUIZZES";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,11 +37,10 @@ public class VideoGridActivity extends AppCompatActivity {
         String title = intent.getStringExtra(TabInformation.TITLE_MESSAGE);
         TextView textView = findViewById(R.id.videoCategoryTitle);
         textView.setText(title);
-        Bundle bundle = intent.getExtras();
 
-        ArrayList<Urls> urls=
-                (ArrayList<Urls>)bundle.getSerializable(VIDEO_URL_MESSAGE);
-        adapter = new VideoGridAdapter(this, urls);
+        final HashMap<String, ArrayList<Quiz>> videos = (HashMap<String, ArrayList<Quiz>>) intent.getSerializableExtra(TabInformation.VIDEO_URLS_MESSAGE);
+        ArrayList<String> videoUrls = new ArrayList<>(videos.keySet());
+        adapter = new VideoGridAdapter(getApplicationContext(), videoUrls);
 
         // Get video grid view
         gridView.setAdapter(adapter);
@@ -47,9 +49,10 @@ public class VideoGridActivity extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Urls videoUrl = (Urls) parent.getItemAtPosition(position);
+                String videoUrl = (String) parent.getItemAtPosition(position);
                 Intent intent = new Intent(VideoGridActivity.this, QuizActivity.class);
                 intent.putExtra(VIDEO_URL_MESSAGE, videoUrl);
+                intent.putExtra(QUIZZES_MESSAGE, videos.get(videoUrl));
                 startActivity(intent);
             }
         });
@@ -62,7 +65,4 @@ public class VideoGridActivity extends AppCompatActivity {
         adapter.releaseLoaders();
     }
 
-    public GridView getGridView() {
-        return gridView;
-    }
 }

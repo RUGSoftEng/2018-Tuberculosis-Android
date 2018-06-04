@@ -20,6 +20,7 @@ import com.rugged.tuberculosisapp.signin.Identification;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -64,11 +65,10 @@ public class TabInformation extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Category itemClicked = (Category) parent.getItemAtPosition(position);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(VIDEO_URLS_MESSAGE, itemClicked.getVideoUrls());
+
                 Intent intent = new Intent(TabInformation.this.getActivity(), VideoGridActivity.class);
                 intent.putExtra(TITLE_MESSAGE, itemClicked.getTitle());
-                intent.putExtras(bundle);
+                intent.putExtra(VIDEO_URLS_MESSAGE, itemClicked.getVideos());
                 startActivity(intent);
             }
         });
@@ -114,24 +114,22 @@ public class TabInformation extends Fragment {
             final Call<List<JSONVideoHolder>> callVideo = serverAPI.retrieveVideoByCategory(title, LanguageHelper.getCurrentLocale().toUpperCase());
 
             Thread s = new Thread(new Runnable() {
-
                 @Override
                 public void run() {
                     try {
                         Response<List<JSONVideoHolder>> response = callVideo.execute();
                         if (response.code() == 200) { // choose right code for successful API call (200 in this case)
                             if (response.body() != null) {
-                                ArrayList<Urls> videos = new ArrayList<>();
-                                ArrayList<Quiz> correspondingQuizzes;
+                                HashMap<String, ArrayList<Quiz>> videos = new HashMap<>();
                                 for (JSONVideoHolder jsonResponse : response.body()){
-                                    String temp = jsonResponse.getVideo().getReference();
+                                    String reference = jsonResponse.getVideo().getReference();
                                     String pattern = "(?<=watch\\?v=|/videos/|embed/|youtu.be/|/v/|/e/|watch\\?v%3D|watch\\?feature=player_embedded&v=|%2Fvideos%2F|embed%\u200C\u200B2F|youtu.be%2F|%2Fv%2F)[^#&?\\n]*";
                                     Pattern compiledPattern = Pattern.compile(pattern);
-                                    Matcher matcher = compiledPattern.matcher(temp);
+                                    Matcher matcher = compiledPattern.matcher(reference);
                                     if (matcher.find()) {
-                                        temp = matcher.group();
-                                        correspondingQuizzes = jsonResponse.getQuiz();
-                                        videos.add(new Urls(temp,correspondingQuizzes));
+                                        reference = matcher.group();
+                                        reference = reference.trim();
+                                        videos.put(reference, jsonResponse.getQuizzes());
                                     }
                                 }
                                 listCategories.add(new Category(title, videos));

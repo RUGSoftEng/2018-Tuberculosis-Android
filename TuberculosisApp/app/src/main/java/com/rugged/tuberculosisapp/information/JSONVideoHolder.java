@@ -1,25 +1,24 @@
 package com.rugged.tuberculosisapp.information;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class JSONVideoHolder {
 
     private Video video;
-    private ArrayList<Quiz> quiz;
+    private ArrayList<Quiz> quizzes;
 
-    JSONVideoHolder(Video video, ArrayList<Quiz> quiz) {
+    JSONVideoHolder(Video video, ArrayList<Quiz> quizzes) {
         this.video = video;
-        this.quiz = quiz;
+        this.quizzes = quizzes;
     }
 
     public Video getVideo() {
         return video;
     }
 
-    public ArrayList<Quiz> getQuiz() {
-        return quiz;
+    public ArrayList<Quiz> getQuizzes() {
+        return quizzes;
     }
 
 }
@@ -50,9 +49,12 @@ class Video {
 
 }
 
-class   Quiz implements Serializable {
+class Quiz implements Serializable {
+
     private String question;
     private ArrayList<String> answers;
+
+    private String correctAnswer;
     private static final long serialVersionUID = 1L;
 
      Quiz (String question, ArrayList<String> answers){
@@ -64,7 +66,15 @@ class   Quiz implements Serializable {
         return question;
     }
 
-    public ArrayList<String> getOptions() {
+    public ArrayList<String> getAnswers() {
         return answers;
+    }
+
+    public void setCorrectAnswer(String correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
+
+    public String getCorrectAnswer() {
+        return correctAnswer;
     }
 }

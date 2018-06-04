@@ -69,14 +69,15 @@ public class QuizActivity extends AppCompatActivity {
     public void retrieveQuizList(){
         quizList = new ArrayList<Quiz>();
         ArrayList<String> option = new ArrayList<String>();
-        option.add("4");
-        option.add("3");
+        option.add("A virus");
+        option.add("A bacteria");
+        option.add("Fungi");
         ArrayList<String> options = new ArrayList<String>();
-        options.add("daily");
-        options.add("weekly");
-        quizList.add(new Quiz("2 + 2 = ?",option,"4"));
-        options.add("twice a day");
-        quizList.add(new Quiz("How many times do you need to take the pill rifampicin",options,"twice a day"));
+        options.add("It destroys all the bacteria");
+        options.add("It moves the bacteria to a different place");
+        quizList.add(new Quiz("Tuberculosis is caused by:",option,"A bacteria"));
+        options.add("It builds a wall around the bacteria");
+        quizList.add(new Quiz("What does your body to protect you from the TB?",options,"It builds a wall around the bacteria"));
 
     }
 }

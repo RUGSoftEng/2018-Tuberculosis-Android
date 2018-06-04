@@ -11,21 +11,11 @@
             android:key="@string/pref_key_language"
             android:title="@string/pref_title_language" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/pref_title_reminders">
+    <PreferenceCategory android:title="Reminders">
 
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="@string/pref_key_notification_vibrate"
-            android:title="@string/pref_title_notification_vibrate" />
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="@string/pref_key_notification_silent"
-            android:title="@string/pref_title_notification_silent" />
-        <RingtonePreference
-            android:ringtoneType="notification"
-            android:showSilent="false"
-            android:key="@string/pref_key_notification_sound"
-            android:title="@string/pref_title_notification_sound" />
+        <Preference
+            android:key="@string/pref_key_edit_notification_settings"
+            android:title="@string/pref_title_edit_notification_settings" />
         <SwitchPreference
             android:defaultValue="true"
             android:key="@string/pref_key_alarm_silent"

@@ -13,6 +13,7 @@
         <item>de</item>
     </string-array>
     <string name="pref_title_general">General</string>
+    <string name="pref_title_reminders">Reminders</string>
     <string name="pref_title_language">Language</string>
     <string name="pref_key_language">pref_key_language</string>
     <string name="pref_key_restore_defaults">pref_key_restore_defaults</string>
@@ -31,19 +32,21 @@
 
     <!-- Reminder settings -->
     <string name="pref_sound_lookup_error">Error: could not find selected sound</string>
-    <string name="pref_title_notification_silent">Enable notification sound</string>
+    <string name="pref_title_edit_notification_settings">Edit notification settings</string>
+    <string name="pref_key_edit_notification_settings">pref_key_edit_notification_settings</string>
+    <string name="pref_title_notification_silent">Play sound during notification</string>
     <string name="pref_key_notification_silent">pref_key_notification_silent</string>
-    <string name="pref_title_notification_vibrate">Enable notification vibration</string>
+    <string name="pref_title_notification_vibrate">Vibrate during notification</string>
     <string name="pref_key_notification_vibrate">pref_key_notification_vibrate</string>
-    <string name="pref_title_alarm_silent">Enable alarm sound</string>
+    <string name="pref_title_alarm_silent">Play sound during alarm</string>
     <string name="pref_key_alarm_silent">pref_key_alarm_silent</string>
-    <string name="pref_title_alarm_vibrate">Enable alarm vibration</string>
+    <string name="pref_title_alarm_vibrate">Vibrate during alarm</string>
     <string name="pref_key_alarm_vibrate">pref_key_alarm_vibrate</string>
-    <string name="pref_title_notification_sound">Notification sound</string>
+    <string name="pref_title_notification_sound">Choose notification sound</string>
     <string name="pref_key_notification_sound">pref_key_notification_sound</string>
-    <string name="pref_title_alarm_sound">Alarm sound</string>
+    <string name="pref_title_alarm_sound">Choose alarm sound</string>
     <string name="pref_key_alarm_sound">pref_key_alarm_sound</string>
-    <string name="pref_title_test_reminders">Test Reminders</string>
+    <string name="pref_title_test_reminders">Test reminders</string>
     <string name="pref_key_test_reminders">pref_key_test_reminders</string>
 
     <!-- General strings -->

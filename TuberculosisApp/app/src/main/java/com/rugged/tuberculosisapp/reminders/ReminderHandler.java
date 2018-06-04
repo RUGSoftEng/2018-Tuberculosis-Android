@@ -17,6 +17,8 @@ import com.rugged.tuberculosisapp.MainActivity;
 import com.rugged.tuberculosisapp.R;
 import com.rugged.tuberculosisapp.settings.UserData;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 public class ReminderHandler extends BroadcastReceiver {
 
     private static final int NOTIFICATION = 0;
@@ -40,7 +42,7 @@ public class ReminderHandler extends BroadcastReceiver {
 
     public void showNotification(Context context, String medName) {
         Intent intent = new Intent(context, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.setFlags(FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_red_pill);
@@ -79,9 +81,10 @@ public class ReminderHandler extends BroadcastReceiver {
             wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "MEDICATION_ALARM");
             wakeLock.acquire(10*60*1000L /*10 minutes*/);
         }
-        Intent i = new Intent(context, AlarmActivity.class);
-        i.putExtra("EXTRA_MED", medName);
-        context.startActivity(i);
+        Intent intent = new Intent(context, AlarmActivity.class);
+        intent.putExtra("EXTRA_MED", medName);
+        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
         if (powerManager != null) {
             wakeLock.release();
         }

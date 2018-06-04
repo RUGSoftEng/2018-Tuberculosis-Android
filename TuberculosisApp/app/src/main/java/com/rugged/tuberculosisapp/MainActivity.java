@@ -30,7 +30,6 @@ import com.rugged.tuberculosisapp.information.TabInformation;
 import com.rugged.tuberculosisapp.calendar.TabCalendar;
 import com.rugged.tuberculosisapp.medication.TabMedication;
 import com.rugged.tuberculosisapp.notes.TabNotes;
-import com.rugged.tuberculosisapp.reminders.ReminderTestActivity;
 import com.rugged.tuberculosisapp.settings.LanguageHelper;
 import com.rugged.tuberculosisapp.settings.SettingsActivity;
 import com.rugged.tuberculosisapp.settings.UserData;

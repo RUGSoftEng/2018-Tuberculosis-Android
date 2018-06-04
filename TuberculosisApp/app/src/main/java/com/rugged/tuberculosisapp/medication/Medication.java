@@ -6,6 +6,7 @@ public class Medication {
 
     private String name;
     private Date timeIntervalStart, timeIntervalEnd;
+    private int day;
     private int dose;
     private boolean isTaken;
 
@@ -33,8 +34,14 @@ public class Medication {
         return dose;
     }
 
+    public int getDay () {return day;}
+
     public boolean isTaken() {
         return isTaken;
+    }
+
+    public void setDay (int day) {
+        this.day = day;
     }
 
     public void setTaken(boolean taken) {

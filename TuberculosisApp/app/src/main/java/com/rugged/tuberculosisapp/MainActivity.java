@@ -7,7 +7,9 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.media.RingtoneManager;
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
@@ -95,26 +97,33 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        setupNotificationChannels();
+        // Initialize UserData for reminders if empty
+        if (UserData.getAlarmSound() == null || UserData.getNotificationSound() == null) {
+            UserData.setAlarmSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString());
+            UserData.setAlarmSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION).toString());
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            setupNotificationChannels();
+        }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void setupNotificationChannels() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // Create the NotificationChannel
-            CharSequence name = getString(R.string.channel_reminders_name);
-            String description = getString(R.string.channel_reminders_description);
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel mChannel = new NotificationChannel("reminders", name, importance);
-            mChannel.setDescription(description);
-            mChannel.enableLights(true);
-            mChannel.enableVibration(true);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = (NotificationManager) getSystemService(
-                    NOTIFICATION_SERVICE);
-            if (notificationManager != null) {
-                notificationManager.createNotificationChannel(mChannel);
-            }
+        // Create the NotificationChannel
+        CharSequence name = getString(R.string.channel_reminders_name);
+        String description = getString(R.string.channel_reminders_description);
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+        NotificationChannel mChannel = new NotificationChannel("reminders", name, importance);
+        mChannel.setDescription(description);
+        mChannel.enableLights(true);
+        mChannel.enableVibration(true);
+        // Register the channel with the system; you can't change the importance
+        // or other notification behaviors after this
+        NotificationManager notificationManager = (NotificationManager) getSystemService(
+                NOTIFICATION_SERVICE);
+        if (notificationManager != null) {
+            notificationManager.createNotificationChannel(mChannel);
         }
     }
 

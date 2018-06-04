@@ -59,6 +59,9 @@
     <string name="taken_text">Taken today: </string>
     <string name= "answer_yes">YES</string>
     <string name= "answer_no">NO</string>
+    <string name= "take_in">Take in </string>
+    <string name= "hours_and">hours and</string>
+    <string name = "minutes">minutes</string>
     <string name= "answer_not_needed">Not needed</string>
 
     <string name="ask_physician">Question for Physician</string>

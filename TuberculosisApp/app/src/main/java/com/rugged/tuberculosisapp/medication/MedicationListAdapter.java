@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+
 public class MedicationListAdapter extends ArrayAdapter<Medication> implements CompoundButton.OnCheckedChangeListener {
 
     private Context mContext;
@@ -31,6 +32,8 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
     private final List<Medication> mMedication;
     private Date date;
     public SparseBooleanArray mCheckedStates;
+
+    private List <Integer> medicationColours;
 
     // User has x days to change the taken state of medicines before it is locked
     private static final int DAYS_UNTIL_CHECKBOX_IS_LOCKED = 1;
@@ -40,6 +43,15 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
         this.mContext = context;
         this.mResourceId = resourceId;
         this.mMedication = medication;
+        medicationColours = new ArrayList<>();
+        medicationColours.add(R.drawable.ic_medication);
+        medicationColours.add(R.drawable.ic_medication_1);
+        medicationColours.add(R.drawable.ic_medication_2);
+        medicationColours.add(R.drawable.ic_medication_3);
+        medicationColours.add(R.drawable.ic_medication);
+        medicationColours.add(R.drawable.ic_medication_1);
+        medicationColours.add(R.drawable.ic_medication_2);
+        medicationColours.add(R.drawable.ic_medication_3);
     }
 
     public MedicationListAdapter(Context context, int resourceId, List<Medication> medication, Date date) {
@@ -49,6 +61,15 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
         this.mMedication = medication;
         this.date = date;
         this.mCheckedStates = new SparseBooleanArray();
+        medicationColours = new ArrayList<>();
+        medicationColours.add(R.drawable.ic_medication);
+        medicationColours.add(R.drawable.ic_medication_1);
+        medicationColours.add(R.drawable.ic_medication_2);
+        medicationColours.add(R.drawable.ic_medication_3);
+        medicationColours.add(R.drawable.ic_medication);
+        medicationColours.add(R.drawable.ic_medication_1);
+        medicationColours.add(R.drawable.ic_medication_2);
+        medicationColours.add(R.drawable.ic_medication_3);
     }
 
 
@@ -72,18 +93,25 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         Medication medication = getItem(position);
 
-        System.out.println(position + ":" +  medication.toString());
+
 
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(mResourceId, parent, false);
         }
 
+        ImageView pillImage = convertView.findViewById(R.id.pillImage);
+        pillImage.setImageResource(medicationColours.get(position));
+
+
         TextView medicationName = convertView.findViewById(R.id.medicationName);
 
 
 
+        //TODO Refactor this insanely long conditional
+
         if (medication != null) {
+
             // If this adapter is used for the dialog color the text
             if (mResourceId == R.layout.medication_row_dialog) {
                 Date today = new Date();
@@ -138,7 +166,7 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
                                 differenceHours--;
                             }
                             differenceMinutes+= 60;
-                            String difference = "Take in " + differenceHours + " hours and " + differenceMinutes + " minutes";
+                            String difference = "" + R.string.take_in + " " + differenceHours + " " + R.string.hours_and + " "+ differenceMinutes + " " + R.string.minutes;
                             takenImage.setImageResource(R.drawable.ic_later);
                             takenImage.setTag(difference);
                         }
@@ -149,6 +177,7 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
                     takenImage.setImageResource(android.R.color.transparent);
                     takenImage.setTag("nothing");
                 }
+
             }
             medicationName.setText(medication.getName());
 

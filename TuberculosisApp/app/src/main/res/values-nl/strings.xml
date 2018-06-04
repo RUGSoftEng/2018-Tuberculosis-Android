@@ -14,6 +14,15 @@
     <string name="quiz">Quiz</string>
     <string name="show_answers">Toon Antwoorden</string>
     <string name="title_medication">Medicatie</string>
+
+    <string name="taken_text">Vandaag genomen: </string>
+    <string name= "answer_yes">JA</string>
+    <string name= "answer_no">NEE</string>
+    <string name= "take_in">Nemen in</string>
+    <string name= "hours_and">uur en</string>
+    <string name = "minutes">minuten</string>
+    <string name= "answer_not_needed">Niet nodig</string>
+
     <plurals name="medication_dose">
         <item quantity="one">%1$d pil</item>
         <item quantity="other">%1$d pillen</item>
@@ -59,4 +68,6 @@
     <string name="close_app">TuBuddy sluiten</string>
     <string name="positive_message">U hebt al uw medication voor vandaag genomen, goed bezig %1$s!</string>
     <string name="time_interval">%1$s - %2$s</string>
+
+
 </resources>

@@ -116,12 +116,8 @@ public class TabMedication extends Fragment {
                     if (response.code() == 200) {
                         try {
                             for (CalendarJSONHolder jsonResponse : response.body()) {
-
                                 Medication medication = jsonResponse.toMedication();
-
                                 DateFormat format = new SimpleDateFormat("yyyy-MM-dd", mLocale);
-
-
                                 if(!medicationList.contains(medication)) {
                                     medication.setDay(format.parse(jsonResponse.getDate()).getDay());
                                     medicationList.add(medication);

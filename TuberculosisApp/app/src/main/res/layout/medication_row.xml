@@ -31,7 +31,7 @@
 
     <ImageView
         android:id="@+id/takenImage"
-        android:tag ="R.drawable.ic_cross"
+        android:tag ="R.drawable.ic_exclam"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -39,7 +39,7 @@
         android:layout_weight=".12"
         android:adjustViewBounds="true"
         android:contentDescription="Taken Icon"
-        app:srcCompat="@drawable/ic_cross" />
+        app:srcCompat="@drawable/ic_exclam" />
 
     <ImageView
         android:id="@+id/infoImage"

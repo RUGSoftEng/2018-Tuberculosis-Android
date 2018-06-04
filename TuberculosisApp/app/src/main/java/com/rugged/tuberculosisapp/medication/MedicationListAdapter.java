@@ -126,8 +126,8 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
                     }
 
                 } else {
-                    takenImage.setImageResource(R.drawable.ic_line);
-                    takenImage.setTag("R.drawable.ic_line");
+                    takenImage.setImageResource(android.R.color.transparent);
+                    takenImage.setTag("nothing");
                 }
             }
             if(medication.getName().equals("Highly experimental pills")) {

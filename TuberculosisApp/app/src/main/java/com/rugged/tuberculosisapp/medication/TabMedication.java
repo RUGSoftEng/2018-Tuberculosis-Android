@@ -67,9 +67,9 @@ public class TabMedication extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ImageView takenImage = view.findViewById(R.id.takenImage);
-                if (takenImage.getTag().equals("R.drawable.ic_cross")) showToast(getString(R.string.taken_text) + " " + getString(R.string.answer_no), Toast.LENGTH_LONG);
+                if (takenImage.getTag().equals("R.drawable.ic_exclam")) showToast(getString(R.string.taken_text) + " " + getString(R.string.answer_no), Toast.LENGTH_LONG);
                 if (takenImage.getTag().equals("R.drawable.ic_check")) showToast(getString(R.string.taken_text) + " " + getString(R.string.answer_yes), Toast.LENGTH_LONG);
-                if (takenImage.getTag().equals("R.drawable.ic_line")) showToast(getString(R.string.taken_text) + " " + getString(R.string.answer_not_needed), Toast.LENGTH_LONG);
+                if (takenImage.getTag().equals("nothing")) showToast(getString(R.string.taken_text) + " " + getString(R.string.answer_not_needed), Toast.LENGTH_LONG);
               /*  if(medicationList != null) {
                     ViewMedicationFragment viewMedicationFragment = new ViewMedicationFragment();
                     Medication medication = adapter.getItem(i);

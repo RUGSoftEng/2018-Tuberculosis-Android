@@ -111,7 +111,7 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
                     takenCheckBox.setEnabled(false);
                 }
                 DateFormat df = new SimpleDateFormat("HH:mm", new Locale(LanguageHelper.getCurrentLocale()));
-                medicationTime.setText(df.format(medication.getTime()));
+                medicationTime.setText(mContext.getResources().getString(R.string.time_interval, df.format(medication.getTimeIntervalStart()), df.format(medication.getTimeIntervalEnd())));
                 medicationDose.setText(convertView.getResources().getQuantityString(R.plurals.medication_dose, medication.getDose(), medication.getDose()));
             } else {
                 int day = days.get(position);

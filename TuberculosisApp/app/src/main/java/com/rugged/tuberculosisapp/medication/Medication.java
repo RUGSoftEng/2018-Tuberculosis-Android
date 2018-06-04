@@ -5,19 +5,14 @@ import java.util.Date;
 public class Medication {
 
     private String name;
-    private Date time;
+    private Date timeIntervalStart, timeIntervalEnd;
     private int dose;
-    private boolean isTaken = false;
+    private boolean isTaken;
 
-    Medication(String name, Date time, int dose) {
+    public Medication(String name, Date timeIntervalStart, Date timeIntervalEnd, int dose, boolean isTaken) {
         this.name = name;
-        this.time = time;
-        this.dose = dose;
-    }
-
-    public Medication(String name, Date time, int dose, boolean isTaken) {
-        this.name = name;
-        this.time = time;
+        this.timeIntervalStart = timeIntervalStart;
+        this.timeIntervalEnd = timeIntervalEnd;
         this.dose = dose;
         this.isTaken = isTaken;
     }
@@ -26,8 +21,12 @@ public class Medication {
         return name;
     }
 
-    public Date getTime() {
-        return time;
+    public Date getTimeIntervalStart() {
+        return timeIntervalStart;
+    }
+
+    public Date getTimeIntervalEnd() {
+        return timeIntervalEnd;
     }
 
     public int getDose() {
@@ -44,8 +43,7 @@ public class Medication {
 
     @Override
     public String toString() {
-
-        return "Name: " + name + ", Time: " + time.toString() + ", Dose: " + dose + ", isTaken: " + isTaken;
+        return "Name: " + name + ", Time: " + timeIntervalStart.toString() + " - " + timeIntervalEnd.toString() + ", Dose: " + dose + ", isTaken: " + isTaken;
     }
 
     @Override

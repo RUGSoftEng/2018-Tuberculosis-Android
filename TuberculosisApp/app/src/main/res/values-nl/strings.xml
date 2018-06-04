@@ -58,4 +58,6 @@
     <string name="retrieving_faq_failed">Kon de FAQ niet ophalen.</string>
     <string name="change_language">Verander taal</string>
     <string name="close_app">TuBuddy sluiten</string>
+    <string name="positive_message">U hebt al uw medication voor vandaag genomen, goed bezig %1$s!</string>
+    <string name="time_interval">%1$s - %2$s</string>
 </resources>

@@ -1,10 +1,15 @@
 package com.rugged.tuberculosisapp.settings;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.rugged.tuberculosisapp.signin.Identification;
+
+import static com.rugged.tuberculosisapp.signin.TabSignIn.ACCOUNT_TYPE;
 
 /**
  * This class is for 'storing' user data that is retrieved from persistent storage,
@@ -36,6 +41,12 @@ public class UserData extends Application {
 
     public static String getLocaleString() {
         return sharedPreferences.getString("locale", null);
+    }
+
+    public static String getUsername(Context context) {
+        AccountManager am = AccountManager.get(context);
+        Account[] accounts = am.getAccountsByType(ACCOUNT_TYPE);
+        return accounts[0].name;
     }
 
     public static Boolean isFirstLaunch() {

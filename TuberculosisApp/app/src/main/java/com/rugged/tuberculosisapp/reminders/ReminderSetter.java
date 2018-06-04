@@ -49,8 +49,8 @@ public class ReminderSetter {
         int requestCode = 0;
         for (Medication med : meds) {
             Date current = new Date();
-            date.setHours(med.getTime().getHours());
-            date.setMinutes(med.getTime().getMinutes());
+            date.setHours(med.getTimeIntervalEnd().getHours());
+            date.setMinutes(med.getTimeIntervalEnd().getMinutes());
             date.setSeconds(0);
             long timeDiff = date.getTime() - current.getTime();
 

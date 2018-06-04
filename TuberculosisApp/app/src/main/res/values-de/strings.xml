@@ -57,4 +57,6 @@
     <string name="retrieving_faq_failed">Die FAQ konnten nicht abgerufen werden.</string>
     <string name="change_language">Sprache ändern</string>
     <string name="close_app">TuBuddy schließen</string>
+    <string name="positive_message">Sie haben alle Ihre Medikamente genommen, gut gemacht %1$s!</string>
+    <string name="time_interval">%1$s - %2$s</string>
 </resources>

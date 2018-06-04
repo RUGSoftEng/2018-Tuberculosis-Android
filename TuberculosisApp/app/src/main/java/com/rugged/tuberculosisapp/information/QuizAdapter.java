@@ -52,7 +52,6 @@ public class QuizAdapter extends ArrayAdapter<Quiz> {
                         @Override
                         public void onClick(View v) {
                             RadioButton button = (RadioButton) v;
-                            System.out.println(button.getText() + " " + rightAnswer);
                             if (button.getText().equals(rightAnswer)) {
                                 Toast.makeText(getContext(), getContext().getResources().getString(R.string.correct_answer), Toast.LENGTH_SHORT).show();
                             } else {

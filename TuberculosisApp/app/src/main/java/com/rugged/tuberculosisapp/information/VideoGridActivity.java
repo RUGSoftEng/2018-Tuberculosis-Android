@@ -34,9 +34,11 @@ public class VideoGridActivity extends AppCompatActivity {
         String title = intent.getStringExtra(TabInformation.TITLE_MESSAGE);
         TextView textView = findViewById(R.id.videoCategoryTitle);
         textView.setText(title);
+        Bundle bundle = intent.getExtras();
 
-        ArrayList<String> videoUrls = intent.getStringArrayListExtra(TabInformation.VIDEO_URLS_MESSAGE);
-        adapter = new VideoGridAdapter(this, videoUrls);
+        ArrayList<Urls> urls=
+                (ArrayList<Urls>)bundle.getSerializable(VIDEO_URL_MESSAGE);
+        adapter = new VideoGridAdapter(this, urls);
 
         // Get video grid view
         gridView.setAdapter(adapter);
@@ -45,8 +47,7 @@ public class VideoGridActivity extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                String videoUrl = (String) parent.getItemAtPosition(position);
-
+                Urls videoUrl = (Urls) parent.getItemAtPosition(position);
                 Intent intent = new Intent(VideoGridActivity.this, QuizActivity.class);
                 intent.putExtra(VIDEO_URL_MESSAGE, videoUrl);
                 startActivity(intent);
@@ -59,5 +60,9 @@ public class VideoGridActivity extends AppCompatActivity {
         super.onDestroy();
         // Release YoutubeThumbnailLoaders when they are no longer needed
         adapter.releaseLoaders();
+    }
+
+    public GridView getGridView() {
+        return gridView;
     }
 }

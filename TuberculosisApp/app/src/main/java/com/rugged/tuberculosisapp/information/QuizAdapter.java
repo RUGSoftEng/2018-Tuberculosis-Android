@@ -59,21 +59,6 @@ public class QuizAdapter extends ArrayAdapter<Quiz> {
                         RadioButton button = new RadioButton(mContext);
                         button.setText(option);
                         quizOptions.addView(button);
-                        if (option.equals(quiz.getAnswer())) {
-                            button.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    Toast.makeText(mContext, "Correct!", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        } else {
-                            button.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    Toast.makeText(mContext, "Wrong", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                    }
                     }
                 }
             }

@@ -19,10 +19,10 @@ import java.util.Map;
 public class VideoGridAdapter extends BaseAdapter implements YouTubeThumbnailView.OnInitializedListener {
 
     private final Context mContext;
-    private final List<String> videoUrls;
+    private final List<Urls> videoUrls;
     private Map<View, YouTubeThumbnailLoader> loaders;
 
-    VideoGridAdapter(Context context, List<String> videoUrls) {
+    VideoGridAdapter(Context context, List<Urls> videoUrls) {
         this.mContext = context;
         this.videoUrls = videoUrls;
         this.loaders = new HashMap<>();
@@ -35,7 +35,7 @@ public class VideoGridAdapter extends BaseAdapter implements YouTubeThumbnailVie
 
     @Override
     public String getItem(int position) {
-        return videoUrls.get(position);
+        return videoUrls.get(position).getUrl();
     }
 
     @Override

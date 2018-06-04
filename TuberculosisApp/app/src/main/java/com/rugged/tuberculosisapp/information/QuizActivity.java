@@ -20,7 +20,7 @@ import java.util.List;
 public class QuizActivity extends AppCompatActivity {
     static final int nrOfQuestions = 4;
     boolean[] correct = new boolean[nrOfQuestions];
-    private static String videoUrl;
+    private static Urls videoUrl;
     private List <Quiz> quizList;
     private ListView listView;
 
@@ -32,17 +32,16 @@ public class QuizActivity extends AppCompatActivity {
 
         // Get intent that started this activity
         Intent intent = getIntent();
+        // Set video url
+        videoUrl = (Urls) intent.getSerializableExtra(VideoGridActivity.VIDEO_URL_MESSAGE);
         // Get the list of questions
+        quizList = videoUrl.getQuiz();
         listView = findViewById(R.id.quizList);
-        retrieveQuizList();
         QuizAdapter adapter = new QuizAdapter(this, R.layout.activity_quiz, quizList);
 
         // Set list adapter
         listView.setAdapter(adapter);
         // TODO Get list from api
-
-        // Set video url
-        videoUrl = intent.getStringExtra(VideoGridActivity.VIDEO_URL_MESSAGE);
 
         // Initialize youtube player fragment with the correct video url
         YouTubePlayerFragment youtubeFragment = (YouTubePlayerFragment)
@@ -54,7 +53,7 @@ public class QuizActivity extends AppCompatActivity {
                     public void onInitializationSuccess(YouTubePlayer.Provider provider,
                                                         YouTubePlayer youTubePlayer, boolean b) {
                         // Cue video (can also choose to instantly play it with .playVideo)
-                        youTubePlayer.cueVideo(videoUrl);
+                        youTubePlayer.cueVideo(videoUrl.getUrl());
                     }
                     @Override
                     public void onInitializationFailure(YouTubePlayer.Provider provider,
@@ -66,17 +65,5 @@ public class QuizActivity extends AppCompatActivity {
         Arrays.fill(correct, false);
     }
 
-    public void retrieveQuizList(){
-        quizList = new ArrayList<Quiz>();
-        ArrayList<String> option = new ArrayList<String>();
-        option.add("4");
-        option.add("3");
-        ArrayList<String> options = new ArrayList<String>();
-        options.add("daily");
-        options.add("weekly");
-        quizList.add(new Quiz("2 + 2 = ?",option,"4"));
-        options.add("twice a day");
-        quizList.add(new Quiz("How many times do you need to take the pill rifampicin",options,"twice a day"));
 
-    }
 }

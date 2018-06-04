@@ -1,15 +1,12 @@
 package com.rugged.tuberculosisapp.notes;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -36,7 +33,6 @@ import retrofit2.Retrofit;
 public class AskPhysician extends AppCompatActivity {
 
     private boolean sent = false;
-    private static int ID_OFFSET = 100;
     private ArrayList<QuestionToPhysician> askedQuestions;
 
     private LinearLayout questions;
@@ -56,6 +52,8 @@ public class AskPhysician extends AppCompatActivity {
 
         Button submitQuestion = findViewById(R.id.submitQuestionButton);
         final EditText textQuestion = findViewById(R.id.questionEditText);
+
+        //textQuestion.setText("ID: " + UserData.getIdentification().getId() + "\nAccces Token: " + UserData.getIdentification().getToken());
 
         submitQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,7 +206,7 @@ public class AskPhysician extends AppCompatActivity {
                         threadedToast(R.string.question_successful);
                         sent = true;
                     } else {
-                        threadedToast(R.string.question_failed);
+                        threadedToast(R.string.retrieving_asked_questions_failed);
                         sent = false;
                     }
                 } catch (IOException e) {

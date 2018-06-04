@@ -56,5 +56,7 @@
     <string name="question_failed">Kan uw vraag niet verzenden, probeer het later opnieuw.</string>
     <string name="no_internet">Er is geen actieve internetverbinding</string>
     <string name="retrieving_faq_failed">Kon de FAQ niet ophalen.</string>
+    <string name="retrieving_asked_questions_failed">Kon uw eerder gestelde vragen niet ophalen.</string>
     <string name="asked_questions">Gestelde Vragen</string>
+    <string name="could_not_find_your_question">Uw vraag niet gevonden?</string>
 </resources>

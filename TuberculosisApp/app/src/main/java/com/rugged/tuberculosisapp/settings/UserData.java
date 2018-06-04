@@ -5,6 +5,7 @@ import android.accounts.AccountManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
 import android.preference.PreferenceManager;
 
 import com.rugged.tuberculosisapp.signin.Identification;
@@ -62,7 +63,11 @@ public class UserData extends Application {
     }
 
     public static String getNotificationSound() {
-        return sharedPreferences.getString("notification", null);
+        String sound = sharedPreferences.getString("notification", null);
+        if (sound == null) {
+            sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION).toString();
+        }
+        return sound;
     }
 
     public static Boolean getAlarmSilent() {
@@ -74,7 +79,11 @@ public class UserData extends Application {
     }
 
     public static String getAlarmSound() {
-        return sharedPreferences.getString("alarm", null);
+        String sound = sharedPreferences.getString("alarm", null);
+        if (sound == null) {
+            sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString();
+        }
+        return sound;
     }
 
     public static void setIdentification(Identification identification) {

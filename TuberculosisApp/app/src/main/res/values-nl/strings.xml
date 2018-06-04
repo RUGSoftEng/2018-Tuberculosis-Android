@@ -6,7 +6,37 @@
     <string name="pref_title_general">Algemeen</string>
     <string name="pref_title_language">Taal</string>
     <string name="pref_key_language">pref_key_language</string>
-    <string name="pref_title_notification_sound">Kies meldingsgeluid</string>
+
+    <!-- Channel strings -->
+    <string name="channel_reminders_name">Herinnering</string>
+    <string name="channel_reminders_description">Notificatie die wordt weergegeven wanneer het tijd is om medicatie in te nemen</string>
+
+    <!-- Reminder strings -->
+    <string name="notification_title">Medicatie</string>
+    <string name="notification_text">Het is tijd om medicatie te nemen</string>
+    <string name="alarm_title">Je hebt je medicatie nog niet genomen</string>
+    <string name="alarm_to_calendar">Naar kalender</string>
+    <string name="alarm_dismiss">Dismiss</string>
+
+    <!-- Reminder settings -->
+    <string name="pref_sound_lookup_error">Fout: kan geselecteerd geluid niet vinden</string>
+    <string name="pref_title_edit_notification_settings">Verander notificatie instellingen</string>
+    <string name="pref_key_edit_notification_settings">pref_key_edit_notification_settings</string>
+    <string name="pref_title_notification_silent">Enable notification sound</string>
+    <string name="pref_key_notification_silent">pref_key_notification_silent</string>
+    <string name="pref_title_notification_vibrate">Tril tijdens notificatie</string>
+    <string name="pref_key_notification_vibrate">pref_key_notification_vibrate</string>
+    <string name="pref_title_alarm_silent">Speel geluid tijdens alarm</string>
+    <string name="pref_key_alarm_silent">pref_key_alarm_silent</string>
+    <string name="pref_title_alarm_vibrate">Tril tijdens alarm</string>
+    <string name="pref_key_alarm_vibrate">pref_key_alarm_vibrate</string>
+    <string name="pref_title_notification_sound">Kies notificatiegeluid</string>
+    <string name="pref_key_notification_sound">pref_key_notification_sound</string>
+    <string name="pref_title_alarm_sound">Kies alarmgeluid</string>
+    <string name="pref_key_alarm_sound">pref_key_alarm_sound</string>
+    <string name="pref_title_test_reminders">Test meldingen</string>
+    <string name="pref_key_test_reminders">pref_key_test_reminders</string>
+
     <string name="ask_physician">Vragen voor Arts</string>
     <string name="frequently_asked_questions">Veelgestelde Vragen</string>
     <string name="ask_physician_hint">Stel een vraag</string>
@@ -38,8 +68,6 @@
     <string name="sunday">Zo</string>
     <string name="action_sign_out">Uitloggen</string>
     <string name="action_test_reminder">Test Herinneringen</string>
-    <string name="pref_alarm_sound">Alarmgeluid</string>
-    <string name="pref_alarm_silent">Speel geluid tijdens alarm</string>
     <string name="title_calendar">Kalender</string>
     <string name="action_dismiss">Terug</string>
     <string name="medication_date">Medicatie voor %1$s</string>
@@ -59,4 +87,8 @@
     <string name="close_app">TuBuddy sluiten</string>
     <string name="positive_message">U hebt al uw medication voor vandaag genomen, goed bezig %1$s!</string>
     <string name="time_interval">%1$s - %2$s</string>
+    <string name="pref_key_restore_defaults">pref_key_restore_defaults</string>
+    <string name="pref_title_restore_defaults">Herstel standaardinstellingen</string>
+    <string name="quiz_answers">Quiz antwoorden</string>
+    <string name="pref_title_reminders">Herinneringen</string>
 </resources>

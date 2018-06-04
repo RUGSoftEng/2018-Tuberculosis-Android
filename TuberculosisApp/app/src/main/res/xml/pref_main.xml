@@ -11,7 +11,7 @@
             android:key="@string/pref_key_language"
             android:title="@string/pref_title_language" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Reminders">
+    <PreferenceCategory android:title="@string/pref_title_reminders">
 
         <SwitchPreference
             android:defaultValue="true"

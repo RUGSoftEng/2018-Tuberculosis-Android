@@ -155,7 +155,8 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
                     } else {
 
                         Date startTime = medication.getTimeIntervalStart();
-                        Date preciseStartTime = new Date(today.getYear(), today.getMonth(), day, startTime.getHours(), startTime.getMinutes());
+                        Date preciseStartTime = new Date(today.getYear(), today.getMonth(), today.getDate(), startTime.getHours(), startTime.getMinutes());
+
                         if(today.after(preciseStartTime)) {
                             takenImage.setImageResource(R.drawable.ic_exclam);
                             takenImage.setTag("R.drawable.ic_exclam");
@@ -166,7 +167,8 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
                                 differenceHours--;
                             }
                             differenceMinutes+= 60;
-                            String difference = "" + R.string.take_in + " " + differenceHours + " " + R.string.hours_and + " "+ differenceMinutes + " " + R.string.minutes;
+                            String difference = "" + mContext.getResources().getString(R.string.take_in) + " " + differenceHours + " " +
+                                    mContext.getResources().getString(R.string.hours_and) + " "+ differenceMinutes + " " + mContext.getResources().getString(R.string.minutes);
                             takenImage.setImageResource(R.drawable.ic_later);
                             takenImage.setTag(difference);
                         }

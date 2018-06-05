@@ -97,7 +97,7 @@ public class ViewDayFragment extends DialogFragment {
                     saveNewMedicineStates();
                     dismiss();
                 }
-            });
+                            });
         }
 
         return view;

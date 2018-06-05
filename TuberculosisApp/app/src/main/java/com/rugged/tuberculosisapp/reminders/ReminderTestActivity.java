@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -170,9 +169,6 @@ public class ReminderTestActivity extends AppCompatActivity {
     public void setReminder(int type) {
         Intent intent = new Intent(this, ReminderHandler.class);
 
-        Switch s = findViewById(R.id.pillSwitch);
-        boolean switchValue = s.isChecked();
-        intent.putExtra("EXTRA_SWITCH", switchValue);
         if (type == NOTIFICATION) {
             intent.putExtra("EXTRA_TYPE", NOTIFICATION);
         }

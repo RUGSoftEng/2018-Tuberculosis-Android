@@ -70,6 +70,4 @@ public class QuizActivity extends AppCompatActivity {
 
         Arrays.fill(correct, false);
     }
-
-
 }

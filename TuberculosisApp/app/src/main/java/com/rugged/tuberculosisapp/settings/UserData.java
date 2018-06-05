@@ -5,6 +5,7 @@ import android.accounts.AccountManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
 import android.preference.PreferenceManager;
 
 import com.rugged.tuberculosisapp.signin.Identification;
@@ -53,6 +54,38 @@ public class UserData extends Application {
         return sharedPreferences.getBoolean("firstLaunch", true);
     }
 
+    public static Boolean getNotificationSilent() {
+        return sharedPreferences.getBoolean("notification_silent", false);
+    }
+
+    public static Boolean getNotificationVibrate() {
+        return sharedPreferences.getBoolean("notification_vibrate", true);
+    }
+
+    public static String getNotificationSound() {
+        String sound = sharedPreferences.getString("notification", null);
+        if (sound == null) {
+            sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION).toString();
+        }
+        return sound;
+    }
+
+    public static Boolean getAlarmSilent() {
+        return sharedPreferences.getBoolean("alarm_silent", false);
+    }
+
+    public static Boolean getAlarmVibrate() {
+        return sharedPreferences.getBoolean("alarm_vibrate", true);
+    }
+
+    public static String getAlarmSound() {
+        String sound = sharedPreferences.getString("alarm", null);
+        if (sound == null) {
+            sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString();
+        }
+        return sound;
+    }
+
     public static void setIdentification(Identification identification) {
         SharedPreferences.Editor preferenceEditor = sharedPreferences.edit();
         preferenceEditor.putInt("patientId", identification.getId());
@@ -69,6 +102,42 @@ public class UserData extends Application {
     public static void setIsFirstLaunch(Boolean bool) {
         SharedPreferences.Editor preferenceEditor = sharedPreferences.edit();
         preferenceEditor.putBoolean("firstLaunch", bool);
+        preferenceEditor.apply();
+    }
+
+    public static void setNotificationSilent(Boolean bool) {
+        SharedPreferences.Editor preferenceEditor = sharedPreferences.edit();
+        preferenceEditor.putBoolean("notification_silent", bool);
+        preferenceEditor.apply();
+    }
+
+    public static void setNotificationVibrate(Boolean bool) {
+        SharedPreferences.Editor preferenceEditor = sharedPreferences.edit();
+        preferenceEditor.putBoolean("notification_vibrate", bool);
+        preferenceEditor.apply();
+    }
+
+    public static void setNotificationSound(String alarm) {
+        SharedPreferences.Editor preferenceEditor = sharedPreferences.edit();
+        preferenceEditor.putString("notification", alarm);
+        preferenceEditor.apply();
+    }
+
+    public static void setAlarmSilent(Boolean bool) {
+        SharedPreferences.Editor preferenceEditor = sharedPreferences.edit();
+        preferenceEditor.putBoolean("alarm_silent", bool);
+        preferenceEditor.apply();
+    }
+
+    public static void setAlarmVibrate(Boolean bool) {
+        SharedPreferences.Editor preferenceEditor = sharedPreferences.edit();
+        preferenceEditor.putBoolean("alarm_vibrate", bool);
+        preferenceEditor.apply();
+    }
+
+    public static void setAlarmSound(String alarm) {
+        SharedPreferences.Editor preferenceEditor = sharedPreferences.edit();
+        preferenceEditor.putString("alarm", alarm);
         preferenceEditor.apply();
     }
 

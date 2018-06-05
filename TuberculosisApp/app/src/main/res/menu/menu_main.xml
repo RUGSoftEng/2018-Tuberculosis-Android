@@ -3,11 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.rugged.tuberculosisapp.MainActivity">
     <item
-        android:id="@+id/action_test_reminder"
-        android:orderInCategory="105"
-        android:title= "@string/action_test_reminder"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_settings"
         android:orderInCategory="110"
         android:title="@string/action_settings"

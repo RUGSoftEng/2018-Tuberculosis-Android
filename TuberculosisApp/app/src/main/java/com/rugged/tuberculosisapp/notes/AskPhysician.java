@@ -101,85 +101,84 @@ public class AskPhysician extends AppCompatActivity {
 
     private void prepareListData(final ArrayList<QuestionToPhysician> askedQuestions) {
         for (int i = 0; i < askedQuestions.size(); i++) {
-            final QuestionToPhysician currentQuestion = askedQuestions.get(i);
+            QuestionToPhysician currentQuestion = askedQuestions.get(i);
 
             LinearLayout.LayoutParams holderParam = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT);
 
-            LinearLayout holder = new LinearLayout(this);
+            LinearLayout holder = new LinearLayout(this); // The holder contains rows of questions with an edit and remove button
             holder.setLayoutParams(holderParam);
             holder.setOrientation(LinearLayout.HORIZONTAL);
 
-            //******************************fill holder********************************************
-
-            LinearLayout.LayoutParams questionParam = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
-
-            TextView question = new TextView(this);
-            question.setLayoutParams(questionParam);
-            question.setText(currentQuestion.getQuestion());
-            question.setTextColor(Color.rgb(80,80,80));
-            holder.addView(question);
-
-
-            LinearLayout.LayoutParams iconParam = new LinearLayout.LayoutParams(
-                    (int) getResources().getDimension(R.dimen.edit_icon_width),
-                    LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
-
-            ImageButton edit = new ImageButton(this);
-            edit.setImageResource(android.R.drawable.ic_menu_edit);
-            edit.setLayoutParams(iconParam);
-            edit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AlertDialog.Builder alert = new AlertDialog.Builder(AskPhysician.this);
-
-                    final EditText edittext = new EditText(AskPhysician.this);
-                    alert.setTitle(R.string.edit_question);
-
-                    alert.setView(edittext);
-                    edittext.setText(currentQuestion.getQuestion());
-
-                    alert.setPositiveButton(R.string.action_submit, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            updateQuestion(currentQuestion, edittext.getText().toString());
-                            refreshAskedQuestions();
-                        }
-                    });
-
-                    alert.setNegativeButton(R.string.action_cancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            dialog.cancel();
-                        }
-                    });
-
-                    alert.show();
-                }
-            });
-            holder.addView(edit);
-
-            ImageButton delete = new ImageButton(this);
-            delete.setImageResource(android.R.drawable.ic_delete);
-            delete.setLayoutParams(iconParam);
-            delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    deleteQuestion(currentQuestion);
-                    refreshAskedQuestions();
-                }
-            });
-            holder.addView(delete);
-
-
-            //******************************fill holder********************************************
+            fillHolder(holder, currentQuestion);
 
             if (i > 0) { // Add distance between questions
                 holder.setPadding(0, 24, 0, 0);
             }
             questions.addView(holder);
         }
+    }
+
+    private void fillHolder(LinearLayout holder, final QuestionToPhysician currentQuestion) { // adds a row to the holder
+        LinearLayout.LayoutParams questionParam = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
+
+        TextView question = new TextView(this);
+        question.setLayoutParams(questionParam);
+        question.setText(currentQuestion.getQuestion());
+        question.setTextColor(Color.rgb(80,80,80));
+        holder.addView(question);
+
+
+        LinearLayout.LayoutParams iconParam = new LinearLayout.LayoutParams(
+                (int) getResources().getDimension(R.dimen.edit_icon_width),
+                LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
+
+        ImageButton edit = new ImageButton(this);
+        edit.setImageResource(android.R.drawable.ic_menu_edit);
+        edit.setLayoutParams(iconParam);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(AskPhysician.this);
+
+                final EditText edittext = new EditText(AskPhysician.this);
+                alert.setTitle(R.string.edit_question);
+
+                alert.setView(edittext);
+                edittext.setText(currentQuestion.getQuestion());
+
+                alert.setPositiveButton(R.string.action_submit, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        updateQuestion(currentQuestion, edittext.getText().toString());
+                        refreshAskedQuestions();
+                    }
+                });
+
+                alert.setNegativeButton(R.string.action_cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.cancel();
+                    }
+                });
+
+                alert.show();
+            }
+        });
+        holder.addView(edit);
+
+        ImageButton delete = new ImageButton(this);
+        delete.setImageResource(android.R.drawable.ic_delete);
+        delete.setLayoutParams(iconParam);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteQuestion(currentQuestion);
+                refreshAskedQuestions();
+            }
+        });
+        holder.addView(delete);
     }
 
     private void sendQuestion(final String question, final EditText editText) {

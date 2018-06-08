@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">TuBuddy</string>
-    <string name="title_information">Informatie</string>
+    <string name="title_videos">Video\'s</string>
     <string name="action_settings">Instellingen</string>
     <string name="pref_title_general">Algemeen</string>
     <string name="pref_title_language">Taal</string>

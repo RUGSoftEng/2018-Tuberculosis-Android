@@ -9,14 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.rugged.tuberculosisapp.R;
 import com.rugged.tuberculosisapp.network.RetrofitClientInstance;
 import com.rugged.tuberculosisapp.network.ServerAPI;
 import com.rugged.tuberculosisapp.settings.LanguageHelper;
-import com.rugged.tuberculosisapp.settings.UserData;
-import com.rugged.tuberculosisapp.signin.Identification;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,7 +22,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -46,7 +42,7 @@ public class TabInformation extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_tab_information, container, false);
+        View view = inflater.inflate(R.layout.fragment_tab_videos, container, false);
 
         // Get list view
         listView = view.findViewById(R.id.categoryList);

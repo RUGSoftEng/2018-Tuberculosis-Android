@@ -86,7 +86,6 @@ public class AskPhysician extends AppCompatActivity {
                         threadedToast(R.string.retrieving_faq_failed);
                     }
                 } catch (IOException e) {
-                    // TODO add more advanced exception handling
                     e.printStackTrace();
                 }
             }
@@ -100,7 +99,7 @@ public class AskPhysician extends AppCompatActivity {
         }
     }
 
-    private void prepareListData(ArrayList<QuestionToPhysician> askedQuestions) {
+    private void prepareListData(final ArrayList<QuestionToPhysician> askedQuestions) {
         for (int i = 0; i < askedQuestions.size(); i++) {
             final QuestionToPhysician currentQuestion = askedQuestions.get(i);
 
@@ -135,30 +134,22 @@ public class AskPhysician extends AppCompatActivity {
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(AskPhysician.this, "Edit", Toast.LENGTH_SHORT).show();
                     AlertDialog.Builder alert = new AlertDialog.Builder(AskPhysician.this);
 
                     final EditText edittext = new EditText(AskPhysician.this);
-                    alert.setTitle("Editing you Question");
+                    alert.setTitle(R.string.edit_question);
 
                     alert.setView(edittext);
                     edittext.setText(currentQuestion.getQuestion());
 
-                    alert.setPositiveButton("Submit Changes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) { // TODO here we need a POST API call
-                            //What ever you want to do with the value
-                            //Editable YouEditTextValue = edittext.getText();
-                            //OR
-                            //String YouEditTextValue = edittext.getText().toString();
-
-                            /*
-                                POST call
-                                refreshAskedQuestions();
-                             */
+                    alert.setPositiveButton(R.string.action_submit, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            updateQuestion(currentQuestion, edittext.getText().toString());
+                            refreshAskedQuestions();
                         }
                     });
 
-                    alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    alert.setNegativeButton(R.string.action_cancel, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             dialog.cancel();
                         }
@@ -172,10 +163,11 @@ public class AskPhysician extends AppCompatActivity {
             ImageButton delete = new ImageButton(this);
             delete.setImageResource(android.R.drawable.ic_delete);
             delete.setLayoutParams(iconParam);
-            delete.setOnClickListener(new View.OnClickListener() { // TODO Here we need a DELETE API call
+            delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(AskPhysician.this, "Remove", Toast.LENGTH_SHORT).show();
+                    deleteQuestion(currentQuestion);
+                    refreshAskedQuestions();
                 }
             });
             holder.addView(delete);
@@ -210,7 +202,6 @@ public class AskPhysician extends AppCompatActivity {
                         sent = false;
                     }
                 } catch (IOException e) {
-                    // TODO add more advanced exception handling
                     e.printStackTrace();
                 }
             }
@@ -223,6 +214,72 @@ public class AskPhysician extends AppCompatActivity {
             e.printStackTrace();
         }
         if(sent) editText.setText("");
+    }
+
+    private void deleteQuestion(QuestionToPhysician note) {
+        Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
+        ServerAPI serverAPI = retrofit.create(ServerAPI.class);
+
+        final Call<ResponseBody> call = serverAPI.deleteAskedQuestion(UserData.getIdentification().getId(),
+                note.getId(), UserData.getIdentification().getToken());
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Response<ResponseBody> response = call.execute();
+                    if (response.code() == 200) { // 200 means successfully deleted
+                        threadedToast(R.string.question_deleted);
+                        sent = true;
+                    } else {
+                        threadedToast(R.string.question_deletion_failed);
+                        sent = false;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateQuestion(QuestionToPhysician note, String question) {
+        Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
+        ServerAPI serverAPI = retrofit.create(ServerAPI.class);
+
+        final Call<ResponseBody> call = serverAPI.updateAskedQuestion(UserData.getIdentification().getId(),
+                note.getId(), UserData.getIdentification().getToken(), new QuestionToPhysician(question));
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Response<ResponseBody> response = call.execute();
+                    if (response.code() == 201) { // 201 means successfully updated
+                        threadedToast(R.string.question_updated);
+                        sent = true;
+                    } else {
+                        threadedToast(R.string.updating_question_failed);
+                        sent = false;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void threadedToast(int textToToast) {

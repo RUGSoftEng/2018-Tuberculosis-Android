@@ -51,7 +51,7 @@
 
     <!-- General strings -->
     <string name="app_name">TuBuddy</string>
-    <string name="title_information">Information</string>
+    <string name="title_videos">Videos</string>
     <string name="title_medication">Medication</string>
     <string name="title_calendar">Calendar</string>
     <string name="title_achievements">Achievements</string>

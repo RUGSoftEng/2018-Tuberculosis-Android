@@ -260,7 +260,7 @@ public class AskPhysician extends AppCompatActivity {
             public void run() {
                 try {
                     Response<ResponseBody> response = call.execute();
-                    if (response.code() == 201) { // 201 means successfully updated
+                    if (response.code() == 200) { // 200 means successfully updated
                         threadedToast(R.string.question_updated);
                         sent = true;
                     } else {

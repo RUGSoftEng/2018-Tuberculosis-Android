@@ -67,7 +67,7 @@ public interface ServerAPI {
             @Body QuestionToPhysician note
     );
 
-    @GET("general/faq")
+    @GET("general/faqs")
     Call<ArrayList<FAQEntry>> retrieveFAQ(
             @Query("language") String locale
     );

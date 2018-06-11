@@ -73,7 +73,7 @@ public interface ServerAPI {
             @Header("access_token") String access_token
     );
 
-    @DELETE("accounts/patients/{patient_id}/notes/{note_id")
+    @DELETE("accounts/patients/{patient_id}/notes/{note_id}")
     Call<ResponseBody> deleteAskedQuestion(
             @Path("patient_id") int patient_id,
             @Path("note_id") int note_id,
@@ -81,7 +81,7 @@ public interface ServerAPI {
     );
 
     @Headers("Content-Type: application/json")
-    @POST("accounts/patients/{patient_id}/notes/{note_id")
+    @POST("accounts/patients/{patient_id}/notes/{note_id}")
     Call<ResponseBody> updateAskedQuestion(
             @Path("patient_id") int patient_id,
             @Path("note_id") int note_id,

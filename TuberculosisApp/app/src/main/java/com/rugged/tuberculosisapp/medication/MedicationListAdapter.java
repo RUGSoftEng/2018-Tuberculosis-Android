@@ -24,24 +24,34 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+
 public class MedicationListAdapter extends ArrayAdapter<Medication> implements CompoundButton.OnCheckedChangeListener {
 
     private Context mContext;
     private int mResourceId;
     private final List<Medication> mMedication;
-    private final List<Integer> days;
     private Date date;
     public SparseBooleanArray mCheckedStates;
+
+    private List <Integer> medicationColours;
 
     // User has x days to change the taken state of medicines before it is locked
     private static final int DAYS_UNTIL_CHECKBOX_IS_LOCKED = 1;
 
-    public MedicationListAdapter(Context context, int resourceId, List<Medication> medication, List<Integer> days) {
+    public MedicationListAdapter(Context context, int resourceId, List<Medication> medication) {
         super(context, resourceId, medication);
         this.mContext = context;
         this.mResourceId = resourceId;
         this.mMedication = medication;
-        this.days = days;
+        medicationColours = new ArrayList<>();
+        medicationColours.add(R.drawable.ic_medication);
+        medicationColours.add(R.drawable.ic_medication_1);
+        medicationColours.add(R.drawable.ic_medication_2);
+        medicationColours.add(R.drawable.ic_medication_3);
+        medicationColours.add(R.drawable.ic_medication);
+        medicationColours.add(R.drawable.ic_medication_1);
+        medicationColours.add(R.drawable.ic_medication_2);
+        medicationColours.add(R.drawable.ic_medication_3);
     }
 
     public MedicationListAdapter(Context context, int resourceId, List<Medication> medication, Date date) {
@@ -51,7 +61,15 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
         this.mMedication = medication;
         this.date = date;
         this.mCheckedStates = new SparseBooleanArray();
-        this.days = new ArrayList<>();
+        medicationColours = new ArrayList<>();
+        medicationColours.add(R.drawable.ic_medication);
+        medicationColours.add(R.drawable.ic_medication_1);
+        medicationColours.add(R.drawable.ic_medication_2);
+        medicationColours.add(R.drawable.ic_medication_3);
+        medicationColours.add(R.drawable.ic_medication);
+        medicationColours.add(R.drawable.ic_medication_1);
+        medicationColours.add(R.drawable.ic_medication_2);
+        medicationColours.add(R.drawable.ic_medication_3);
     }
 
 
@@ -76,13 +94,24 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
         Medication medication = getItem(position);
 
 
+
+
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(mResourceId, parent, false);
         }
 
+        ImageView pillImage = convertView.findViewById(R.id.pillImage);
+        pillImage.setImageResource(medicationColours.get(position));
+
+
         TextView medicationName = convertView.findViewById(R.id.medicationName);
 
+
+
+        //TODO Refactor this insanely long conditional
+
         if (medication != null) {
+
             // If this adapter is used for the dialog color the text
             if (mResourceId == R.layout.medication_row_dialog) {
                 Date today = new Date();
@@ -111,31 +140,49 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> implements C
                     takenCheckBox.setEnabled(false);
                 }
                 DateFormat df = new SimpleDateFormat("HH:mm", new Locale(LanguageHelper.getCurrentLocale()));
-                medicationTime.setText(df.format(medication.getTime()));
+                medicationTime.setText(mContext.getResources().getString(R.string.time_interval, df.format(medication.getTimeIntervalStart()), df.format(medication.getTimeIntervalEnd())));
                 medicationDose.setText(convertView.getResources().getQuantityString(R.plurals.medication_dose, medication.getDose(), medication.getDose()));
             } else {
-                int day = days.get(position);
+                int day = medication.getDay();
 
                 Date today = new Date();
                 ImageView takenImage = convertView.findViewById(R.id.takenImage);
-
                 if(today.getDay() == day) {
+
                     if(medication.isTaken()) {
                         takenImage.setImageResource(R.drawable.ic_check) ;
                         takenImage.setTag("R.drawable.ic_check");
+                    } else {
+
+                        Date startTime = medication.getTimeIntervalStart();
+                        Date preciseStartTime = new Date(today.getYear(), today.getMonth(), today.getDate(), startTime.getHours(), startTime.getMinutes());
+
+                        if(today.after(preciseStartTime)) {
+                            takenImage.setImageResource(R.drawable.ic_exclam);
+                            takenImage.setTag("R.drawable.ic_exclam");
+                        } else {
+                            int differenceHours = startTime.getHours() - today.getHours();
+                            int differenceMinutes = startTime.getMinutes() - today.getMinutes();
+                            if(differenceMinutes < 0) {
+                                differenceHours--;
+                            }
+                            differenceMinutes+= 60;
+                            String difference = "" + mContext.getResources().getString(R.string.take_in) + " " + differenceHours + " " +
+                                    mContext.getResources().getString(R.string.hours_and) + " "+ differenceMinutes + " " + mContext.getResources().getString(R.string.minutes);
+                            takenImage.setImageResource(R.drawable.ic_later);
+                            takenImage.setTag(difference);
+                        }
+
                     }
 
                 } else {
-                    takenImage.setImageResource(R.drawable.ic_line);
-                    takenImage.setTag("R.drawable.ic_line");
+                    takenImage.setImageResource(android.R.color.transparent);
+                    takenImage.setTag("nothing");
                 }
-            }
-            if(medication.getName().equals("Highly experimental pills")) {
-                medicationName.setText("Experimental pills");
-            } else {
-                medicationName.setText(medication.getName());
 
             }
+            medicationName.setText(medication.getName());
+
 
         }
 

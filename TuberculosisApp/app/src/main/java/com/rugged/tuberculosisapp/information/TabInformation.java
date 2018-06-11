@@ -9,21 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.rugged.tuberculosisapp.R;
 import com.rugged.tuberculosisapp.network.RetrofitClientInstance;
 import com.rugged.tuberculosisapp.network.ServerAPI;
-import com.rugged.tuberculosisapp.settings.UserData;
-import com.rugged.tuberculosisapp.signin.Identification;
+import com.rugged.tuberculosisapp.settings.LanguageHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -44,7 +42,7 @@ public class TabInformation extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_tab_information, container, false);
+        View view = inflater.inflate(R.layout.fragment_tab_videos, container, false);
 
         // Get list view
         listView = view.findViewById(R.id.categoryList);
@@ -65,7 +63,7 @@ public class TabInformation extends Fragment {
 
                 Intent intent = new Intent(TabInformation.this.getActivity(), VideoGridActivity.class);
                 intent.putExtra(TITLE_MESSAGE, itemClicked.getTitle());
-                intent.putStringArrayListExtra(VIDEO_URLS_MESSAGE, itemClicked.getVideoUrls());
+                intent.putExtra(VIDEO_URLS_MESSAGE, itemClicked.getVideos());
                 startActivity(intent);
             }
         });
@@ -74,7 +72,7 @@ public class TabInformation extends Fragment {
     }
 
     /**
-        Prepare the list data
+     Prepare the list data
      */
     private void prepareListData() {
         listCategories = new ArrayList<>();
@@ -83,7 +81,7 @@ public class TabInformation extends Fragment {
         ServerAPI serverAPI = retrofit.create(ServerAPI.class);
 
         // Here the method is the one you created in the ServerAPI interface
-        final Call<ArrayList<String>> call = serverAPI.retrieveCategories();
+        final Call<ArrayList<String>> call = serverAPI.retrieveCategories(LanguageHelper.getCurrentLocale().toUpperCase());
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -108,25 +106,25 @@ public class TabInformation extends Fragment {
         }
 
         for (final String title : titles) {
-            final Call<List<JSONVideoHolder>> callVideo = serverAPI.retrieveVideoByCategory(title);
+            final Call<List<JSONVideoHolder>> callVideo = serverAPI.retrieveVideoByCategory(title, LanguageHelper.getCurrentLocale().toUpperCase());
 
             Thread s = new Thread(new Runnable() {
-
                 @Override
                 public void run() {
                     try {
                         Response<List<JSONVideoHolder>> response = callVideo.execute();
                         if (response.code() == 200) { // choose right code for successful API call (200 in this case)
                             if (response.body() != null) {
-                                ArrayList<String> videos = new ArrayList<>();
+                                HashMap<String, ArrayList<Quiz>> videos = new HashMap<>();
                                 for (JSONVideoHolder jsonResponse : response.body()){
-                                    String temp = jsonResponse.getVideo().getReference();
+                                    String reference = jsonResponse.getVideo().getReference();
                                     String pattern = "(?<=watch\\?v=|/videos/|embed/|youtu.be/|/v/|/e/|watch\\?v%3D|watch\\?feature=player_embedded&v=|%2Fvideos%2F|embed%\u200C\u200B2F|youtu.be%2F|%2Fv%2F)[^#&?\\n]*";
                                     Pattern compiledPattern = Pattern.compile(pattern);
-                                    Matcher matcher = compiledPattern.matcher(temp);
+                                    Matcher matcher = compiledPattern.matcher(reference);
                                     if (matcher.find()) {
-                                        temp = matcher.group();
-                                        videos.add(temp);
+                                        reference = matcher.group();
+                                        reference = reference.trim();
+                                        videos.put(reference, jsonResponse.getQuizzes());
                                     }
                                 }
                                 listCategories.add(new Category(title, videos));

@@ -15,11 +15,11 @@ public class CalendarJSONHolder {
     private String date;
     private Boolean taken;
 
-    CalendarJSONHolder(String name, Date time, int dose, Boolean isTaken, Date date) {
+    CalendarJSONHolder(String name, Date timeIntervalStart, Date timeIntervalEnd, int dose, Boolean isTaken, Date date) {
         Locale locale = new Locale(LanguageHelper.getCurrentLocale());
         DateFormat df = new SimpleDateFormat("HH:mm:ss", locale);
         Medicine medicine = new Medicine(name);
-        this.dosage = new Dosage(df.format(time), dose, medicine);
+        this.dosage = new Dosage(df.format(timeIntervalStart), df.format(timeIntervalEnd), dose, medicine);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", locale);
         this.date = sdf.format(date);
         this.taken = isTaken;
@@ -44,12 +44,13 @@ public class CalendarJSONHolder {
     public Medication toMedication() {
         try {
             DateFormat format = new SimpleDateFormat("HH:mm:ss", new Locale(LanguageHelper.getCurrentLocale()));
-            Date time = format.parse(getDosage().getIntakeMoment());
+            Date timeIntervalStart = format.parse(getDosage().getIntakeIntervalStart());
+            Date timeIntervalEnd = format.parse(getDosage().getIntakeIntervalEnd());
             String name = getDosage().getMedicine().getName();
             int amount = getDosage().getAmount();
             Boolean isTaken = getTaken();
 
-            return new Medication(name, time, amount, isTaken);
+            return new Medication(name, timeIntervalStart, timeIntervalEnd, amount, isTaken);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -61,18 +62,24 @@ public class CalendarJSONHolder {
 
 class Dosage {
 
-    private String intake_moment;
+    private String intake_interval_start;
+    private String intake_interval_end;
     private int amount;
     private Medicine medicine;
 
-    Dosage(String intake_moment, int amount, Medicine medicine) {
-        this.intake_moment = intake_moment;
+    Dosage(String intake_interval_start, String intake_interval_end, int amount, Medicine medicine) {
+        this.intake_interval_start = intake_interval_start;
+        this.intake_interval_end = intake_interval_end;
         this.amount = amount;
         this.medicine = medicine;
     }
 
-    public String getIntakeMoment() {
-        return intake_moment;
+    public String getIntakeIntervalStart() {
+        return intake_interval_start;
+    }
+
+    public String getIntakeIntervalEnd() {
+        return intake_interval_end;
     }
 
     public int getAmount() {

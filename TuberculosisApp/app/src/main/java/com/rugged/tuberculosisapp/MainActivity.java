@@ -7,7 +7,9 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.media.RingtoneManager;
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +30,6 @@ import com.rugged.tuberculosisapp.information.TabInformation;
 import com.rugged.tuberculosisapp.calendar.TabCalendar;
 import com.rugged.tuberculosisapp.medication.TabMedication;
 import com.rugged.tuberculosisapp.notes.TabNotes;
-import com.rugged.tuberculosisapp.reminders.ReminderTestActivity;
 import com.rugged.tuberculosisapp.settings.LanguageHelper;
 import com.rugged.tuberculosisapp.settings.SettingsActivity;
 import com.rugged.tuberculosisapp.settings.UserData;
@@ -51,11 +52,13 @@ public class MainActivity extends AppCompatActivity {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    private ViewPager mViewPager;
+    private static ViewPager mViewPager;
 
     private CalendarView cv;
 
     private int currentTab;
+
+    public static boolean isActive;
 
     public static final int NEW_SETTING = 1;
     public static final int NEW_LANGUAGE = 2;
@@ -93,23 +96,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        setupNotificationChannels();
+        // Initialize UserData for reminders if empty
+        if (UserData.getAlarmSound() == null || UserData.getNotificationSound() == null) {
+            UserData.setAlarmSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString());
+            UserData.setAlarmSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION).toString());
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            setupNotificationChannels();
+        }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void setupNotificationChannels() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // Create the NotificationChannel
-            CharSequence name = getString(R.string.channel_reminders_name);
-            String description = getString(R.string.channel_reminders_description);
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel mChannel = new NotificationChannel("reminders", name, importance);
-            mChannel.setDescription(description);
-            mChannel.enableLights(true);
-            mChannel.enableVibration(true);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = (NotificationManager) getSystemService(
-                    NOTIFICATION_SERVICE);
+        // Create the NotificationChannel
+        CharSequence name = getString(R.string.channel_reminders_name);
+        String description = getString(R.string.channel_reminders_description);
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+        NotificationChannel mChannel = new NotificationChannel("reminders", name, importance);
+        mChannel.setDescription(description);
+        mChannel.enableLights(true);
+        mChannel.enableVibration(true);
+        // Register the channel with the system; you can't change the importance
+        // or other notification behaviors after this
+        NotificationManager notificationManager = (NotificationManager) getSystemService(
+                NOTIFICATION_SERVICE);
+        if (notificationManager != null) {
             notificationManager.createNotificationChannel(mChannel);
         }
     }
@@ -124,6 +136,15 @@ public class MainActivity extends AppCompatActivity {
         mSectionsPagerAdapter.addFragment(new TabInformation(), TabInformation.TITLE);
         mSectionsPagerAdapter.addFragment(new TabNotes(), TabNotes.TITLE);
         viewPager.setAdapter(mSectionsPagerAdapter);
+    }
+
+    public void openAchievements(View view) {
+        Intent intent = new Intent(this, ActivityAchievements.class);
+        startActivity(intent);
+    }
+
+    public static void setTab(int index) {
+        mViewPager.setCurrentItem(index);
     }
 
     @Override
@@ -143,11 +164,6 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivityForResult(intent, NEW_SETTING);
-        }
-
-        if (id == R.id.action_test_reminder) {
-            Intent intent = new Intent(this, ReminderTestActivity.class);
-            startActivity(intent);
         }
 
         if (id == R.id.action_sign_out) {
@@ -178,11 +194,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void openAchievements(View view) {
-        Intent intent = new Intent(this, ActivityAchievements.class);
-        startActivity(intent);
-    }
-
     @Override // To clear focus from EditText when tapping outside of the EditText
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -202,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (cv.isPointInsideCalendar(event.getRawX(), event.getRawY())) {
-                cv.dispatchTouchEvent(event);
+                cv.onTouchEvent(event);
                 return false;
             }
         }
@@ -215,4 +226,15 @@ public class MainActivity extends AppCompatActivity {
         // Do nothing
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        isActive = true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        isActive = false;
+    }
 }

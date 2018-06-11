@@ -8,7 +8,7 @@
     tools:layout_editor_absoluteY="81dp">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/pillImage"
         android:layout_width="100dp"
         android:layout_height="73dp"
         android:layout_marginEnd="8dp"
@@ -66,7 +66,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/pillImage"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -93,6 +93,6 @@
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.01"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/pillImage"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 </android.support.constraint.ConstraintLayout>

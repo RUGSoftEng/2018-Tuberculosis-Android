@@ -47,6 +47,8 @@ public class ViewDayFragment extends DialogFragment {
     private MedicationListAdapter adapter;
     private ProgressBar spinner;
 
+    private boolean allTaken;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -95,7 +97,7 @@ public class ViewDayFragment extends DialogFragment {
                     saveNewMedicineStates();
                     dismiss();
                 }
-            });
+                            });
         }
 
         return view;
@@ -114,23 +116,30 @@ public class ViewDayFragment extends DialogFragment {
         Collections.sort(this.medicationList, new Comparator<Medication>() {
             @Override
             public int compare(Medication o1, Medication o2) {
-                return o1.getTime().compareTo(o2.getTime());
+                return o1.getTimeIntervalEnd().compareTo(o2.getTimeIntervalEnd());
             }
         });
     }
 
     private void saveNewMedicineStates() {
+        allTaken = true;
+
         // Set medicine taken states to respective checkbox states
         List<CalendarJSONHolder> newJsonData = new ArrayList<>();
         for (Medication medication : medicationList) {
             medication.setTaken(adapter.isChecked(medication));
 
+            if (!medication.isTaken()) {
+                allTaken = false;
+            }
+
             // Build objects to send in POST request body
-            Date time = medication.getTime();
+            Date timeIntervalStart = medication.getTimeIntervalStart();
+            Date timeIntervalEnd = medication.getTimeIntervalEnd();
             String name = medication.getName();
             int dose = medication.getDose();
             Boolean isTaken = medication.isTaken();
-            CalendarJSONHolder bodyObject = new CalendarJSONHolder(name, time, dose, isTaken, date);
+            CalendarJSONHolder bodyObject = new CalendarJSONHolder(name, timeIntervalStart, timeIntervalEnd, dose, isTaken, date);
 
             newJsonData.add(bodyObject);
         }
@@ -150,7 +159,11 @@ public class ViewDayFragment extends DialogFragment {
 
                     Resources res = getResources();
                     if (response.code() == 200) {
-                        showToast(res.getString(R.string.data_updated, res.getString(R.string.title_medication)), Toast.LENGTH_SHORT);
+                        if (allTaken) {
+                            showToast(res.getString(R.string.positive_message, UserData.getUsername(getActivity())), Toast.LENGTH_LONG);
+                        } else {
+                            showToast(res.getString(R.string.data_updated, res.getString(R.string.title_medication)), Toast.LENGTH_SHORT);
+                        }
                     } else {
                         showToast(res.getString(R.string.save_error, res.getString(R.string.title_medication)), Toast.LENGTH_LONG);
                     }

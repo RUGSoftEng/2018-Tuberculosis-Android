@@ -13,19 +13,13 @@ import java.util.Date;
 
 import static android.content.Context.ALARM_SERVICE;
 
-/**
- * Created by Niek on 15/05/2018.
- */
-
 public class ReminderSetter {
     private Context context;
 
-    ArrayList<Medication> medicationList;
+    private ArrayList<Medication> medicationList;
 
     private static final int NOTIFICATION = 0;
     private static final int ALARM = 1;
-    private static final int HOUR_IN_MILLISECONDS = 3600000;
-    private static final int MINUTE_IN_MILLISECONDS = 60000;
 
     public ReminderSetter(Context context) {
         this.context = context;
@@ -52,16 +46,19 @@ public class ReminderSetter {
 
         int requestCode = 0;
         for (Medication med : meds) {
-            Date current = new Date();
-            date.setHours(med.getTime().getHours());
-            date.setMinutes(med.getTime().getMinutes());
+            //Initialize time for interval start
+            date.setHours(med.getTimeIntervalStart().getHours());
+            date.setMinutes(med.getTimeIntervalStart().getMinutes());
             date.setSeconds(0);
+            //Calculate time difference to determine if medication has already passed or not
+            Date current = new Date();
             long timeDiff = date.getTime() - current.getTime();
-
             if (!med.isTaken() && timeDiff >= 0) {
+                //Set a notification reminder at interval start
                 setReminder(date, NOTIFICATION, med.getName(), requestCode);
-                long timeForAlarm = date.getTime() + MINUTE_IN_MILLISECONDS*2;
-                date.setTime(timeForAlarm);
+                //Set an alarm reminder at interval end
+                date.setHours(med.getTimeIntervalEnd().getHours());
+                date.setMinutes(med.getTimeIntervalEnd().getMinutes());
                 setReminder(date, ALARM, med.getName(), requestCode+1);
             }
             requestCode+=2;

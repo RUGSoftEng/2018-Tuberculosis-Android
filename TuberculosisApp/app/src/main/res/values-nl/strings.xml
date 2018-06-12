@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="pref_language_entries">
+        <item>English</item>
+        <item>Nederlands</item>
+        <item>Deutsch</item>
+    </string-array>
+    <string-array name="pref_language_values">
+        <item>en</item>
+        <item>nl</item>
+        <item>de</item>
+    </string-array>
     <string name="app_name">TuBuddy</string>
     <string name="title_videos">Video\'s</string>
     <string name="action_settings">Instellingen</string>

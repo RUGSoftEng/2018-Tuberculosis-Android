@@ -148,7 +148,7 @@ public class AskPhysician extends AppCompatActivity {
                 alert.setTitle(R.string.edit_question);
 
                 alert.setView(edittext);
-                edittext.setText(currentQuestion.getQuestion());
+                edittext.append(currentQuestion.getQuestion());
 
                 alert.setPositiveButton(R.string.action_submit, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {

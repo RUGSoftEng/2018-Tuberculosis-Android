@@ -129,4 +129,6 @@
     <string name="time_interval">%1$s - %2$s</string>
     <string name="correct_answer">Correct answer!</string>
     <string name="wrong_answer">Wrong answer.</string>
+    <string name="pref_notification_sound">Choose notification sound</string>
+    <string name="pref_notification_silent">Quiet</string>
 </resources>

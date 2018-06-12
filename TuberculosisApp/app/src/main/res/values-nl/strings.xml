@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="pref_language_entries">
+        <item>English</item>
+        <item>Nederlands</item>
+        <item>Deutsch</item>
+    </string-array>
+    <string-array name="pref_language_values">
+        <item>en</item>
+        <item>nl</item>
+        <item>de</item>
+    </string-array>
     <string name="app_name">TuBuddy</string>
     <string name="title_videos">Video\'s</string>
     <string name="action_settings">Instellingen</string>
@@ -19,7 +29,7 @@
     <string name="notification_text">Het is tijd om medicatie te nemen</string>
     <string name="alarm_title">Je hebt je medicatie nog niet genomen</string>
     <string name="alarm_to_calendar">Naar kalender</string>
-    <string name="alarm_dismiss">Dismiss</string>
+    <string name="alarm_dismiss">Melding sluiten</string>
 
     <!-- Reminder settings -->
     <string name="pref_sound_lookup_error">Fout: kan geselecteerd geluid niet vinden</string>
@@ -51,7 +61,7 @@
     <string name="taken_text">Vandaag genomen: </string>
     <string name= "answer_yes">JA</string>
     <string name= "answer_no">NEE</string>
-    <string name= "take_in">Nemen in</string>
+    <string name= "take_in">Innemen</string>
     <string name= "hours_and">uur en</string>
     <string name = "minutes">minuten</string>
     <string name= "answer_not_needed">Niet nodig</string>
@@ -113,4 +123,7 @@
     <string name="pref_title_restore_defaults">Herstel standaardinstellingen</string>
     <string name="quiz_answers">Quiz antwoorden</string>
     <string name="pref_title_reminders">Herinneringen</string>
+    <string name="date_and_time">Datum en Tijd</string>
+    <string name="medication_taken">Vandaag genomen:</string>
+    <string name="more_info_buttion">Meer informatie</string>
 </resources>

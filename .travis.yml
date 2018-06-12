@@ -6,9 +6,6 @@ android:
     - platform-tools
     - build-tools-26.0.1
     - android-26
-  
-script:
-   - ./TuberculosisApp/gradlew build connectedCheck
 
 jdk:
   - oraclejdk8

@@ -88,4 +88,23 @@
     <string name="pref_title_test_reminders">Benachrichtigungen testen</string>
     <string name="quiz_answers">Quiz Antworten</string>
     <string name="pref_title_reminders">Erinnerungen</string>
+    <string name="channel_reminders_name">Erinnerung</string>
+    <string name="channel_reminders_description">Benachrichtigung, die angezeigt wird, wenn Medikamente eingenommen werden müssen</string>
+    <string name="notification_title">Medikation</string>
+    <string name="notification_text">Es ist Zeit, Medikamente zu nehmen</string>
+    <string name="alarm_title">Sie haben Ihre Medikamente noch nicht eingenommen</string>
+    <string name="alarm_to_calendar">Gehe zum Kalender</string>
+    <string name="alarm_dismiss">Benachrichtigung schließen</string>
+    <string name="date_and_time">"Datum und Uhrzeit "</string>
+    <string name="taken_text">Heute genommen</string>
+    <string name="answer_yes">JA</string>
+    <string name="answer_no">NEIN</string>
+    <string name="take_in">Einnehmen</string>
+    <string name="hours_and">Stunden und</string>
+    <string name="minutes">Minuten</string>
+    <string name="answer_not_needed">"Nicht benötigt "</string>
+    <string name="medication_taken">Heute genommen:</string>
+    <string name="more_info_buttion">Mehr Info</string>
+    <string name="pref_notification_sound">Wählen Sie den Benachrichtigungston</string>
+    <string name="pref_notification_silent">Ruhig</string>
 </resources>

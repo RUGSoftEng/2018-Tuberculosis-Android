@@ -1,5 +1,6 @@
 package com.rugged.tuberculosisapp.notes;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -9,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,12 +18,10 @@ import com.rugged.tuberculosisapp.R;
 import com.rugged.tuberculosisapp.network.RetrofitClientInstance;
 import com.rugged.tuberculosisapp.network.ServerAPI;
 import com.rugged.tuberculosisapp.settings.LanguageHelper;
-import com.rugged.tuberculosisapp.settings.UserData;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -33,7 +31,6 @@ public class TabNotes extends Fragment {
     public static final String TITLE = "TabNotes";
     private static final int NO_LAST_QUESTION = -1;
     private int questionIdx = NO_LAST_QUESTION;
-    private boolean sent = false;
     private ArrayList<FAQEntry> FAQEntries;
 
     private LinearLayout entries;
@@ -52,17 +49,13 @@ public class TabNotes extends Fragment {
         retrieveFAQEnries();
         prepareListData(FAQEntries);
 
-        Button submitQuestion = view.findViewById(R.id.submitQuestionButton);
-        final EditText textQuestion = view.findViewById(R.id.questionEditText);
+        Button askPhysician = view.findViewById(R.id.askPhysicianButton);
 
-        submitQuestion.setOnClickListener(new View.OnClickListener() {
+        askPhysician.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (textQuestion.getText().toString().length() > 0) { // check if there actually is a question
-                    sendQuestion(textQuestion.getText().toString(), textQuestion);
-                } else {
-                    Toast.makeText(getActivity(), R.string.question_empty, Toast.LENGTH_SHORT).show();
-                }
+                Intent intent = new Intent(getContext(), AskPhysician.class);
+                startActivity(intent);
             }
         });
 
@@ -75,41 +68,6 @@ public class TabNotes extends Fragment {
         questionIdx = NO_LAST_QUESTION;
     }
 
-    private void sendQuestion(final String question, final EditText editText) {
-        Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();
-        ServerAPI serverAPI = retrofit.create(ServerAPI.class);
-
-        final Call<ResponseBody> call = serverAPI.askPhysician(UserData.getIdentification().getId(),
-                UserData.getIdentification().getToken(), new QuestionToPhysician(question));
-
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Response<ResponseBody> response = call.execute();
-                    if (response.code() == 201) { // 201 means successfully created
-                        threadedToast(R.string.question_successful);
-                        sent = true;
-                    } else {
-                        threadedToast(R.string.question_successful);
-                        sent = false;
-                    }
-                } catch (IOException e) {
-                    // TODO add more advanced exception handling
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        t.start();
-        try {
-            t.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        if(sent) editText.setText("");
-    }
-
     private void threadedToast(int textToToast) {
         final int text = textToToast;
         getActivity().runOnUiThread(new Runnable() {
@@ -118,7 +76,6 @@ public class TabNotes extends Fragment {
             }
         });
     }
-
 
     private void retrieveFAQEnries() {
         Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance();

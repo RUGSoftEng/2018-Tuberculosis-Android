@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class QuestionToPhysician {
+    private int id;
     private String note;
     private String created_at;
 
@@ -17,6 +18,10 @@ public class QuestionToPhysician {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", locale);
         Date currentDate = new Date();
         this.created_at = sdf.format(currentDate);
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getQuestion() {

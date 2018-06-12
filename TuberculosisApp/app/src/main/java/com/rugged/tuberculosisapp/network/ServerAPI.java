@@ -13,6 +13,7 @@ import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
@@ -66,9 +67,31 @@ public interface ServerAPI {
             @Body QuestionToPhysician note
     );
 
-    @GET("general/faq")
+    @GET("general/faqs")
     Call<ArrayList<FAQEntry>> retrieveFAQ(
             @Query("language") String locale
+    );
+
+    @GET("accounts/patients/{id}/notes")
+    Call<ArrayList<QuestionToPhysician>> retrieveAskedQuestions(
+            @Path("id") int patient_id,
+            @Header("access_token") String access_token
+    );
+
+    @DELETE("accounts/patients/{patient_id}/notes/{note_id}")
+    Call<ResponseBody> deleteAskedQuestion(
+            @Path("patient_id") int patient_id,
+            @Path("note_id") int note_id,
+            @Header("access_token") String access_token
+    );
+
+    @Headers("Content-Type: application/json")
+    @POST("accounts/patients/{patient_id}/notes/{note_id}")
+    Call<ResponseBody> updateAskedQuestion(
+            @Path("patient_id") int patient_id,
+            @Path("note_id") int note_id,
+            @Header("access_token") String access_token,
+            @Body QuestionToPhysician note
     );
 
 }

@@ -69,8 +69,7 @@
         </activity>
         <activity
             android:name=".reminders.AlarmActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
             android:name=".achievements.ActivityAchievements"
             android:parentActivityName=".MainActivity">
@@ -78,19 +77,26 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <activity
+            android:name=".notes.AskPhysician"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
 
         <receiver android:name=".reminders.ReminderHandler" />
-
-        <receiver android:name=".reminders.BootCompletedReceiver"
-            android:exported="true"
-            android:enabled="true">
+        <receiver
+            android:name=".reminders.BootCompletedReceiver"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
-
         <receiver android:name=".reminders.ReminderUpdateReceiver" />
 
         <service
@@ -109,8 +115,8 @@
             android:name=".reminders.ReminderService"
             android:enabled="true"
             android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE">
-        </service>
+            android:permission="android.permission.BIND_JOB_SERVICE"></service>
+
     </application>
 
 </manifest>

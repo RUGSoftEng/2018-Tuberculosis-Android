@@ -1,22 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="pref_language_entries">
+        <item>English</item>
+        <item>Nederlands</item>
+        <item>Deutsch</item>
+    </string-array>
+    <string-array name="pref_language_values">
+        <item>en</item>
+        <item>nl</item>
+        <item>de</item>
+    </string-array>
     <string name="app_name">TuBuddy</string>
-    <string name="title_information">Informatie</string>
+    <string name="title_videos">Video\'s</string>
     <string name="action_settings">Instellingen</string>
     <string name="pref_title_general">Algemeen</string>
     <string name="pref_title_language">Taal</string>
     <string name="pref_key_language">pref_key_language</string>
     <string name="pref_notification_sound">Kies meldingsgeluid</string>
     <string name="pref_notification_silent">Stil</string>
-    <string name="lorem_ipsum">Lorem ipsum dolor sit amet et delectus accomodare his comsul copiosae</string>
-    <string name="ask_physician">Vragen voor Arts</string>
+    <string name="ask_physician">Vraag het uw Arts</string>
+
+    <!-- Channel strings -->
+    <string name="channel_reminders_name">Herinnering</string>
+    <string name="channel_reminders_description">Notificatie die wordt weergegeven wanneer het tijd is om medicatie in te nemen</string>
+
+    <!-- Reminder strings -->
+    <string name="notification_title">Medicatie</string>
+    <string name="notification_text">Het is tijd om medicatie te nemen</string>
+    <string name="alarm_title">Je hebt je medicatie nog niet genomen</string>
+    <string name="alarm_to_calendar">Naar kalender</string>
+    <string name="alarm_dismiss">Melding sluiten</string>
+
+    <!-- Reminder settings -->
+    <string name="pref_sound_lookup_error">Fout: kan geselecteerd geluid niet vinden</string>
+    <string name="pref_title_edit_notification_settings">Verander notificatie instellingen</string>
+    <string name="pref_key_edit_notification_settings">pref_key_edit_notification_settings</string>
+    <string name="pref_title_notification_silent">Enable notification sound</string>
+    <string name="pref_key_notification_silent">pref_key_notification_silent</string>
+    <string name="pref_title_notification_vibrate">Tril tijdens notificatie</string>
+    <string name="pref_key_notification_vibrate">pref_key_notification_vibrate</string>
+    <string name="pref_title_alarm_silent">Speel geluid tijdens alarm</string>
+    <string name="pref_key_alarm_silent">pref_key_alarm_silent</string>
+    <string name="pref_title_alarm_vibrate">Tril tijdens alarm</string>
+    <string name="pref_key_alarm_vibrate">pref_key_alarm_vibrate</string>
+    <string name="pref_title_notification_sound">Kies notificatiegeluid</string>
+    <string name="pref_key_notification_sound">pref_key_notification_sound</string>
+    <string name="pref_title_alarm_sound">Kies alarmgeluid</string>
+    <string name="pref_key_alarm_sound">pref_key_alarm_sound</string>
+    <string name="pref_title_test_reminders">Test meldingen</string>
+    <string name="pref_key_test_reminders">pref_key_test_reminders</string>
+
     <string name="frequently_asked_questions">Veelgestelde Vragen</string>
     <string name="ask_physician_hint">Stel een vraag</string>
     <string name="action_submit">Verstuur</string>
+    <string name="action_cancel">Annuleren</string>
     <string name="quiz">Quiz</string>
     <string name="show_answers">Toon Antwoorden</string>
-    <string name="lorem_ipsum_question">Lorem ipsum dolor sit amet et?</string>
     <string name="title_medication">Medicatie</string>
+
+    <string name="taken_text">Vandaag genomen: </string>
+    <string name= "answer_yes">JA</string>
+    <string name= "answer_no">NEE</string>
+    <string name= "take_in">Innemen</string>
+    <string name= "hours_and">uur en</string>
+    <string name = "minutes">minuten</string>
+    <string name= "answer_not_needed">Niet nodig</string>
+
     <plurals name="medication_dose">
         <item quantity="one">%1$d pil</item>
         <item quantity="other">%1$d pillen</item>
@@ -41,11 +90,40 @@
     <string name="sunday">Zo</string>
     <string name="action_sign_out">Uitloggen</string>
     <string name="action_test_reminder">Test Herinneringen</string>
-    <string name="pref_alarm_sound">Alarmgeluid</string>
-    <string name="pref_alarm_silent">Speel geluid tijdens alarm</string>
     <string name="title_calendar">Kalender</string>
     <string name="action_dismiss">Terug</string>
     <string name="medication_date">Medicatie voor %1$s</string>
     <string name="title_achievements">Prestaties</string>
     <string name="action_save">Opslaan</string>
+    <string name="invalidLogIn">Ongeldige gebruikersnaam of wachtwoord.</string>
+    <string name="account_type">TubuddyPatientAccount</string>
+    <string name="token_label">Volledige toegang tot een TuBuddy patientenaccount</string>
+    <string name="data_updated">%1$s is bijgewerkt.</string>
+    <string name="save_error">%1$s kon niet worden bijgewerkt!</string>
+    <string name="question_empty">Vul een vraag in.</string>
+    <string name="question_successful">Uw vraag is succesvol verzonden!</string>
+    <string name="question_failed">Kan uw vraag niet verzenden, probeer het later opnieuw.</string>
+    <string name="question_deleted">Uw vraag is succesvol verwijderd!</string>
+    <string name="question_deletion_failed">Kon uw vraag niet verwijderen.</string>
+    <string name="question_updated">Uw vraag is succesvol bijgewerkt!</string>
+    <string name="updating_question_failed">Kon uw vraag niet bijwerken.</string>
+    <string name="no_internet">Er is geen actieve internetverbinding</string>
+    <string name="retrieving_faq_failed">Kon de FAQ niet ophalen.</string>
+    <string name="retrieving_asked_questions_failed">Kon uw eerder gestelde vragen niet ophalen.</string>
+    <string name="asked_questions">Gestelde Vragen</string>
+    <string name="could_not_find_your_question">Uw vraag niet gevonden?</string>
+    <string name="edit_question">Bewerk uw vraag</string>
+    <string name="change_language">Verander taal</string>
+    <string name="close_app">TuBuddy sluiten</string>
+    <string name="positive_message">U hebt al uw medication voor vandaag genomen, goed bezig %1$s!</string>
+    <string name="time_interval">%1$s - %2$s</string>
+    <string name="correct_answer">Correct antwoord!</string>
+    <string name="wrong_answer">Fout antwoord.</string>
+    <string name="pref_key_restore_defaults">pref_key_restore_defaults</string>
+    <string name="pref_title_restore_defaults">Herstel standaardinstellingen</string>
+    <string name="quiz_answers">Quiz antwoorden</string>
+    <string name="pref_title_reminders">Herinneringen</string>
+    <string name="date_and_time">Datum en Tijd</string>
+    <string name="medication_taken">Vandaag genomen:</string>
+    <string name="more_info_buttion">Meer informatie</string>
 </resources>

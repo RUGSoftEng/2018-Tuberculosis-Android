@@ -1,52 +1,76 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.rugged.tuberculosisapp.signin.TabSignIn">
 
-    <ImageView
-        android:id="@+id/imageLogo"
-        android:layout_width="217dp"
-        android:layout_height="200dp"
-        android:layout_centerHorizontal="true"
-        android:adjustViewBounds="true"
-        android:src="@drawable/logo_tubuddy" />
+    <RelativeLayout
+        android:id="@+id/signInParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical">
 
-    <EditText
-        android:id="@+id/textUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="46dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/imageLogo"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="@string/text_hint_username"
-        android:inputType="textPersonName" />
+        <ImageView
+            android:id="@+id/imageLogo"
+            android:layout_width="217dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
+            android:adjustViewBounds="true"
+            android:src="@drawable/logo_tubuddy" />
 
-    <EditText
-        android:id="@+id/textPassword"
+        <EditText
+            android:id="@+id/textUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="46dp"
+            android:layout_below="@id/imageLogo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="@string/text_hint_username"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/textPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textUsername"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="@string/text_hint_password"
+            android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/invalidText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textPassword"
+            android:gravity="center"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/signInButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignEnd="@id/textPassword"
+            android:layout_alignLeft="@id/textPassword"
+            android:layout_alignRight="@id/textPassword"
+            android:layout_alignStart="@id/textPassword"
+            android:layout_below="@id/invalidText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/action_sign_in" />
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBarSignIn"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/textUsername"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/text_hint_password"
-        android:inputType="textPassword" />
+        android:layout_gravity="center"
+        android:visibility="invisible"/>
 
-    <Button
-        android:id="@+id/signInButton"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignEnd="@id/textPassword"
-        android:layout_alignLeft="@id/textPassword"
-        android:layout_alignRight="@id/textPassword"
-        android:layout_alignStart="@id/textPassword"
-        android:layout_below="@id/textPassword"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:text="@string/action_sign_in" />
-</RelativeLayout>
+</FrameLayout>

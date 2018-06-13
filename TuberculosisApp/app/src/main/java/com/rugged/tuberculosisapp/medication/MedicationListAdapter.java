@@ -3,27 +3,37 @@ package com.rugged.tuberculosisapp.medication;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rugged.tuberculosisapp.R;
+import com.rugged.tuberculosisapp.settings.LanguageHelper;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
-public class MedicationListAdapter extends ArrayAdapter<Medication> {
+
+public class MedicationListAdapter extends ArrayAdapter<Medication> implements CompoundButton.OnCheckedChangeListener {
 
     private Context mContext;
     private int mResourceId;
     private final List<Medication> mMedication;
     private Date date;
-    private HashMap<Medication, CheckBox> takenCheckBoxes;
+    public SparseBooleanArray mCheckedStates;
+
+    private List <Integer> medicationColours;
 
     // User has x days to change the taken state of medicines before it is locked
     private static final int DAYS_UNTIL_CHECKBOX_IS_LOCKED = 1;
@@ -33,6 +43,15 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> {
         this.mContext = context;
         this.mResourceId = resourceId;
         this.mMedication = medication;
+        medicationColours = new ArrayList<>();
+        medicationColours.add(R.drawable.ic_medication);
+        medicationColours.add(R.drawable.ic_medication_1);
+        medicationColours.add(R.drawable.ic_medication_2);
+        medicationColours.add(R.drawable.ic_medication_3);
+        medicationColours.add(R.drawable.ic_medication);
+        medicationColours.add(R.drawable.ic_medication_1);
+        medicationColours.add(R.drawable.ic_medication_2);
+        medicationColours.add(R.drawable.ic_medication_3);
     }
 
     public MedicationListAdapter(Context context, int resourceId, List<Medication> medication, Date date) {
@@ -41,7 +60,16 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> {
         this.mResourceId = resourceId;
         this.mMedication = medication;
         this.date = date;
-        this.takenCheckBoxes = new HashMap<>();
+        this.mCheckedStates = new SparseBooleanArray();
+        medicationColours = new ArrayList<>();
+        medicationColours.add(R.drawable.ic_medication);
+        medicationColours.add(R.drawable.ic_medication_1);
+        medicationColours.add(R.drawable.ic_medication_2);
+        medicationColours.add(R.drawable.ic_medication_3);
+        medicationColours.add(R.drawable.ic_medication);
+        medicationColours.add(R.drawable.ic_medication_1);
+        medicationColours.add(R.drawable.ic_medication_2);
+        medicationColours.add(R.drawable.ic_medication_3);
     }
 
 
@@ -65,50 +93,109 @@ public class MedicationListAdapter extends ArrayAdapter<Medication> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         Medication medication = getItem(position);
 
+
+
+
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(mResourceId, parent, false);
         }
 
+        ImageView pillImage = convertView.findViewById(R.id.pillImage);
+        pillImage.setImageResource(medicationColours.get(position));
+
+
         TextView medicationName = convertView.findViewById(R.id.medicationName);
-        TextView medicationTime = convertView.findViewById(R.id.medicationTime);
-        TextView medicationDose = convertView.findViewById(R.id.medicationDose);
+
+
+
+        //TODO Refactor this insanely long conditional
 
         if (medication != null) {
+
             // If this adapter is used for the dialog color the text
             if (mResourceId == R.layout.medication_row_dialog) {
                 Date today = new Date();
                 final CheckBox takenCheckBox = convertView.findViewById(R.id.takenCheckBox);
 
+                TextView medicationTime = convertView.findViewById(R.id.medicationTime);
+                TextView medicationDose = convertView.findViewById(R.id.medicationDose);
+
                 // Check if date is before today or today, if so color medication according to their isTaken state
                 if (date.before(today) || date.equals(today)) {
-                    boolean isTaken = medication.getTaken();
+                    boolean isTaken = medication.isTaken();
                     if (isTaken) {
                         medicationName.setTextColor(mContext.getResources().getColor(android.R.color.holo_green_dark));
                     } else {
                         medicationName.setTextColor(mContext.getResources().getColor(android.R.color.holo_red_dark));
                     }
 
-                    // Update checkbox state and link it to the medication
-                    // TODO: maybe override equals method in medication, shouldn't be necessary though
+                    // Attach listener, update checkbox state
+                    takenCheckBox.setOnCheckedChangeListener(this);
+                    takenCheckBox.setTag(position);
                     takenCheckBox.setChecked(isTaken);
-                    takenCheckBoxes.put(medication, takenCheckBox);
                 }
 
                 // Lock checkbox after a certain amount of days or if date is in the future
                 if (checkBoxesAreLocked(date)) {
                     takenCheckBox.setEnabled(false);
                 }
+                DateFormat df = new SimpleDateFormat("HH:mm", new Locale(LanguageHelper.getCurrentLocale()));
+                medicationTime.setText(mContext.getResources().getString(R.string.time_interval, df.format(medication.getTimeIntervalStart()), df.format(medication.getTimeIntervalEnd())));
+                medicationDose.setText(convertView.getResources().getQuantityString(R.plurals.medication_dose, medication.getDose(), medication.getDose()));
+            } else {
+                int day = medication.getDay();
+
+                Date today = new Date();
+                ImageView takenImage = convertView.findViewById(R.id.takenImage);
+                if(today.getDay() == day) {
+
+                    if(medication.isTaken()) {
+                        takenImage.setImageResource(R.drawable.ic_check) ;
+                        takenImage.setTag("R.drawable.ic_check");
+                    } else {
+
+                        Date startTime = medication.getTimeIntervalStart();
+                        Date preciseStartTime = new Date(today.getYear(), today.getMonth(), today.getDate(), startTime.getHours(), startTime.getMinutes());
+
+                        if(today.after(preciseStartTime)) {
+                            takenImage.setImageResource(R.drawable.ic_exclam);
+                            takenImage.setTag("R.drawable.ic_exclam");
+                        } else {
+                            int differenceHours = startTime.getHours() - today.getHours();
+                            int differenceMinutes = startTime.getMinutes() - today.getMinutes();
+                            if(differenceMinutes < 0) {
+                                differenceHours--;
+                            }
+                            differenceMinutes+= 60;
+                            String difference = "" + mContext.getResources().getString(R.string.take_in) + " " + differenceHours + " " +
+                                    mContext.getResources().getString(R.string.hours_and) + " "+ differenceMinutes + " " + mContext.getResources().getString(R.string.minutes);
+                            takenImage.setImageResource(R.drawable.ic_later);
+                            takenImage.setTag(difference);
+                        }
+
+                    }
+
+                } else {
+                    takenImage.setImageResource(android.R.color.transparent);
+                    takenImage.setTag("nothing");
+                }
+
             }
             medicationName.setText(medication.getName());
-            medicationTime.setText(medication.getTime().toString());
-            medicationDose.setText(convertView.getResources().getQuantityString(R.plurals.medication_dose, medication.getDose(), medication.getDose()));
+
+
         }
 
         return convertView;
     }
 
-    public HashMap<Medication, CheckBox> getTakenCheckBoxes() {
-        return takenCheckBoxes;
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        mCheckedStates.put((Integer)compoundButton.getTag(), b);
+    }
+
+    public boolean isChecked(Medication medication) {
+        return mCheckedStates.get(getPosition(medication));
     }
 
     public Boolean checkBoxesAreLocked(Date date) {

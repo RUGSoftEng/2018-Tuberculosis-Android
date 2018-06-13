@@ -1,22 +1,19 @@
 package com.rugged.tuberculosisapp.medication;
 
+import java.util.Date;
+
 public class Medication {
 
     private String name;
-    private Time time;
+    private Date timeIntervalStart, timeIntervalEnd;
+    private int day;
     private int dose;
-    private boolean isTaken = false;
+    private boolean isTaken;
 
-    Medication(String name, Time time, int dose) {
+    public Medication(String name, Date timeIntervalStart, Date timeIntervalEnd, int dose, boolean isTaken) {
         this.name = name;
-        //TODO: Change when API call is available
-        this.time = time;
-        this.dose = dose;
-    }
-
-    public Medication(String name, Time time, int dose, boolean isTaken) {
-        this.name = name;
-        this.time = time;
+        this.timeIntervalStart = timeIntervalStart;
+        this.timeIntervalEnd = timeIntervalEnd;
         this.dose = dose;
         this.isTaken = isTaken;
     }
@@ -25,20 +22,43 @@ public class Medication {
         return name;
     }
 
-    public Time getTime() {
-        return time;
+    public Date getTimeIntervalStart() {
+        return timeIntervalStart;
+    }
+
+    public Date getTimeIntervalEnd() {
+        return timeIntervalEnd;
     }
 
     public int getDose() {
         return dose;
     }
 
-    public boolean getTaken() {
+    public int getDay () {return day;}
+
+    public boolean isTaken() {
         return isTaken;
+    }
+
+    public void setDay (int day) {
+        this.day = day;
     }
 
     public void setTaken(boolean taken) {
         isTaken = taken;
     }
 
+    @Override
+    public String toString() {
+        return "Name: " + name + ", Time: " + timeIntervalStart.toString() + " - " + timeIntervalEnd.toString() + ", Dose: " + dose + ", isTaken: " + isTaken;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Medication m = (Medication) o;
+        if(this.name.equals(m.getName())) return true;
+        return false;
+    }
 }
+
+

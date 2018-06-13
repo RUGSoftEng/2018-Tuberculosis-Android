@@ -1,56 +1,63 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:paddingBottom="8dp"
-    android:paddingTop="8dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_weight=".3"
+        android:id="@+id/pillImage"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:adjustViewBounds="true"
         android:contentDescription="Pill Icon"
+        app:layout_constraintBottom_toBottomOf="@+id/relativeLayout"
+        app:layout_constraintTop_toTopOf="@+id/relativeLayout"
         app:srcCompat="@drawable/ic_medication" />
 
-    <TextView
-        android:id="@+id/medicationName"
-        android:layout_width="0dp"
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_weight="1"
-        android:text="@string/medication_name_placeholder"
-        android:textColor="@android:color/black"
-        android:textSize="16sp" />
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/pillImage">
 
-    <TextView
-        android:id="@+id/medicationTime"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_weight=".5"
-        android:text="@string/medication_time_placeholder"
-        android:textSize="14sp" />
+        <TextView
+            android:id="@+id/medicationName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="@string/medication_name_placeholder"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/medicationDose"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_weight=".6"
-        android:text="@string/medication_dose_placeholder"
-        android:textSize="14sp" />
+        <TextView
+            android:id="@+id/medicationTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/medicationName"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:text="@string/medication_time_placeholder"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/medicationDose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/medicationTime"
+            android:text="@string/medication_dose_placeholder"
+            android:textSize="14sp" />
+    </RelativeLayout>
 
     <CheckBox
         android:id="@+id/takenCheckBox"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/relativeLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/relativeLayout" />
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -13,8 +13,11 @@
         <item>de</item>
     </string-array>
     <string name="pref_title_general">General</string>
+    <string name="pref_title_reminders">Reminders</string>
     <string name="pref_title_language">Language</string>
     <string name="pref_key_language">pref_key_language</string>
+    <string name="pref_key_restore_defaults">pref_key_restore_defaults</string>
+    <string name="pref_title_restore_defaults">Restore defaults</string>
 
     <!-- Channel strings -->
     <string name="channel_reminders_name">Reminder</string>
@@ -23,36 +26,55 @@
     <!-- Reminder strings -->
     <string name="notification_title">Medication</string>
     <string name="notification_text">It is time to take medication</string>
-    <string name="alarm_title">You forgot to take medication</string>
+    <string name="alarm_title">You are about to forget your medication</string>
     <string name="alarm_to_calendar">Go to calendar</string>
     <string name="alarm_dismiss">Dismiss</string>
 
-    <!-- Notification settings -->
-    <string name="pref_notification_silent">Play sound during notification</string>
-    <string name="pref_alarm_silent">Play sound during alarm</string>
-    <string name="pref_notification_sound">Notification sound</string>
-    <string name="pref_alarm_sound">Alarm sound</string>
-
+    <!-- Reminder settings -->
+    <string name="pref_sound_lookup_error">Error: could not find selected sound</string>
+    <string name="pref_title_edit_notification_settings">Edit notification settings</string>
+    <string name="pref_key_edit_notification_settings">pref_key_edit_notification_settings</string>
+    <string name="pref_title_notification_silent">Play sound during notification</string>
+    <string name="pref_key_notification_silent">pref_key_notification_silent</string>
+    <string name="pref_title_notification_vibrate">Vibrate during notification</string>
+    <string name="pref_key_notification_vibrate">pref_key_notification_vibrate</string>
+    <string name="pref_title_alarm_silent">Play sound during alarm</string>
+    <string name="pref_key_alarm_silent">pref_key_alarm_silent</string>
+    <string name="pref_title_alarm_vibrate">Vibrate during alarm</string>
+    <string name="pref_key_alarm_vibrate">pref_key_alarm_vibrate</string>
+    <string name="pref_title_notification_sound">Choose notification sound</string>
+    <string name="pref_key_notification_sound">pref_key_notification_sound</string>
+    <string name="pref_title_alarm_sound">Choose alarm sound</string>
+    <string name="pref_key_alarm_sound">pref_key_alarm_sound</string>
+    <string name="pref_title_test_reminders">Test reminders</string>
+    <string name="pref_key_test_reminders">pref_key_test_reminders</string>
 
     <!-- General strings -->
     <string name="app_name">TuBuddy</string>
-    <string name="title_information">Information</string>
+    <string name="title_videos">Videos</string>
     <string name="title_medication">Medication</string>
     <string name="title_calendar">Calendar</string>
     <string name="title_achievements">Achievements</string>
     <string name="action_settings">Settings</string>
     <string name="action_test_reminder">Test Reminders</string>
+    <string name="date_and_time">Date and Time</string>
     <string name="action_sign_out">Log out</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="taken_text">Taken today: </string>
+    <string name= "answer_yes">YES</string>
+    <string name= "answer_no">NO</string>
+    <string name= "take_in">Take in </string>
+    <string name= "hours_and">hours and</string>
+    <string name = "minutes">minutes</string>
+    <string name= "answer_not_needed">Not needed</string>
 
-    <string name="lorem_ipsum">Lorem ipsum dolor sit amet et delectus accomodare his comsul copiosae</string>
-    <string name="ask_physician">Question for Physician</string>
+    <string name="ask_physician">Ask your Physician</string>
     <string name="frequently_asked_questions">Frequently Asked Questions</string>
     <string name="ask_physician_hint">Ask a question</string>
     <string name="action_submit">Submit</string>
 
     <string name="quiz">Quiz</string>
     <string name="show_answers">Show Answers</string>
-    <string name="lorem_ipsum_question">Lorem ipsum dolor sit amet et?</string>
     <plurals name="medication_dose">
         <item quantity="one">%1$d pill</item>
         <item quantity="other">%1$d pills</item>
@@ -61,6 +83,7 @@
     <string name="medication_name_placeholder">Medication name</string>
     <string name="medication_time_placeholder">18:00</string>
     <string name="medication_dose_placeholder">3 pills</string>
+    <string name="medication_taken">Taken today:</string>
     <string name="title_language_select">Language select</string>
     <string name="description_dutch_flag">Dutch flag</string>
     <string name="description_english_flag">English flag</string>
@@ -77,26 +100,35 @@
     <string name="sunday">Sun</string>
     <string name="action_dismiss">Back</string>
     <string name="medication_date">Medication for %1$s</string>
-    <string name="Question1">How is de tuberculosis bacteria transmitted?</string>
-    <string name="Q1A1">Via the air</string>
-    <string name="Q1A2">Via blood contact</string>
-    <string name="Q1A3">Via food</string>
-    <string name="Question2">Does a person with latent tuberculosis have symptoms?</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="Question3">How is the bacteria spread?</string>
-    <string name="Q3A1">Via the blood</string>
-    <string name="Q3A2">Via the lymph</string>
-    <string name="Q3A3">Both are correct</string>
-    <string name="Question4">What is the most common place in the body for TB?</string>
-    <string name="Q4A1">The heart</string>
-    <string name="Q4A2">The bones and joints</string>
-    <string name="Q4A3">Lymph nodes</string>
-    <string name="Q4A4">The lungs</string>
-    <string name="Q4A5">The gastro-intestinal system</string>
-    <string name="Q4A6">The central nervous system</string>
-    <string name="Q4A7">The liver</string>
     <string name="quiz_answers">Quiz answers</string>
     <string name="action_save">Save</string>
-
+    <string name="invalidLogIn">Invalid username or password.</string>
+    <string name="more_info_buttion">More info</string>
+    <string name="account_type">TubuddyPatientAccount</string>
+    <string name="token_label">Full access to a TuBuddy patient account</string>
+    <!-- TODO: maybe make these strings quantitative -->
+    <string name="data_updated">%1$s has been updated.</string>
+    <string name="save_error">%1$s could not be saved!</string>
+    <!-- -->
+    <string name="question_empty">Please enter a question.</string>
+    <string name="question_successful">Question is sent successfully!</string>
+    <string name="question_failed">Failed to send your question, try again later.</string>
+    <string name="question_deleted">Successfully removed your question!</string>
+    <string name="question_deletion_failed">Failed to remove your question.</string>
+    <string name="question_updated">Successfully updated your question!</string>
+    <string name="updating_question_failed">Failed to update your question.</string>
+    <string name="no_internet">There is no active internet connection.</string>
+    <string name="retrieving_faq_failed">Failed to retrieve the FAQ.</string>
+    <string name="retrieving_asked_questions_failed">Failed to retrieve your previously asked questions.</string>
+    <string name="asked_questions">Asked Questions</string>
+    <string name="could_not_find_your_question">Could not find your question?</string>
+    <string name="edit_question">Edit your question</string>
+    <string name="change_language">Change language</string>
+    <string name="close_app">Close TuBuddy</string>
+    <string name="positive_message">You\'ve taken all your medication for today, well done %1$s!</string>
+    <string name="time_interval">%1$s - %2$s</string>
+    <string name="correct_answer">Correct answer!</string>
+    <string name="wrong_answer">Wrong answer.</string>
+    <string name="pref_notification_sound">Choose notification sound</string>
+    <string name="pref_notification_silent">Quiet</string>
 </resources>

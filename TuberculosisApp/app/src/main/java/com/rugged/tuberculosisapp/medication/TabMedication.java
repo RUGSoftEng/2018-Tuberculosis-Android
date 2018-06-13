@@ -115,6 +115,7 @@ public class TabMedication extends Fragment {
                     Response<List<CalendarJSONHolder>> response = call.execute();
 
                     // Successful API call
+                    // We assume here that a medicine is taken at least once a week
                     if (response.code() == 200) {
                         try {
                             for (CalendarJSONHolder jsonResponse : response.body()) {
@@ -144,10 +145,25 @@ public class TabMedication extends Fragment {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        //Sort on time
         Collections.sort(this.medicationList, new Comparator<Medication>() {
             @Override
             public int compare(Medication o1, Medication o2) {
                 return o1.getTimeIntervalEnd().compareTo(o2.getTimeIntervalEnd());
+            }
+        });
+
+        //Sort on today
+
+        Collections.sort(this.medicationList, new Comparator<Medication>() {
+            @Override
+            public int compare(Medication o1, Medication o2) {
+                int today = new Date().getDay();
+                int b1 = o1.getDay() == today ? 1 : 0;
+                int b2 = o2.getDay() == today ? 1 : 0;
+
+                return b2 - b1;
             }
         });
 

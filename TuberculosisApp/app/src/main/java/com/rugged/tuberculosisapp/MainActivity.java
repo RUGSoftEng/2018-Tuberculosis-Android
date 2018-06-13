@@ -11,6 +11,7 @@ import android.media.RingtoneManager;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 
@@ -26,6 +27,7 @@ import android.widget.EditText;
 
 import com.rugged.tuberculosisapp.achievements.ActivityAchievements;
 import com.rugged.tuberculosisapp.calendar.CalendarView;
+import com.rugged.tuberculosisapp.calendar.ViewDayFragment;
 import com.rugged.tuberculosisapp.information.TabInformation;
 import com.rugged.tuberculosisapp.calendar.TabCalendar;
 import com.rugged.tuberculosisapp.medication.TabMedication;
@@ -35,9 +37,11 @@ import com.rugged.tuberculosisapp.settings.SettingsActivity;
 import com.rugged.tuberculosisapp.settings.UserData;
 import com.rugged.tuberculosisapp.signin.SignInActivity;
 
+import java.util.List;
+
 import static com.rugged.tuberculosisapp.signin.TabSignIn.ACCOUNT_TYPE;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ViewDayFragment.OnSavedMedicineStatesListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -62,6 +66,25 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int NEW_SETTING = 1;
     public static final int NEW_LANGUAGE = 2;
+
+    TabMedication tabMedication;
+
+    public void updateTabMedication() {
+
+        //Not the best way of doing this
+
+        List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
+        for (Fragment f : fragmentList) {
+            if (f instanceof TabMedication) {
+                tabMedication = (TabMedication) f;
+                getSupportFragmentManager().beginTransaction()
+                        .detach(tabMedication)
+                        .attach(tabMedication)
+                        .commit();
+            }
+        }
+
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

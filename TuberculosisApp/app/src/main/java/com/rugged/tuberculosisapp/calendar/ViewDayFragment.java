@@ -1,6 +1,8 @@
 package com.rugged.tuberculosisapp.calendar;
 
+import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -46,8 +48,29 @@ public class ViewDayFragment extends DialogFragment {
     private ArrayList<Medication> medicationList;
     private MedicationListAdapter adapter;
     private ProgressBar spinner;
+    private Activity mActivity;
 
     private boolean allTaken;
+
+    OnSavedMedicineStatesListener mCallback;
+
+    public interface OnSavedMedicineStatesListener {
+        void updateTabMedication();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mActivity = getActivity();
+
+        try {
+            mCallback = (OnSavedMedicineStatesListener) mActivity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(mActivity.toString()
+                    + " must implement OnSavedMedicineStatesListener");
+        }
+
+    }
 
     @Nullable
     @Override
@@ -188,7 +211,7 @@ public class ViewDayFragment extends DialogFragment {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+        mCallback.updateTabMedication();
         calendarView.updateCalendar();
     }
 
